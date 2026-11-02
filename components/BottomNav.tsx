@@ -2,20 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isActive, NAV_ITEMS } from "./nav-items";
 
-const ITEMS = [
-  { href: "/", label: "Inicio", icon: "🏠" },
-  { href: "/movimientos", label: "Movimientos", icon: "📋" },
-  { href: "/pisos", label: "Pisos", icon: "🏢" },
-];
 
 export function BottomNav() {
   const pathname = usePathname();
   return (
     <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
       <ul className="mx-auto flex max-w-xl">
-        {ITEMS.map((item) => {
-          const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+        {NAV_ITEMS.map((item) => {
+          const active = isActive(pathname, item.href);
           return (
             <li key={item.href} className="flex-1">
               <Link
