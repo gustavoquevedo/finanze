@@ -5,6 +5,7 @@
 create type transaction_type as enum ('ingreso', 'gasto');
 create type category_scope as enum ('personal', 'piso');
 create type frequency as enum ('mensual', 'trimestral', 'anual');
+create type recurring_kind as enum ('fijo', 'hipoteca');
 
 create table properties (
   id uuid primary key default gen_random_uuid(),
@@ -50,8 +51,29 @@ create table recurrings (
   end_date date,
   -- Occurrences up to this date have already been generated.
   generated_until date,
+  -- 'hipoteca': French-system mortgage; category_id is the interest category.
+  kind recurring_kind not null default 'fijo',
+  mortgage_principal bigint check (mortgage_principal > 0),
+  mortgage_annual_rate numeric(6, 3) check (mortgage_annual_rate between 0 and 30),
+  mortgage_installments smallint check (mortgage_installments between 1 and 600),
+  mortgage_principal_category_id uuid references categories (id),
   created_at timestamptz not null default now(),
-  check (end_date is null or end_date >= start_date)
+  check (end_date is null or end_date >= start_date),
+  check (
+    (kind = 'fijo' and mortgage_principal is null)
+    or (kind = 'hipoteca' and frequency = 'mensual' and mortgage_principal is not null
+        and mortgage_annual_rate is not null and mortgage_installments is not null
+        and mortgage_principal_category_id is not null and end_date is not null)
+  )
+);
+
+-- Real outstanding principal at a date; the schedule is recalculated from there.
+create table mortgage_adjustments (
+  recurring_id uuid not null references recurrings (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  date date not null,
+  balance bigint not null check (balance >= 0),
+  primary key (recurring_id, date)
 );
 
 create table transactions (
@@ -78,6 +100,7 @@ alter table properties enable row level security;
 alter table categories enable row level security;
 alter table recurrings enable row level security;
 alter table transactions enable row level security;
+alter table mortgage_adjustments enable row level security;
 
 create policy "own rows" on properties for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
@@ -86,4 +109,6 @@ create policy "own rows" on categories for all
 create policy "own rows" on recurrings for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on transactions for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on mortgage_adjustments for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
