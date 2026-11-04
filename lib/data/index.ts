@@ -3,7 +3,7 @@ import type { Snapshot } from "@/lib/domain/types";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import { backupFileName, createBackup, summarize, type BackupSummary } from "./backup";
 import { remapIds } from "./ids";
-import { createLocalRepository, createLocalStore, createSnapshotRepository, STORAGE_KEY } from "./local";
+import { createLocalRepository, createLocalStore, createSnapshotRepository, emptySnapshot, STORAGE_KEY } from "./local";
 import type { Repository } from "./repository";
 import { createSeedData } from "./seed";
 import { createSupabaseDb } from "./supabase-db";
@@ -89,6 +89,11 @@ export function lastBackupAt(): string | null {
 export async function restoreSeedData(): Promise<void> {
   await getRepository().replaceAll(createSeedData());
   await loadRepository();
+}
+
+/** Deletes every record (in the account or in this browser). Cannot be undone. */
+export async function deleteAllData(): Promise<void> {
+  await getRepository().replaceAll(emptySnapshot());
 }
 
 /** Whether the account (or browser) has no data at all yet. */

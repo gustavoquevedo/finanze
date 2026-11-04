@@ -1,7 +1,7 @@
 import { addMonths, dayInMonth, todayIso } from "@/lib/domain/dates";
 import { annuityPayment } from "@/lib/domain/mortgage";
 import { occurrenceTransactions, occurrencesBetween, planOf } from "@/lib/domain/recurring";
-import type { Asset, AssetSnapshot, AssetType, Category, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Asset, AssetSnapshot, AssetType, Category, MortgageAdjustment, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 
 /**
@@ -42,9 +42,15 @@ const CATEGORIES: Record<CategoryKey, SeedCategory> = {
   otrosPersonal: { name: "Otros personales", type: "gasto", scope: "personal", deductible: false },
 };
 
-export function createSeedData(today: string = todayIso()): Snapshot {
+export interface SeedOptions {
+  /** Full months before `today`'s month to fill in. Default 6. */
+  months?: number;
+}
+
+export function createSeedData(today: string = todayIso(), options: SeedOptions = {}): Snapshot {
+  const n = Math.max(6, options.months ?? SEED_MONTHS);
   const currentMonth = today.slice(0, 7);
-  const months = Array.from({ length: SEED_MONTHS }, (_, i) => addMonths(currentMonth, i - SEED_MONTHS));
+  const months = Array.from({ length: n }, (_, i) => addMonths(currentMonth, i - n));
   const firstDay = dayInMonth(months[0], 1);
 
   const cat = Object.fromEntries(
@@ -79,7 +85,7 @@ export function createSeedData(today: string = todayIso()): Snapshot {
 
   const transactions: Transaction[] = [];
   const recurrings: Recurring[] = [];
-  const seedEnd = dayInMonth(months[SEED_MONTHS - 1], 31);
+  const seedEnd = dayInMonth(months[n - 1], 31);
 
   const categoryById = (id: string) => Object.values(cat).find((c) => c.id === id)!;
   const add = (t: Omit<Transaction, "id" | "recurringId" | "type" | "confirmed">, recurringId: string | null = null) => {
@@ -94,10 +100,11 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     r: Omit<Recurring, "id" | "type" | "endDate" | "generatedUntil" | "day" | "startDate" | "kind" | "mortgage">,
     monthIndex: number,
     day: number,
+    endDate: string | null = null,
   ) => {
     const startDate = dayInMonth(months[monthIndex], day);
     const rule: Recurring = {
-      ...r, id: newId(), kind: "fijo", mortgage: null, type: categoryById(r.categoryId).type, day, startDate, endDate: null, generatedUntil: seedEnd,
+      ...r, id: newId(), kind: "fijo", mortgage: null, type: categoryById(r.categoryId).type, day, startDate, endDate, generatedUntil: seedEnd,
     };
     recurrings.push(rule);
     for (const date of occurrencesBetween(rule, null, seedEnd)) {
@@ -125,8 +132,24 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   yearly(1, 8, 315, "seguroImpago", centro, "Seguro de impago Piso Centro");
   yearly(2, 18, 96.8, "basuras", playa, "Tasa de basuras Apartamento Playa");
 
+  // Quarterly fee, and a personal subscription with an end date (a year from its start).
+  recurring({ concept: "Gestoría alquileres (trimestral)", amount: euros(60.5), categoryId: cat.gestoria.id, propertyId: centro.id, frequency: "trimestral" }, 0, 20);
+  recurring(
+    { concept: "Plataforma de streaming", amount: euros(12.99), categoryId: cat.ocio.id, propertyId: null, frequency: "mensual" },
+    1,
+    15,
+    dayInMonth(addMonths(months[1], 11), 15),
+  );
+
   // Mortgages: each installment split into interest (deductible) and principal (not an expense).
-  const mortgage = (property: Property, principal: number, annualRate: number, installments: number, startDate: string) => {
+  const mortgage = (
+    property: Property,
+    principal: number,
+    annualRate: number,
+    installments: number,
+    startDate: string,
+    adjustments: MortgageAdjustment[] = [],
+  ) => {
     const day = Number(startDate.slice(8, 10));
     const endDate = dayInMonth(addMonths(startDate.slice(0, 7), installments - 1), day);
     const rule: Recurring = {
@@ -143,7 +166,7 @@ export function createSeedData(today: string = todayIso()): Snapshot {
       endDate,
       generatedUntil: seedEnd,
       mortgage: {
-        principal: euros(principal), annualRate, installments, interestMethod: "mensual", principalCategoryId: cat.capital.id, adjustments: [],
+        principal: euros(principal), annualRate, installments, interestMethod: "mensual", principalCategoryId: cat.capital.id, adjustments,
       },
     };
     recurrings.push(rule);
@@ -152,7 +175,8 @@ export function createSeedData(today: string = todayIso()): Snapshot {
       for (const t of occurrenceTransactions(rule, date, true, plan)) transactions.push({ ...t, id: newId() });
     }
   };
-  mortgage(centro, 120000, 2.9, 300, "2019-04-02");
+  // The bank rounds this one's installment up to 563 €: an adjustment from the 4th seed month.
+  mortgage(centro, 120000, 2.9, 300, "2019-04-02", [{ date: dayInMonth(months[3], 15), balance: null, payment: euros(563) }]);
   mortgage(playa, 95000, 3.4, 360, "2022-07-03");
 
   // One-off flat expenses.
@@ -163,6 +187,11 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   flat(4, 12, 345.5, "reparaciones", playa, "Pintura salón");
   flat(5, 25, 121, "gestoria", centro, "Gestoría: renovación contrato");
   flat(3, 6, 38.9, "suministros", playa, "Luz entre inquilinos");
+  if (n >= 12) {
+    flat(7, 9, 95, "reparaciones", centro, "Revisión anual de la caldera");
+    flat(9, 14, 420, "reparaciones", playa, "Cambio de termo eléctrico");
+    flat(10, 3, 54.2, "otrosPiso", centro, "Cerrajero: copia de llaves");
+  }
 
   // Personal expenses.
   const personal: [number, number, number, CategoryKey, string][] = [];
@@ -175,14 +204,18 @@ export function createSeedData(today: string = todayIso()): Snapshot {
       [i, 14, 45 + (i % 2) * 20, "transporte", "Gasolina"],
     );
   });
-  personal.push(
-    [0, 21, 58, "ocio", "Cena con amigos"],
-    [2, 26, 124.9, "ocio", "Entradas concierto"],
-    [3, 4, 42, "salud", "Farmacia"],
-    [4, 19, 75, "salud", "Dentista: revisión"],
-    [5, 15, 39.99, "otrosPersonal", "Regalo cumpleaños"],
-  );
-  for (const [i, day, amount, key, concept] of personal) {
+  // One-off personal expenses, repeated (with other amounts) every six months.
+  for (let base = 0; base < n; base += 6) {
+    const k = base / 6;
+    personal.push(
+      [base, 21, 58 + k * 12, "ocio", "Cena con amigos"],
+      [base + 2, 26, 124.9, "ocio", k % 2 ? "Escapada fin de semana" : "Entradas concierto"],
+      [base + 3, 4, 42 - k * 5, "salud", "Farmacia"],
+      [base + 4, 19, 75, "salud", "Dentista: revisión"],
+      [base + 5, 15, 39.99 + k * 20, "otrosPersonal", k % 2 ? "Regalos de Navidad" : "Regalo cumpleaños"],
+    );
+  }
+  for (const [i, day, amount, key, concept] of personal.filter(([i]) => i < n)) {
     add({ date: dayInMonth(months[i], day), amount: euros(amount), categoryId: cat[key].id, propertyId: null, concept });
   }
 
@@ -214,10 +247,13 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   const rf = newAsset("Fondo indexado RF europea", "fondo", typeRf);
   const etf = newAsset("ETF S&P 500", "etf", typeRv);
   const cash = newAsset("Cuenta remunerada", "efectivo", typeLiq);
-  const rvValues = [31840.12, 32905.5, 32210.77, 33880.4, 34512.9, 35406.18];
-  const rfValues = [15120.4, 15244.1, 15301.95, 15398.2, 15452.6, 15569.33];
-  const etfValues = [8410.25, 8702.6, 8455.1, 8951.75, 9120.4, 9388.02];
-  const cashValues = [12000, 12450.3, 11980.75, 12620.1, 13040.55, 12810.9];
+  // Fictitious market moves: steady drift plus some ups and downs (deterministic).
+  const wave = (i: number, amplitude: number, phase: number) => amplitude * Math.sin(i * 1.3 + phase);
+  const round2 = (x: number) => Math.round(x * 100) / 100;
+  const rvValues = months.map((_, i) => round2((30000 + 300 * i) * (1.06 + 0.009 * i + wave(i, 0.025, 0))));
+  const rfValues = months.map((_, i) => round2((15000 + 100 * i) * (1.008 + 0.0015 * i + wave(i, 0.004, 1))));
+  const etfValues = months.map((_, i) => round2(8000 * (1.05 + 0.011 * i + wave(i, 0.03, 2))));
+  const cashValues = months.map((_, i) => round2(12000 + 140 * i + wave(i, 420, 0.5)));
   months.forEach((_, i) => {
     // 300 €/month into the equity fund and 100 €/month into the bond fund.
     snapshot(rv, i, rvValues[i], 30000 + 300 * i, 22000 + 300 * i);
@@ -230,6 +266,11 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   const playaAsset = newAsset(playa.name, "inmobiliario", null, playa.id);
   snapshot(centroAsset, 0, 245000);
   snapshot(playaAsset, 0, 168000);
+  // A later valuation, when the period is long enough.
+  if (n >= 12) {
+    snapshot(centroAsset, n - 1, 251500);
+    snapshot(playaAsset, n - 1, 171200);
+  }
 
   const portfolio = (name: string, parentId: string | null, assetIds: string[]): Portfolio => ({ id: newId(), name, parentId, assetIds });
   const patrimonio = portfolio("Patrimonio", null, [cash.id, centroAsset.id, playaAsset.id]);
