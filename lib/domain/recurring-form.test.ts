@@ -23,6 +23,7 @@ describe("recurring form", () => {
     expect(validateRecurringForm(values(), categories)).toEqual({
       ok: true,
       value: {
+        kind: "fijo", mortgage: null,
         concept: "IBI 1er plazo", amount: 15000, type: "gasto", categoryId: "ibi", propertyId: "flat1",
         frequency: "anual", day: 1, startDate: "2027-03-01", endDate: null,
       },

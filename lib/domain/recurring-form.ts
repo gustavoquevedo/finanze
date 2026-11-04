@@ -45,6 +45,8 @@ export function validateRecurringForm(values: RecurringFormValues, categories: C
   return {
     ok: true,
     value: {
+      kind: "fijo",
+      mortgage: null,
       concept: values.concept.trim(),
       amount,
       type: category.type,

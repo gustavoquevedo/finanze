@@ -1,3 +1,4 @@
+import { addMonths, dayInMonth } from "@/lib/domain/dates";
 import { planRecurringGeneration } from "@/lib/domain/recurring";
 import type { Category, Id, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
@@ -67,7 +68,8 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     limitedDeduction: c.limitedDeduction ?? (c.deductible && /^(intereses hipoteca|reparaciones y conservaci[oó]n)$/i.test(c.name)),
   }));
   const transactions = data.transactions.map((t) => ({ ...t, confirmed: t.confirmed ?? true }));
-  const recurrings = data.recurrings.map((r): Recurring => {
+  const recurrings = data.recurrings.map((old): Recurring => {
+    const r = { ...old, kind: old.kind ?? "fijo", mortgage: old.mortgage ?? null };
     if (r.generatedUntil !== undefined) return r;
     const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
     return { ...r, generatedUntil: dates.at(-1) ?? null };
@@ -82,7 +84,28 @@ function assertCategory(c: Pick<Category, "type" | "deductible" | "notExpense" |
 
 const FREQUENCIES = ["mensual", "trimestral", "anual"];
 
-function assertRecurring(r: Pick<Recurring, "amount" | "startDate" | "endDate" | "day" | "frequency">): void {
+function assertMortgage(r: Pick<Recurring, "kind" | "mortgage" | "frequency" | "startDate" | "endDate" | "day">): void {
+  if (r.kind === "fijo") {
+    if (r.mortgage !== null) throw new ConstraintError("Only mortgage recurrings have mortgage terms");
+    return;
+  }
+  const m = r.mortgage;
+  if (r.kind !== "hipoteca" || !m) throw new ConstraintError(`Invalid recurring kind: ${String(r.kind)}`);
+  if (!Number.isInteger(m.principal) || m.principal <= 0) throw new ConstraintError("Invalid mortgage principal");
+  if (!(m.annualRate >= 0 && m.annualRate <= 30)) throw new ConstraintError("Invalid mortgage rate");
+  if (!Number.isInteger(m.installments) || m.installments < 1 || m.installments > 600) throw new ConstraintError("Invalid installments");
+  if (r.frequency !== "mensual") throw new ConstraintError("Mortgages are monthly");
+  if (r.day !== Number(r.startDate.slice(8, 10))) throw new ConstraintError("Mortgage day must match the first installment");
+  const last = dayInMonth(addMonths(r.startDate.slice(0, 7), m.installments - 1), r.day);
+  if (r.endDate !== last) throw new ConstraintError(`Mortgage end date must be the last installment (${last})`);
+  for (const a of m.adjustments) {
+    assertIsoDate(a.date);
+    if (!Number.isInteger(a.balance) || a.balance < 0) throw new ConstraintError("Invalid adjustment balance");
+  }
+}
+
+function assertRecurring(r: Pick<Recurring, "amount" | "startDate" | "endDate" | "day" | "frequency" | "kind" | "mortgage">): void {
+  assertMortgage(r);
   assertCents(r.amount);
   assertIsoDate(r.startDate);
   if (r.endDate !== null) {
@@ -135,8 +158,11 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
 
   function checkRefs(
     data: Snapshot,
-    ref: { categoryId: Id; propertyId: Id | null; recurringId?: Id | null },
+    ref: { categoryId: Id; propertyId: Id | null; recurringId?: Id | null; mortgage?: Recurring["mortgage"] },
   ): void {
+    if (ref.mortgage && !data.categories.some((c) => c.id === ref.mortgage!.principalCategoryId)) {
+      throw new ConstraintError(`Unknown category: ${ref.mortgage.principalCategoryId}`);
+    }
     if (!data.categories.some((c) => c.id === ref.categoryId)) {
       throw new ConstraintError(`Unknown category: ${ref.categoryId}`);
     }
@@ -194,7 +220,8 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
           (patch.type !== undefined && patch.type !== current.type) ||
           (patch.scope !== undefined && patch.scope !== current.scope);
         const inUse =
-          d.transactions.some((t) => t.categoryId === id) || d.recurrings.some((r) => r.categoryId === id);
+          d.transactions.some((t) => t.categoryId === id) ||
+          d.recurrings.some((r) => r.categoryId === id || r.mortgage?.principalCategoryId === id);
         // Transactions take their type and scope from the category, so these can't change once used.
         if (changesKind && inUse) throw new ConstraintError("Cannot change type or scope of a category in use");
         assertCategory({ ...current, ...patch });
@@ -204,7 +231,8 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
       mutate((d) => {
         findIndex(d.categories, id, "Category");
         const inUse =
-          d.transactions.some((t) => t.categoryId === id) || d.recurrings.some((r) => r.categoryId === id);
+          d.transactions.some((t) => t.categoryId === id) ||
+          d.recurrings.some((r) => r.categoryId === id || r.mortgage?.principalCategoryId === id);
         if (inUse) throw new ConstraintError("Category is in use");
         d.categories = d.categories.filter((c) => c.id !== id);
       }),

@@ -12,6 +12,26 @@ export type IsoDate = string;
 export type TransactionType = "ingreso" | "gasto";
 export type CategoryScope = "personal" | "piso";
 export type Frequency = "mensual" | "trimestral" | "anual";
+/** `fijo`: same amount each time. `hipoteca`: French-system mortgage split into interest and principal. */
+export type RecurringKind = "fijo" | "hipoteca";
+
+/** Real outstanding principal at a date (from the bank); the schedule is recalculated from there. */
+export interface MortgageAdjustment {
+  date: IsoDate;
+  balance: Cents;
+}
+
+export interface MortgageTerms {
+  /** Initial loan principal. */
+  principal: Cents;
+  /** Fixed nominal annual rate (TIN), in percent, e.g. 2.9. */
+  annualRate: number;
+  /** Total number of monthly installments. */
+  installments: number;
+  /** Category for the principal part (the recurring's `categoryId` is for the interest). */
+  principalCategoryId: Id;
+  adjustments: MortgageAdjustment[];
+}
 
 export interface Property {
   id: Id;
@@ -67,6 +87,7 @@ export interface Transaction {
 
 export interface Recurring {
   id: Id;
+  kind: RecurringKind;
   concept: string;
   amount: Cents;
   type: TransactionType;
@@ -83,6 +104,11 @@ export interface Recurring {
   endDate: IsoDate | null;
   /** Occurrences up to this date have already been generated (so deleted ones are not recreated). */
   generatedUntil: IsoDate | null;
+  /**
+   * Only for `hipoteca`: then frequency is monthly, `startDate`/`endDate` are the first and last
+   * installments, `categoryId` is the interest category and `amount` is the initial installment.
+   */
+  mortgage: MortgageTerms | null;
 }
 
 /** Full data set, used for seeding, export and restore. */

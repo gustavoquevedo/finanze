@@ -1,4 +1,5 @@
 import { addMonths, dayInMonth } from "./dates";
+import { mortgagePlan, type DatedInstallment } from "./mortgage";
 import type { Frequency, IsoDate, Recurring, Transaction } from "./types";
 
 export const FREQUENCY_MONTHS: Record<Frequency, number> = { mensual: 1, trimestral: 3, anual: 12 };
@@ -33,6 +34,39 @@ export function nextOccurrence(r: Schedule, after: IsoDate): IsoDate | null {
   return occurrencesBetween(r, after, horizon)[0] ?? null;
 }
 
+/** Dated schedule of a mortgage recurring (empty for fixed ones). */
+export function planOf(r: Recurring): DatedInstallment[] {
+  if (r.kind !== "hipoteca" || !r.mortgage) return [];
+  return mortgagePlan({ ...r.mortgage, startDate: r.startDate, day: r.day });
+}
+
+type NewTransaction = Omit<Transaction, "id">;
+
+/**
+ * Transactions for one occurrence: one for a fixed rule, two (interest and principal) for a mortgage.
+ * `plan` avoids recomputing the mortgage schedule for each date.
+ */
+export function occurrenceTransactions(
+  r: Recurring,
+  date: IsoDate,
+  confirmed: boolean,
+  plan: DatedInstallment[] = planOf(r),
+): NewTransaction[] {
+  const base = { date, propertyId: r.propertyId, recurringId: r.id, confirmed, type: "gasto" as const };
+  if (r.kind !== "hipoteca" || !r.mortgage) {
+    return [{ ...base, amount: r.amount, type: r.type, categoryId: r.categoryId, concept: r.concept }];
+  }
+  const q = plan.find((x) => x.date === date);
+  if (!q) return [];
+  const result: NewTransaction[] = [];
+  const label = `cuota ${q.number}/${q.of}`;
+  if (q.interest > 0) result.push({ ...base, amount: q.interest, categoryId: r.categoryId, concept: `${r.concept} · intereses ${label}` });
+  if (q.principal > 0) {
+    result.push({ ...base, amount: q.principal, categoryId: r.mortgage.principalCategoryId, concept: `${r.concept} · capital ${label}` });
+  }
+  return result;
+}
+
 export interface GenerationPlan {
   /** New pending transactions, without id. */
   transactions: Omit<Transaction, "id">[];
@@ -48,18 +82,9 @@ export function planRecurringGeneration(recurrings: Recurring[], today: IsoDate)
   const plan: GenerationPlan = { transactions: [], generatedUntil: new Map() };
   for (const r of recurrings) {
     if (r.generatedUntil && r.generatedUntil >= today) continue;
-    for (const date of occurrencesBetween(r, r.generatedUntil, today)) {
-      plan.transactions.push({
-        date,
-        amount: r.amount,
-        type: r.type,
-        categoryId: r.categoryId,
-        propertyId: r.propertyId,
-        concept: r.concept,
-        recurringId: r.id,
-        confirmed: false,
-      });
-    }
+    const dates = occurrencesBetween(r, r.generatedUntil, today);
+    const schedule = dates.length > 0 ? planOf(r) : [];
+    for (const date of dates) plan.transactions.push(...occurrenceTransactions(r, date, false, schedule));
     plan.generatedUntil.set(r.id, today);
   }
   return plan;

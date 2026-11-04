@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { Amount } from "@/components/Amount";
 import { todayIso } from "@/lib/domain/dates";
-import { nextOccurrence } from "@/lib/domain/recurring";
-import { describeSchedule, formatShortDate } from "@/lib/format";
+import { mortgageStatus } from "@/lib/domain/mortgage";
+import { nextOccurrence, planOf } from "@/lib/domain/recurring";
+import { describeSchedule, formatCents, formatShortDate } from "@/lib/format";
 import { useData } from "@/lib/use-data";
 
 export default function RecurringsPage() {
@@ -13,7 +14,16 @@ export default function RecurringsPage() {
     const today = todayIso();
     const names = new Map(properties.map((p) => [p.id, p.name]));
     return recurrings
-      .map((r) => ({ r, next: nextOccurrence(r, r.generatedUntil && r.generatedUntil > today ? r.generatedUntil : today), place: r.propertyId ? names.get(r.propertyId) : "Personal" }))
+      .map((r) => {
+        const after = r.generatedUntil && r.generatedUntil > today ? r.generatedUntil : today;
+        const status = r.mortgage ? mortgageStatus(planOf(r), r.mortgage.principal, today, r.mortgage.adjustments) : null;
+        return {
+          r,
+          status,
+          next: status ? (status.next?.date ?? null) : nextOccurrence(r, after),
+          place: r.propertyId ? names.get(r.propertyId) : "Personal",
+        };
+      })
       .sort((a, b) => (a.next ?? "9999").localeCompare(b.next ?? "9999"));
   });
 
@@ -34,7 +44,7 @@ export default function RecurringsPage() {
       {data?.length === 0 && <p className="text-center text-slate-500">No hay recurrentes. Pulsa + para crear uno.</p>}
       {data && data.length > 0 && (
         <ul className="divide-y divide-slate-100 rounded-xl bg-white shadow-sm">
-          {data.map(({ r, next, place }) => (
+          {data.map(({ r, next, place, status }) => (
             <li key={r.id}>
               <Link
                 href={`/recurrentes/editar?id=${encodeURIComponent(r.id)}`}
@@ -42,12 +52,24 @@ export default function RecurringsPage() {
               >
                 <div className="min-w-0">
                   <p className="truncate font-medium">{r.concept}</p>
-                  <p className="truncate text-xs text-slate-500">{describeSchedule(r)} · {place}</p>
+                  <p className="truncate text-xs text-slate-500">
+                    {status ? (
+                      <>
+                        🏦 Hipoteca · {status.last ? `${status.last.number}/${r.mortgage!.installments}` : `0/${r.mortgage!.installments}`} ·
+                        pendiente {formatCents(status.balance)}
+                      </>
+                    ) : (
+                      describeSchedule(r)
+                    )}{" "}
+                    · {place}
+                  </p>
                   <p className="text-xs text-slate-500">
                     {next ? `Próximo: ${formatShortDate(next)} ${next.slice(0, 4)}` : "Finalizado"}
                   </p>
                 </div>
-                <span className="shrink-0 text-sm"><Amount cents={r.amount} type={r.type} /></span>
+                <span className="shrink-0 text-sm">
+                  <Amount cents={status?.next?.payment ?? r.amount} type={r.type} />
+                </span>
               </Link>
             </li>
           ))}

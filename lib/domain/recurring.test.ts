@@ -14,6 +14,8 @@ const rule = (o: Partial<Recurring> = {}): Recurring => ({
   startDate: "2026-01-01",
   endDate: null,
   generatedUntil: null,
+  kind: "fijo",
+  mortgage: null,
   ...o,
 });
 
@@ -71,5 +73,43 @@ describe("planRecurringGeneration", () => {
 
   it("does not create future occurrences", () => {
     expect(planRecurringGeneration([rule({ startDate: "2026-12-01" })], "2026-11-04").transactions).toEqual([]);
+  });
+});
+
+describe("mortgage recurrings", () => {
+  const mortgage = rule({
+    kind: "hipoteca",
+    concept: "Hipoteca Centro",
+    amount: 56283,
+    type: "gasto",
+    categoryId: "interest",
+    frequency: "mensual",
+    day: 2,
+    startDate: "2019-04-02",
+    endDate: "2044-03-02",
+    mortgage: { principal: 12000000, annualRate: 2.9, installments: 300, principalCategoryId: "capital", adjustments: [] },
+  });
+
+  it("generates interest and principal for each due installment", () => {
+    const plan = planRecurringGeneration([{ ...mortgage, generatedUntil: "2026-09-30" }], "2026-11-04");
+    expect(plan.transactions.map((t) => [t.date, t.categoryId, t.concept])).toEqual([
+      ["2026-10-02", "interest", "Hipoteca Centro · intereses cuota 91/300"],
+      ["2026-10-02", "capital", "Hipoteca Centro · capital cuota 91/300"],
+      ["2026-11-02", "interest", "Hipoteca Centro · intereses cuota 92/300"],
+      ["2026-11-02", "capital", "Hipoteca Centro · capital cuota 92/300"],
+    ]);
+    const [i, c] = plan.transactions;
+    expect(i.amount + c.amount).toBe(56283);
+    expect(plan.transactions.every((t) => t.type === "gasto" && !t.confirmed)).toBe(true);
+  });
+
+  it("backfills every past installment when created without generatedUntil", () => {
+    expect(planRecurringGeneration([mortgage], "2026-11-04").transactions).toHaveLength(92 * 2);
+  });
+
+  it("uses the adjusted schedule for future installments", () => {
+    const adjusted = { ...mortgage, generatedUntil: "2026-09-30", mortgage: { ...mortgage.mortgage!, adjustments: [{ date: "2026-09-15", balance: 9000000 }] } };
+    const [interest] = planRecurringGeneration([adjusted], "2026-10-02").transactions;
+    expect(interest.amount).toBe(Math.round((9000000 * 0.029) / 12));
   });
 });

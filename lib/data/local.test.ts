@@ -131,7 +131,7 @@ describe("local repository", () => {
     await repo.createTransaction(tx({ propertyId: null }));
     await repo.createRecurring({
       concept: "Alquiler", amount: 95000, type: "ingreso", categoryId: rent.id, propertyId: property.id,
-      frequency: "mensual", day: 1, startDate: "2026-01-01", endDate: null, generatedUntil: null,
+      frequency: "mensual", day: 1, startDate: "2026-01-01", endDate: null, generatedUntil: null, kind: "fijo" as const, mortgage: null,
     });
     await repo.deleteProperty(property.id);
     expect(await repo.listTransactions()).toHaveLength(1);
@@ -141,7 +141,7 @@ describe("local repository", () => {
   it("deleting a recurring keeps its generated transactions", async () => {
     const r = await repo.createRecurring({
       concept: "Alquiler", amount: 95000, type: "ingreso", categoryId: rent.id, propertyId: property.id,
-      frequency: "mensual", day: 1, startDate: "2026-01-01", endDate: null, generatedUntil: null,
+      frequency: "mensual", day: 1, startDate: "2026-01-01", endDate: null, generatedUntil: null, kind: "fijo" as const, mortgage: null,
     });
     const t = await repo.createTransaction(tx({ recurringId: r.id }));
     await repo.deleteRecurring(r.id);
@@ -167,7 +167,7 @@ describe("local repository", () => {
   it("rejects invalid recurring rules", async () => {
     const base = {
       concept: "IBI", amount: 15000, type: "ingreso" as const, categoryId: rent.id, propertyId: property.id,
-      frequency: "anual" as const, day: 1, startDate: "2026-03-01", endDate: null, generatedUntil: null,
+      frequency: "anual" as const, day: 1, startDate: "2026-03-01", endDate: null, generatedUntil: null, kind: "fijo" as const, mortgage: null,
     };
     await expect(repo.createRecurring({ ...base, day: 32 })).rejects.toBeInstanceOf(ConstraintError);
     await expect(repo.createRecurring({ ...base, endDate: "2026-01-01" })).rejects.toBeInstanceOf(ConstraintError);
@@ -177,7 +177,7 @@ describe("local repository", () => {
 describe("recurring generation", () => {
   const rule = () => ({
     concept: "Alquiler", amount: 95000, type: "ingreso" as const, categoryId: rent.id, propertyId: property.id,
-    frequency: "mensual" as const, day: 4, startDate: "2026-09-04", endDate: null, generatedUntil: null,
+    frequency: "mensual" as const, day: 4, startDate: "2026-09-04", endDate: null, generatedUntil: null, kind: "fijo" as const, mortgage: null,
   });
 
   it("creates pending transactions for due dates, only once", async () => {
@@ -214,7 +214,13 @@ describe("recurring generation", () => {
     const created = await seeded.generateDueTransactions("2026-11-04");
     const pending = await seeded.listTransactions({ confirmed: false });
     expect(pending).toHaveLength(created);
-    expect(pending.map((t) => t.concept)).toEqual(["Alquiler Piso Centro"]);
+    expect(pending.map((t) => t.concept.replace(/cuota \d+/, "cuota N")).sort()).toEqual([
+      "Alquiler Piso Centro",
+      "Hipoteca Apartamento Playa · capital cuota N/360",
+      "Hipoteca Apartamento Playa · intereses cuota N/360",
+      "Hipoteca Piso Centro · capital cuota N/300",
+      "Hipoteca Piso Centro · intereses cuota N/300",
+    ]);
     expect((await seeded.listTransactions()).length).toBe(before + created);
   });
 });
@@ -250,5 +256,22 @@ describe("migrateSnapshot", () => {
     const m = migrateSnapshot(old);
     expect(m.categories.map((c) => [c.notExpense, c.limitedDeduction])).toEqual([[true, false], [false, true], [false, true], [false, false]]);
     expect(m.properties[0]).toMatchObject({ purchaseCosts: 0, cadastralValue: null });
+  });
+
+  it("validates mortgage recurrings", async () => {
+    const capital = await repo.createCategory({ name: "Capital", type: "gasto", scope: "piso", deductible: false, notExpense: true, limitedDeduction: false });
+    const interest = await repo.createCategory({ name: "Intereses", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: true });
+    const m = {
+      kind: "hipoteca" as const, concept: "Hipoteca", amount: 56283, type: "gasto" as const, categoryId: interest.id,
+      propertyId: property.id, frequency: "mensual" as const, day: 2, startDate: "2026-09-02", endDate: "2026-11-02", generatedUntil: null,
+      mortgage: { principal: 150000, annualRate: 3, installments: 3, principalCategoryId: capital.id, adjustments: [] },
+    };
+    await expect(repo.createRecurring({ ...m, endDate: "2026-12-02" })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.createRecurring({ ...m, mortgage: { ...m.mortgage, principalCategoryId: "nope" } })).rejects.toBeInstanceOf(ConstraintError);
+    await repo.createRecurring(m);
+    expect(await repo.generateDueTransactions("2026-11-04")).toBe(6);
+    const all = await repo.listTransactions();
+    expect(all.filter((t) => t.categoryId === capital.id).reduce((s, t) => s + t.amount, 0)).toBe(150000);
+    await expect(repo.deleteCategory(capital.id)).rejects.toBeInstanceOf(ConstraintError);
   });
 });
