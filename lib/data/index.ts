@@ -24,6 +24,7 @@ export function getRepository(): Repository {
  */
 export async function loadRepository(): Promise<Repository> {
   const repo = getRepository();
+  await repo.syncPropertyAssets();
   await repo.generateDueTransactions(todayIso());
   return repo;
 }

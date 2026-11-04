@@ -126,10 +126,51 @@ export interface Recurring {
   mortgage: MortgageTerms | null;
 }
 
+export type AssetKind = "fondo" | "etf" | "efectivo" | "inmobiliario";
+
+export interface Asset {
+  id: Id;
+  /** For real estate, the flat's name is shown instead. */
+  name: string;
+  kind: AssetKind;
+  /** Real estate assets are created automatically from a flat. */
+  propertyId: Id | null;
+  active: boolean;
+}
+
+/**
+ * Value of an asset at a date. Purchase value and fiscal cost are optional: when missing, the
+ * previous snapshot's are kept (they change with contributions, sales or transfers).
+ */
+export interface AssetSnapshot {
+  id: Id;
+  assetId: Id;
+  date: IsoDate;
+  value: Cents;
+  /** What was paid for what is held now. */
+  purchaseValue: Cents | null;
+  /** Acquisition value for tax purposes: kept across fund transfers (traspasos). */
+  fiscalCost: Cents | null;
+}
+
+/**
+ * Group of assets. An asset can be in several portfolios; a portfolio has at most one parent.
+ * A portfolio's value counts each asset in it or in its sub-portfolios once.
+ */
+export interface Portfolio {
+  id: Id;
+  name: string;
+  parentId: Id | null;
+  assetIds: Id[];
+}
+
 /** Full data set, used for seeding, export and restore. */
 export interface Snapshot {
   properties: Property[];
   categories: Category[];
   transactions: Transaction[];
   recurrings: Recurring[];
+  assets: Asset[];
+  assetSnapshots: AssetSnapshot[];
+  portfolios: Portfolio[];
 }
