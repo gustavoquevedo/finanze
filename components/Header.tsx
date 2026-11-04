@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HOME, isActive, isSectionActive, NAV_ITEMS, type NavLink, type NavSection } from "./nav-items";
+import { DATOS, HOME, isActive, isSectionActive, NAV_ITEMS, type NavLink, type NavSection } from "./nav-items";
 
 const linkClass = (active: boolean) =>
   `flex items-center gap-3 rounded-lg px-3 py-3 ${active ? "bg-emerald-50 font-semibold text-emerald-700" : "text-slate-700 hover:bg-slate-50"}`;
@@ -81,6 +81,9 @@ export function Header() {
                 </li>
               ),
             )}
+            <li className="mt-1 border-t border-slate-100 pt-1">
+              <MenuLink item={DATOS} pathname={pathname} />
+            </li>
           </ul>
         </nav>
       )}

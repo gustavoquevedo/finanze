@@ -1,8 +1,11 @@
 import { todayIso } from "@/lib/domain/dates";
+import type { Snapshot } from "@/lib/domain/types";
+import { backupFileName, createBackup } from "./backup";
 import { createLocalRepository } from "./local";
 import type { Repository } from "./repository";
 import { createSeedData } from "./seed";
 
+export { parseBackup, type BackupSummary, type ParsedBackup } from "./backup";
 export type { Repository, TransactionFilter } from "./repository";
 
 let instance: Repository | null = null;
@@ -27,6 +30,35 @@ export async function loadRepository(): Promise<Repository> {
   await repo.syncPropertyAssets();
   await repo.generateDueTransactions(todayIso());
   return repo;
+}
+
+const LAST_BACKUP_KEY = "finanze:lastBackup";
+
+/** All data as a backup file's text, and remembers when it was made. */
+export async function exportBackup(): Promise<{ fileName: string; text: string }> {
+  const now = new Date();
+  const text = JSON.stringify(createBackup(await getRepository().exportSnapshot(), now), null, 2);
+  try {
+    window.localStorage.setItem(LAST_BACKUP_KEY, now.toISOString());
+  } catch {
+    // Not critical: only used to show the date of the last copy.
+  }
+  return { fileName: backupFileName(now), text };
+}
+
+/** Replaces all data with a parsed backup. */
+export async function importBackup(data: Snapshot): Promise<void> {
+  await getRepository().replaceAll(data);
+  await loadRepository();
+}
+
+/** ISO timestamp of the last export from this browser, if any. */
+export function lastBackupAt(): string | null {
+  try {
+    return window.localStorage.getItem(LAST_BACKUP_KEY);
+  } catch {
+    return null;
+  }
 }
 
 /** Replaces all data with fresh fictitious test data. */

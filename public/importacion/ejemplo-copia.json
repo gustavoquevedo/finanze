@@ -1,0 +1,331 @@
+{
+  "_leeme": "Ejemplo de fichero de importación de Finanzas y pisos. Datos ficticios. Importes en CÉNTIMOS (950,50 € = 95050) y fechas AAAA-MM-DD. Las claves que empiezan por _ son notas y se ignoran. Referencia completa: docs/importacion/FORMATO.md",
+  "format": "finanze-backup",
+  "version": 1,
+  "exportedAt": "2026-11-04T12:00:00.000Z",
+  "data": {
+    "properties": [
+      {
+        "_nota": "Piso con todos los campos.",
+        "id": "piso-centro",
+        "name": "Piso Centro",
+        "address": "Calle del Ejemplo 12, 3º B, Valladolid",
+        "purchaseDate": "2019-03-15",
+        "acquisitionPrice": 16800000,
+        "purchaseCosts": 1428000,
+        "cadastralValue": 9640000,
+        "constructionPercentage": 62,
+        "active": true
+      },
+      {
+        "_nota": "Piso solo con los campos obligatorios: address vacía, purchaseCosts 0, cadastralValue null, active true.",
+        "id": "piso-playa",
+        "name": "Apartamento Playa",
+        "purchaseDate": "2022-06-01",
+        "acquisitionPrice": 12950000,
+        "constructionPercentage": 55
+      }
+    ],
+
+    "categories": [
+      { "id": "cat-alquiler", "name": "Alquiler", "type": "ingreso", "scope": "piso" },
+      {
+        "_nota": "Deducible y sujeto al límite de intereses + reparaciones <= ingresos.",
+        "id": "cat-intereses",
+        "name": "Intereses hipoteca",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "limitedDeduction": true
+      },
+      {
+        "_nota": "Sale dinero pero no es gasto: no resta del neto; cuenta en el flujo de caja.",
+        "id": "cat-capital",
+        "name": "Amortización capital hipoteca",
+        "type": "gasto",
+        "scope": "piso",
+        "notExpense": true
+      },
+      { "id": "cat-ibi", "name": "IBI", "type": "gasto", "scope": "piso", "deductible": true },
+      { "id": "cat-comunidad", "name": "Comunidad", "type": "gasto", "scope": "piso", "deductible": true },
+      { "id": "cat-seguro-hogar", "name": "Seguro hogar", "type": "gasto", "scope": "piso", "deductible": true },
+      {
+        "id": "cat-reparaciones",
+        "name": "Reparaciones y conservación",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "limitedDeduction": true
+      },
+      { "id": "cat-nomina", "name": "Nómina", "type": "ingreso", "scope": "personal" },
+      {
+        "_nota": "Sin scope: por defecto es \"piso\", así que en categorías personales hay que indicarlo.",
+        "id": "cat-supermercado",
+        "name": "Supermercado",
+        "type": "gasto",
+        "scope": "personal"
+      },
+      { "id": "cat-suscripciones", "name": "Suscripciones", "type": "gasto", "scope": "personal" }
+    ],
+
+    "recurrings": [
+      {
+        "_nota": "Importe fijo mensual. generatedUntil: hasta qué fecha ya están sus movimientos en el fichero (aquí, hasta el pendiente del 1 de noviembre); los siguientes se crearán solos como pendientes.",
+        "id": "rec-alquiler-centro",
+        "kind": "fijo",
+        "concept": "Alquiler Piso Centro",
+        "amount": 95000,
+        "categoryId": "cat-alquiler",
+        "propertyId": "piso-centro",
+        "frequency": "mensual",
+        "day": 1,
+        "startDate": "2026-01-01",
+        "endDate": null,
+        "generatedUntil": "2026-11-01"
+      },
+      {
+        "_nota": "Anual: se repite cada año en el mes de startDate (cada 1 de marzo).",
+        "id": "rec-ibi-centro-1",
+        "concept": "IBI Piso Centro (1er plazo)",
+        "amount": 41237,
+        "categoryId": "cat-ibi",
+        "propertyId": "piso-centro",
+        "frequency": "anual",
+        "startDate": "2026-03-01",
+        "generatedUntil": "2026-10-31"
+      },
+      {
+        "_nota": "Trimestral desde enero (enero, abril, julio, octubre), día 10.",
+        "id": "rec-comunidad-playa",
+        "concept": "Comunidad Apartamento Playa",
+        "amount": 14400,
+        "categoryId": "cat-comunidad",
+        "propertyId": "piso-playa",
+        "frequency": "trimestral",
+        "day": 10,
+        "startDate": "2026-01-10",
+        "generatedUntil": "2026-10-31"
+      },
+      {
+        "_nota": "Personal, con fecha de fin. Sin generatedUntil: al importar se crean como pendientes todos los cargos desde startDate hasta hoy. Sin frequency/day: mensual y el día de startDate.",
+        "id": "rec-streaming",
+        "concept": "Plataforma de streaming",
+        "amount": 1299,
+        "categoryId": "cat-suscripciones",
+        "startDate": "2026-09-15",
+        "endDate": "2027-08-15"
+      },
+      {
+        "_nota": "Hipoteca (sistema francés). amount, day, frequency y endDate se calculan solos. Usa installments o endDate (fecha de la última cuota). categoryId = intereses; mortgage.principalCategoryId = capital.",
+        "id": "rec-hipoteca-centro",
+        "kind": "hipoteca",
+        "concept": "Hipoteca Piso Centro",
+        "categoryId": "cat-intereses",
+        "propertyId": "piso-centro",
+        "startDate": "2019-04-02",
+        "generatedUntil": "2026-10-31",
+        "mortgage": {
+          "principal": 12000000,
+          "annualRate": 2.9,
+          "installments": 300,
+          "interestMethod": "mensual",
+          "principalCategoryId": "cat-capital",
+          "adjustments": [
+            {
+              "_nota": "Desde esta fecha la cuota del banco es 563,00 €; balance null = no cambia el capital pendiente.",
+              "date": "2026-06-15",
+              "balance": null,
+              "payment": 56300
+            }
+          ]
+        }
+      }
+    ],
+
+    "transactions": [
+      {
+        "_nota": "Movimiento con todos los campos, generado por un recurrente.",
+        "id": "tx-alquiler-centro-2026-10",
+        "date": "2026-10-01",
+        "amount": 95000,
+        "type": "ingreso",
+        "categoryId": "cat-alquiler",
+        "propertyId": "piso-centro",
+        "concept": "Alquiler Piso Centro",
+        "recurringId": "rec-alquiler-centro",
+        "confirmed": true
+      },
+      {
+        "id": "tx-ibi-centro-2026",
+        "date": "2026-03-01",
+        "amount": 41237,
+        "categoryId": "cat-ibi",
+        "propertyId": "piso-centro",
+        "concept": "IBI Piso Centro (1er plazo)",
+        "recurringId": "rec-ibi-centro-1"
+      },
+      {
+        "id": "tx-comunidad-playa-2026-10",
+        "date": "2026-10-10",
+        "amount": 14400,
+        "categoryId": "cat-comunidad",
+        "propertyId": "piso-playa",
+        "concept": "Comunidad Apartamento Playa",
+        "recurringId": "rec-comunidad-playa"
+      },
+      {
+        "_nota": "Una cuota de hipoteca son dos movimientos: intereses y capital.",
+        "id": "tx-hipoteca-centro-2026-10-int",
+        "date": "2026-10-02",
+        "amount": 22297,
+        "categoryId": "cat-intereses",
+        "propertyId": "piso-centro",
+        "concept": "Hipoteca Piso Centro · intereses cuota 91/300",
+        "recurringId": "rec-hipoteca-centro"
+      },
+      {
+        "id": "tx-hipoteca-centro-2026-10-cap",
+        "date": "2026-10-02",
+        "amount": 34003,
+        "categoryId": "cat-capital",
+        "propertyId": "piso-centro",
+        "concept": "Hipoteca Piso Centro · capital cuota 91/300",
+        "recurringId": "rec-hipoteca-centro"
+      },
+      {
+        "id": "tx-reparacion-2026-07",
+        "date": "2026-07-22",
+        "amount": 18000,
+        "categoryId": "cat-reparaciones",
+        "propertyId": "piso-centro",
+        "concept": "Fontanero: cambio de grifo"
+      },
+      {
+        "id": "tx-seguro-centro-2026",
+        "date": "2026-06-07",
+        "amount": 28640,
+        "categoryId": "cat-seguro-hogar",
+        "propertyId": "piso-centro",
+        "concept": "Seguro hogar anual"
+      },
+      {
+        "_nota": "Alquiler cobrado sin recurrente (manual).",
+        "id": "tx-alquiler-playa-2026-10",
+        "date": "2026-10-05",
+        "amount": 78000,
+        "categoryId": "cat-alquiler",
+        "propertyId": "piso-playa",
+        "concept": "Alquiler octubre"
+      },
+      {
+        "id": "tx-nomina-2026-10",
+        "date": "2026-10-28",
+        "amount": 235000,
+        "categoryId": "cat-nomina",
+        "concept": "Nómina octubre"
+      },
+      {
+        "_nota": "Mínimo: id, date, amount y categoryId. type sale de la categoría; sin propertyId = personal.",
+        "id": "tx-super-2026-10-17",
+        "date": "2026-10-17",
+        "amount": 11875,
+        "categoryId": "cat-supermercado"
+      },
+      {
+        "_nota": "confirmed: false = automático pendiente de confirmar (con la marca ⟳). Ya cuenta en los totales.",
+        "id": "tx-alquiler-centro-2026-11",
+        "date": "2026-11-01",
+        "amount": 95000,
+        "categoryId": "cat-alquiler",
+        "propertyId": "piso-centro",
+        "concept": "Alquiler Piso Centro",
+        "recurringId": "rec-alquiler-centro",
+        "confirmed": false
+      }
+    ],
+
+    "assets": [
+      { "id": "fondo-rv", "name": "Fondo indexado RV global", "kind": "fondo" },
+      { "id": "fondo-rf", "name": "Fondo indexado RF europea", "kind": "fondo" },
+      { "id": "etf-sp500", "name": "ETF S&P 500", "kind": "etf" },
+      { "id": "cuenta-remunerada", "name": "Cuenta remunerada", "kind": "efectivo" },
+      {
+        "_nota": "Inmueble: kind inmobiliario y propertyId del piso; el nombre, la compra y el coste fiscal salen del piso. Si no incluyes el de un piso (aquí piso-playa), se crea solo al importar.",
+        "id": "inm-centro",
+        "name": "Piso Centro",
+        "kind": "inmobiliario",
+        "propertyId": "piso-centro"
+      }
+    ],
+
+    "assetSnapshots": [
+      {
+        "_nota": "Fondo traspasado: el coste fiscal (aportaciones originales) es menor que el valor de compra del fondo actual.",
+        "id": "snap-rv-2026-06",
+        "assetId": "fondo-rv",
+        "date": "2026-06-30",
+        "value": 3388040,
+        "purchaseValue": 3090000,
+        "fiscalCost": 2290000
+      },
+      {
+        "_nota": "Sin purchaseValue/fiscalCost: se mantienen los del valor anterior.",
+        "id": "snap-rv-2026-09",
+        "assetId": "fondo-rv",
+        "date": "2026-09-30",
+        "value": 3451290
+      },
+      {
+        "_nota": "Tras una aportación de 600 €: suben compra y coste fiscal.",
+        "id": "snap-rv-2026-10",
+        "assetId": "fondo-rv",
+        "date": "2026-10-31",
+        "value": 3600618,
+        "purchaseValue": 3150000,
+        "fiscalCost": 2350000
+      },
+      {
+        "_nota": "Sin fiscalCost: es igual al valor de compra (no hubo traspasos).",
+        "id": "snap-rf-2026-10",
+        "assetId": "fondo-rf",
+        "date": "2026-10-31",
+        "value": 1556933,
+        "purchaseValue": 1550000
+      },
+      { "id": "snap-etf-2026-06", "assetId": "etf-sp500", "date": "2026-06-30", "value": 895175, "purchaseValue": 800000 },
+      { "id": "snap-etf-2026-10", "assetId": "etf-sp500", "date": "2026-10-31", "value": 938802 },
+      {
+        "_nota": "Efectivo: solo el valor; no tiene plusvalías.",
+        "id": "snap-cuenta-2026-10",
+        "assetId": "cuenta-remunerada",
+        "date": "2026-10-31",
+        "value": 1281090
+      },
+      {
+        "_nota": "Tasación o estimación del piso.",
+        "id": "snap-centro-2026-05",
+        "assetId": "inm-centro",
+        "date": "2026-05-31",
+        "value": 24500000
+      }
+    ],
+
+    "portfolios": [
+      {
+        "_nota": "Cartera principal (sin parentId).",
+        "id": "cartera-patrimonio",
+        "name": "Patrimonio",
+        "parentId": null,
+        "assetIds": ["cuenta-remunerada", "inm-centro"]
+      },
+      { "id": "cartera-indexada", "name": "Indexada", "parentId": "cartera-patrimonio", "assetIds": ["etf-sp500"] },
+      { "id": "cartera-bogle", "name": "Bogle", "parentId": "cartera-indexada", "assetIds": ["fondo-rv", "fondo-rf"] },
+      {
+        "_nota": "Un activo puede estar en varias carteras: fondo-rv también está en Bogle.",
+        "id": "cartera-rv",
+        "name": "Renta variable",
+        "assetIds": ["fondo-rv", "etf-sp500"]
+      }
+    ]
+  }
+}
