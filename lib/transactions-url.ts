@@ -6,6 +6,8 @@ export const PENDING = "pendientes";
 export interface TransactionsQuery {
   /** `YYYY-MM` */
   mes?: string;
+  /** `YYYY`, used when there is no `mes`. */
+  anio?: string;
   /** Property id, or `"personal"`. */
   piso?: string;
   categoria?: string;

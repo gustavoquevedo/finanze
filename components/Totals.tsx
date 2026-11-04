@@ -11,8 +11,10 @@ export function sumTotals(transactions: Transaction[]) {
   return { income, expense, net: income - expense };
 }
 
-export function Totals({ transactions }: { transactions: Transaction[] }) {
-  const { income, expense, net } = sumTotals(transactions);
+export function Totals(
+  props: { transactions: Transaction[] } | { totals: { income: number; expense: number; net: number } },
+) {
+  const { income, expense, net } = "totals" in props ? props.totals : sumTotals(props.transactions);
   return (
     <dl className="grid grid-cols-3 gap-2 text-sm">
       <div>

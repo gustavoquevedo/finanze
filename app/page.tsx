@@ -65,6 +65,12 @@ export default function HomePage() {
           ))}
         </>
       )}
+      <Link
+        href="/resumen"
+        className="flex items-center justify-between rounded-xl bg-white p-4 font-medium text-emerald-700 shadow-sm"
+      >
+        📊 Ver resumen anual <span aria-hidden>›</span>
+      </Link>
       <section className="rounded-xl border border-dashed border-slate-300 p-4 text-sm">
         <p className="mb-3 text-slate-600">Los datos se guardan solo en este navegador.</p>
         <button

@@ -27,10 +27,11 @@ function TransactionsList() {
   const property = params.get("piso") ?? "";
   const category = params.get("categoria") ?? "";
   const onlyPending = params.get("estado") === PENDING;
+  const year = month ? "" : /^\d{4}$/.test(params.get("anio") ?? "") ? params.get("anio")! : "";
 
   // Filters live in the URL so cards can link here and "back" keeps them.
-  const setFilter = (key: "mes" | "piso" | "categoria" | "estado", value: string) => {
-    const next = { mes: month, piso: property, categoria: category, estado: onlyPending ? PENDING : "", [key]: value };
+  const setFilter = (key: "mes" | "anio" | "piso" | "categoria" | "estado", value: string) => {
+    const next = { mes: month, anio: year, piso: property, categoria: category, estado: onlyPending ? PENDING : "", [key]: value };
     router.replace(transactionsHref(next), { scroll: false });
   };
 
@@ -46,12 +47,14 @@ function TransactionsList() {
 
   const filter: TransactionFilter = {
     month: month || undefined,
+    from: year ? `${year}-01-01` : undefined,
+    to: year ? `${year}-12-31` : undefined,
     categoryId: category || undefined,
     propertyId: property === PERSONAL ? null : property || undefined,
     confirmed: onlyPending ? false : undefined,
   };
-  const list = useData((repo) => repo.listTransactions(filter), [month, property, category, version]);
-  const pending = useData((repo) => repo.listTransactions({ ...filter, confirmed: false }), [month, property, category, version]);
+  const list = useData((repo) => repo.listTransactions(filter), [month, year, property, category, version]);
+  const pending = useData((repo) => repo.listTransactions({ ...filter, confirmed: false }), [month, year, property, category, version]);
 
   async function confirm(ids: string[]) {
     const repo = getRepository();
@@ -89,6 +92,17 @@ function TransactionsList() {
           {options.data?.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
       </div>
+
+      {year && (
+        <button
+          type="button"
+          onClick={() => setFilter("anio", "")}
+          className="rounded-full bg-slate-200 px-3 py-1 text-sm text-slate-700"
+          aria-label={`Quitar filtro del año ${year}`}
+        >
+          Año {year} ✕
+        </button>
+      )}
 
       {(pending.data?.length ?? 0) > 0 || onlyPending ? (
         <button
