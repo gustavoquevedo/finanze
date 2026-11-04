@@ -1,7 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { exportBackup, importBackup, lastBackupAt, parseBackup, restoreSeedData, type ParsedBackup } from "@/lib/data";
+import { useAuth } from "@/components/AuthGate";
+import {
+  browserData,
+  dataMode,
+  exportBackup,
+  importBackup,
+  lastBackupAt,
+  parseBackup,
+  restoreSeedData,
+  uploadBrowserData,
+  type BackupSummary,
+  type ParsedBackup,
+} from "@/lib/data";
 
 const LABELS: Record<string, string> = {
   transactions: "movimientos",
@@ -12,6 +24,11 @@ const LABELS: Record<string, string> = {
   assetSnapshots: "valores de activos",
   portfolios: "carteras",
 };
+
+const describe = (summary: BackupSummary) =>
+  Object.entries(summary)
+    .map(([k, n]) => `${n} ${LABELS[k]}`)
+    .join(" · ");
 
 const when = (iso: string) =>
   new Date(iso).toLocaleString("es-ES", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -33,12 +50,16 @@ export default function DataPage() {
   const [busy, setBusy] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const { email, signOut } = useAuth();
+  const cloud = dataMode === "supabase";
+  const [local, setLocal] = useState<BackupSummary | null>(null);
 
   useEffect(() => {
     setLast(lastBackupAt());
+    if (cloud) void browserData().then((d) => setLocal(d?.summary ?? null));
     const probe = new File(["{}"], "x.json", { type: "application/json" });
     setCanShare(typeof navigator.canShare === "function" && navigator.canShare({ files: [probe] }));
-  }, []);
+  }, [cloud]);
 
   async function handleExport(share: boolean) {
     setMessage(null);
@@ -65,7 +86,7 @@ export default function DataPage() {
 
   async function handleImport() {
     if (!parsed?.ok) return;
-    if (!window.confirm("Se sustituirán TODOS los datos de este navegador por los de la copia. ¿Continuar?")) return;
+    if (!window.confirm(`Se sustituirán TODOS los datos ${cloud ? "de tu cuenta" : "de este navegador"} por los de la copia. ¿Continuar?`)) return;
     setBusy(true);
     try {
       await importBackup(parsed.data);
@@ -73,6 +94,19 @@ export default function DataPage() {
       setFileName(null);
       if (fileInput.current) fileInput.current.value = "";
       setMessage("Copia importada.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleUpload() {
+    if (!window.confirm("Se sustituirán TODOS los datos de tu cuenta por los de este navegador. ¿Continuar?")) return;
+    setBusy(true);
+    try {
+      await uploadBrowserData();
+      setMessage("Datos de este navegador subidos a tu cuenta.");
+    } catch (e) {
+      setMessage(`No se pudieron subir: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(false);
     }
@@ -92,9 +126,38 @@ export default function DataPage() {
   return (
     <div className="space-y-5">
       <h1 className="text-2xl font-bold">Datos y copia de seguridad</h1>
-      <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
-        Por ahora los datos se guardan solo en este navegador. Haz copias a menudo: si se borran los datos del navegador, se pierden.
-      </p>
+      {cloud ? (
+        <section className="space-y-2 rounded-xl bg-white p-4 text-sm shadow-sm">
+          <p>
+            Tus datos se guardan en tu cuenta{email && <> (<b>{email}</b>)</>} y los ves igual en todos tus dispositivos.
+          </p>
+          <button type="button" onClick={() => void signOut()} className="font-medium text-rose-700">
+            Cerrar sesión
+          </button>
+        </section>
+      ) : (
+        <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          Por ahora los datos se guardan solo en este navegador. Haz copias a menudo: si se borran los datos del navegador, se pierden.
+        </p>
+      )}
+
+      {cloud && local && (
+        <section className="space-y-3 rounded-xl border border-emerald-300 bg-emerald-50 p-4">
+          <h2 className="font-semibold">Datos de este navegador</h2>
+          <p className="text-sm text-slate-700">
+            Este navegador tiene datos de antes de usar la cuenta: {describe(local)}. Puedes subirlos a tu cuenta (sustituyen lo que
+            haya en ella).
+          </p>
+          <button
+            type="button"
+            onClick={() => void handleUpload()}
+            disabled={busy}
+            className="w-full rounded-lg bg-emerald-700 px-4 py-3 font-medium text-white disabled:opacity-50"
+          >
+            Subir estos datos a mi cuenta
+          </button>
+        </section>
+      )}
       {message && <p role="status" className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-800">{message}</p>}
 
       <section className="space-y-3 rounded-xl bg-white p-4 shadow-sm">
@@ -102,7 +165,7 @@ export default function DataPage() {
         <p className="text-sm text-slate-600">
           Descarga un archivo con todos tus datos. Sirve como copia y para pasar los datos a otro dispositivo.
         </p>
-        <p className="text-xs text-slate-500">{last ? `Última copia desde este navegador: ${when(last)}.` : "Aún no has hecho ninguna copia."}</p>
+        <p className="text-xs text-slate-500">{last ? `Última copia desde este navegador: ${when(last)}.` : "Aún no has hecho ninguna copia desde este navegador."}</p>
         <button type="button" onClick={() => void handleExport(false)} className="w-full rounded-lg bg-emerald-700 px-4 py-3 font-medium text-white">
           Descargar copia
         </button>
@@ -115,7 +178,9 @@ export default function DataPage() {
 
       <section className="space-y-3 rounded-xl bg-white p-4 shadow-sm">
         <h2 className="font-semibold">Importar</h2>
-        <p className="text-sm text-slate-600">Sustituye todos los datos de este navegador por los de una copia.</p>
+        <p className="text-sm text-slate-600">
+          Sustituye todos los datos {cloud ? "de tu cuenta" : "de este navegador"} por los de una copia.
+        </p>
         <p className="text-xs text-slate-500">
           ¿Vas a preparar el fichero desde otra fuente, como un Excel?{" "}
           <a href="/importacion/ejemplo-copia.json" download className="font-medium text-emerald-700 underline">
@@ -141,11 +206,7 @@ export default function DataPage() {
           <div className="space-y-3">
             <div className="rounded-lg bg-slate-100 px-3 py-2 text-sm text-slate-700">
               <p className="font-medium">{parsed.exportedAt ? `Copia del ${when(parsed.exportedAt)}` : "Copia sin fecha"}</p>
-              <p>
-                {Object.entries(parsed.summary)
-                  .map(([k, n]) => `${n} ${LABELS[k]}`)
-                  .join(" · ")}
-              </p>
+              <p>{describe(parsed.summary)}</p>
             </div>
             <button
               type="button"
