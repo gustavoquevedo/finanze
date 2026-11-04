@@ -1,7 +1,8 @@
 import { mortgageStatus } from "./mortgage";
 import { planOf } from "./recurring";
-import type { Asset, AssetSnapshot, Cents, Id, IsoDate, Portfolio, Property, Recurring } from "./types";
+import type { Asset, AssetSnapshot, AssetType, Cents, Id, IsoDate, Portfolio, Property, Recurring } from "./types";
 
+/** Fixed product kinds (shown as «Producto»). */
 export const ASSET_KINDS: { value: Asset["kind"]; label: string }[] = [
   { value: "fondo", label: "Fondo" },
   { value: "etf", label: "ETF" },
@@ -178,4 +179,39 @@ export function portfolioView(portfolioId: Id, portfolios: Portfolio[], valuatio
 /** Whether `parentId` can be the parent of `portfolioId` (no self or descendant). */
 export function canBeParent(portfolioId: Id, parentId: Id | null, portfolios: Portfolio[]): boolean {
   return parentId === null || !descendantIds(portfolioId, portfolios).has(parentId);
+}
+
+/** Slice id for assets without a type. */
+export const UNTYPED = "__sin-tipo";
+
+export interface AllocationSlice {
+  id: Id;
+  name: string;
+  value: Cents;
+  /** Position of the type in the full, name-sorted list: keeps each type's colour stable. `null` = «Sin tipo». */
+  colorIndex: number | null;
+}
+
+/**
+ * Value of the given assets grouped by asset type, in name order, with «Sin tipo» last.
+ * Types without value are left out; assets without value don't count.
+ */
+export function allocationByType(assetIds: Iterable<Id>, assets: Asset[], types: AssetType[], valuations: Map<Id, AssetValuation>): AllocationSlice[] {
+  const ordered = [...types].sort((a, b) => a.name.localeCompare(b.name, "es"));
+  const typeOf = new Map(assets.map((a) => [a.id, a.assetTypeId]));
+  const known = new Set(ordered.map((t) => t.id));
+  const totals = new Map<Id, Cents>();
+  for (const id of new Set(assetIds)) {
+    const value = valuations.get(id)?.value;
+    if (!value) continue;
+    const typeId = typeOf.get(id);
+    const key = typeId && known.has(typeId) ? typeId : UNTYPED;
+    totals.set(key, (totals.get(key) ?? 0) + value);
+  }
+  const slices: AllocationSlice[] = ordered
+    .map((t, i) => ({ id: t.id, name: t.name, value: totals.get(t.id) ?? 0, colorIndex: i }))
+    .filter((s) => s.value > 0);
+  const untyped = totals.get(UNTYPED);
+  if (untyped) slices.push({ id: UNTYPED, name: "Sin tipo", value: untyped, colorIndex: null });
+  return slices;
 }

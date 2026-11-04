@@ -1,6 +1,7 @@
 import type {
   Asset,
   AssetSnapshot,
+  AssetType,
   Category,
   Portfolio,
   Id,
@@ -53,6 +54,12 @@ export interface Repository {
   createRecurring(input: New<Recurring>): Promise<Recurring>;
   updateRecurring(id: Id, patch: Patch<Recurring>): Promise<Recurring>;
   deleteRecurring(id: Id): Promise<void>;
+
+  listAssetTypes(): Promise<AssetType[]>;
+  createAssetType(input: New<AssetType>): Promise<AssetType>;
+  updateAssetType(id: Id, patch: Patch<AssetType>): Promise<AssetType>;
+  /** Its assets become untyped («Sin tipo»). */
+  deleteAssetType(id: Id): Promise<void>;
 
   listAssets(): Promise<Asset[]>;
   createAsset(input: New<Asset>): Promise<Asset>;

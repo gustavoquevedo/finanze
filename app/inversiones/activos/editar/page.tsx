@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { AssetTypeSelect } from "@/components/AssetTypeSelect";
 import { BackLink } from "@/components/BackLink";
 import { inputClass, labelClass } from "@/components/form-styles";
 import { Gain } from "@/components/Gain";
@@ -12,7 +13,7 @@ import { getRepository } from "@/lib/data";
 import { todayIso } from "@/lib/domain/dates";
 import { ASSET_KINDS } from "@/lib/domain/investments";
 import { centsToInput, parseEuros } from "@/lib/domain/money";
-import type { Asset, AssetKind, AssetSnapshot } from "@/lib/domain/types";
+import type { Asset, AssetKind, AssetSnapshot, AssetType } from "@/lib/domain/types";
 import { formatCents, formatShortDate } from "@/lib/format";
 import { loadInvestments } from "@/lib/investments-data";
 import { useData } from "@/lib/use-data";
@@ -36,6 +37,7 @@ function EditAsset() {
       const inv = await loadInvestments(repo);
       return {
         ...inv,
+        types: await repo.listAssetTypes(),
         asset: inv.assets.find((a) => a.id === id) ?? null,
         own: inv.snapshots.filter((s) => s.assetId === id).reverse(),
         inPortfolios: inv.portfolios.filter((p) => p.assetIds.includes(id)),
@@ -89,13 +91,25 @@ function EditAsset() {
           <SnapshotEditor key={version} asset={asset} snapshots={data.own} onSaved={reload} />
 
           {asset.propertyId ? (
+            <section className="space-y-3">
+            <AssetTypeSelect
+              id="as-type"
+              types={data.types}
+              value={asset.assetTypeId ?? ""}
+              onChange={async (v) => {
+                await getRepository().updateAsset(asset.id, { assetTypeId: v || null });
+                reload();
+              }}
+            />
             <p className="rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-800">
               Inmueble de Pisos: el nombre, el valor de compra y el coste fiscal (precio + gastos de compra) vienen de su ficha.{" "}
               <Link href={`/pisos/editar?id=${encodeURIComponent(asset.propertyId)}`} className="font-medium underline">Editar piso</Link>
             </p>
+            </section>
           ) : (
             <AssetDetails
               asset={asset}
+              types={data.types}
               onSaved={reload}
               onDelete={async () => {
                 await getRepository().deleteAsset(asset.id);
@@ -216,9 +230,10 @@ function SnapshotEditor({ asset, snapshots, onSaved }: { asset: Asset; snapshots
   );
 }
 
-function AssetDetails({ asset, onSaved, onDelete }: { asset: Asset; onSaved: () => void; onDelete: () => Promise<void> }) {
+function AssetDetails({ asset, types, onSaved, onDelete }: { asset: Asset; types: AssetType[]; onSaved: () => void; onDelete: () => Promise<void> }) {
   const [name, setName] = useState(asset.name);
   const [kind, setKind] = useState<AssetKind>(asset.kind);
+  const [assetTypeId, setAssetTypeId] = useState(asset.assetTypeId ?? "");
   const [error, setError] = useState<string>();
   return (
     <section className="space-y-3">
@@ -228,7 +243,7 @@ function AssetDetails({ asset, onSaved, onDelete }: { asset: Asset; onSaved: () 
         onSubmit={async (e) => {
           e.preventDefault();
           if (!name.trim()) return setError("Indica un nombre.");
-          await getRepository().updateAsset(asset.id, { name: name.trim(), kind });
+          await getRepository().updateAsset(asset.id, { name: name.trim(), kind, assetTypeId: assetTypeId || null });
           onSaved();
         }}
         className="space-y-3"
@@ -239,13 +254,14 @@ function AssetDetails({ asset, onSaved, onDelete }: { asset: Asset; onSaved: () 
           <FieldError message={error} />
         </div>
         <div>
-          <label htmlFor="as-kind" className={labelClass}>Tipo</label>
+          <label htmlFor="as-kind" className={labelClass}>Producto</label>
           <select id="as-kind" className={inputClass} value={kind} onChange={(e) => setKind(e.target.value as AssetKind)}>
             {ASSET_KINDS.filter((k) => k.value !== "inmobiliario").map((k) => (
               <option key={k.value} value={k.value}>{k.label}</option>
             ))}
           </select>
         </div>
+        <AssetTypeSelect id="as-type" types={types} value={assetTypeId} onChange={setAssetTypeId} />
         <button type="submit" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-700">
           Guardar datos
         </button>

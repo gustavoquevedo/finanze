@@ -39,6 +39,7 @@ export function remapIds(data: Snapshot): Snapshot {
     categories: data.categories.map((x) => own("categories", x.id)),
     recurrings: data.recurrings.map((x) => own("recurrings", x.id)),
     transactions: data.transactions.map((x) => own("transactions", x.id)),
+    assetTypes: data.assetTypes.map((x) => own("assetTypes", x.id)),
     assets: data.assets.map((x) => own("assets", x.id)),
     assetSnapshots: data.assetSnapshots.map((x) => own("assetSnapshots", x.id)),
     portfolios: data.portfolios.map((x) => own("portfolios", x.id)),
@@ -60,7 +61,13 @@ export function remapIds(data: Snapshot): Snapshot {
       propertyId: refOrNull("properties", t.propertyId),
       recurringId: refOrNull("recurrings", t.recurringId),
     })),
-    assets: data.assets.map((a, i) => ({ ...a, id: ids.assets[i], propertyId: refOrNull("properties", a.propertyId) })),
+    assetTypes: data.assetTypes.map((t, i) => ({ ...t, id: ids.assetTypes[i] })),
+    assets: data.assets.map((a, i) => ({
+      ...a,
+      id: ids.assets[i],
+      propertyId: refOrNull("properties", a.propertyId),
+      assetTypeId: refOrNull("assetTypes", a.assetTypeId),
+    })),
     assetSnapshots: data.assetSnapshots.map((s, i) => ({ ...s, id: ids.assetSnapshots[i], assetId: ref("assets", s.assetId) })),
     portfolios: data.portfolios.map((p, i) => ({
       ...p,

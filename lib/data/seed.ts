@@ -1,7 +1,7 @@
 import { addMonths, dayInMonth, todayIso } from "@/lib/domain/dates";
 import { annuityPayment } from "@/lib/domain/mortgage";
 import { occurrenceTransactions, occurrencesBetween, planOf } from "@/lib/domain/recurring";
-import type { Asset, AssetSnapshot, Category, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Asset, AssetSnapshot, AssetType, Category, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 
 /**
@@ -189,8 +189,13 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   // Investments: monthly snapshots at the end of each seed month.
   const assets: Asset[] = [];
   const assetSnapshots: AssetSnapshot[] = [];
-  const newAsset = (name: string, kind: Asset["kind"], propertyId: string | null = null) => {
-    const a: Asset = { id: newId(), name, kind, propertyId, active: true };
+  const assetType = (name: string): AssetType => ({ id: newId(), name });
+  const typeRv = assetType("Renta variable");
+  const typeRf = assetType("Renta fija");
+  const typeLiq = assetType("Liquidez");
+  const typeRe = assetType("Inmobiliario");
+  const newAsset = (name: string, kind: Asset["kind"], type: AssetType | null, propertyId: string | null = null) => {
+    const a: Asset = { id: newId(), name, kind, propertyId, assetTypeId: type?.id ?? null, active: true };
     assets.push(a);
     return a;
   };
@@ -205,10 +210,10 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     });
 
   // Transferred from another fund: fiscal cost (original contributions) below purchase value.
-  const rv = newAsset("Fondo indexado RV global", "fondo");
-  const rf = newAsset("Fondo indexado RF europea", "fondo");
-  const etf = newAsset("ETF S&P 500", "etf");
-  const cash = newAsset("Cuenta remunerada", "efectivo");
+  const rv = newAsset("Fondo indexado RV global", "fondo", typeRv);
+  const rf = newAsset("Fondo indexado RF europea", "fondo", typeRf);
+  const etf = newAsset("ETF S&P 500", "etf", typeRv);
+  const cash = newAsset("Cuenta remunerada", "efectivo", typeLiq);
   const rvValues = [31840.12, 32905.5, 32210.77, 33880.4, 34512.9, 35406.18];
   const rfValues = [15120.4, 15244.1, 15301.95, 15398.2, 15452.6, 15569.33];
   const etfValues = [8410.25, 8702.6, 8455.1, 8951.75, 9120.4, 9388.02];
@@ -220,8 +225,9 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     snapshot(etf, i, etfValues[i], i === 0 ? 8000 : null);
     snapshot(cash, i, cashValues[i]);
   });
-  const centroAsset = newAsset(centro.name, "inmobiliario", centro.id);
-  const playaAsset = newAsset(playa.name, "inmobiliario", playa.id);
+  const centroAsset = newAsset(centro.name, "inmobiliario", typeRe, centro.id);
+  // Left without a type on purpose, to show «Sin tipo» in the charts.
+  const playaAsset = newAsset(playa.name, "inmobiliario", null, playa.id);
   snapshot(centroAsset, 0, 245000);
   snapshot(playaAsset, 0, 168000);
 
@@ -237,6 +243,7 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     categories: Object.values(cat),
     transactions,
     recurrings,
+    assetTypes: [typeRv, typeRf, typeLiq, typeRe],
     assets,
     assetSnapshots,
     portfolios: [patrimonio, indexada, bogle, rentaVariable],

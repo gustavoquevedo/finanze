@@ -3,6 +3,7 @@ import { annuityPayment, installmentsBetween } from "@/lib/domain/mortgage";
 import type {
   Asset,
   AssetSnapshot,
+  AssetType,
   Category,
   MortgageAdjustment,
   Portfolio,
@@ -32,6 +33,7 @@ const LABEL: Record<keyof Snapshot, string> = {
   categories: "Categoría",
   transactions: "Movimiento",
   recurrings: "Recurrente",
+  assetTypes: "Tipo de activo",
   assets: "Activo",
   assetSnapshots: "Valor de activo",
   portfolios: "Cartera",
@@ -129,11 +131,13 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
     };
   });
 
+  const assetTypes: AssetType[] = (raw.assetTypes ?? []).map((t) => ({ id: t.id as string, name: str(t.name) }));
   const assets: Asset[] = (raw.assets ?? []).map((a) => ({
     id: a.id as string,
     name: str(a.name),
     kind: a.kind as Asset["kind"],
     propertyId: nullable<string>(a.propertyId),
+    assetTypeId: nullable<string>(a.assetTypeId),
     active: bool(a.active, true),
   }));
   const assetSnapshots: AssetSnapshot[] = (raw.assetSnapshots ?? []).map((s) => ({
@@ -151,7 +155,7 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
     assetIds: Array.isArray(p.assetIds) ? (p.assetIds as string[]) : [],
   }));
 
-  return { properties, categories, transactions, recurrings, assets, assetSnapshots, portfolios };
+  return { properties, categories, transactions, recurrings, assetTypes, assets, assetSnapshots, portfolios };
 }
 
 function validate(d: Snapshot): string[] {
@@ -247,8 +251,19 @@ function validate(d: Snapshot): string[] {
     }
   });
 
+  const typeNames = new Set<string>();
+  d.assetTypes.forEach((t, i) => {
+    const w = at("assetTypes", i, t.id);
+    const name = t.name.trim().toLocaleLowerCase("es");
+    if (!name) errors.push(`${w}: falta el nombre.`);
+    else if (typeNames.has(name)) errors.push(`${w}: nombre repetido.`);
+    typeNames.add(name);
+  });
+  const assetTypes = new Set(d.assetTypes.map((t) => t.id));
+
   d.assets.forEach((a, i) => {
     const w = at("assets", i, a.id);
+    if (a.assetTypeId !== null && !assetTypes.has(a.assetTypeId)) errors.push(`${w}: el tipo de activo «${a.assetTypeId}» no existe.`);
     if (!["fondo", "etf", "efectivo", "inmobiliario"].includes(a.kind)) errors.push(`${w}: kind debe ser fondo, etf, efectivo o inmobiliario.`);
     if (a.kind === "inmobiliario") {
       if (!a.propertyId || !properties.has(a.propertyId)) errors.push(`${w}: un activo inmobiliario necesita propertyId de un piso existente.`);

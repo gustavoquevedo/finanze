@@ -7,7 +7,14 @@ import { BackLink } from "@/components/BackLink";
 import { Donut } from "@/components/Donut";
 import { formatPct, Gain } from "@/components/Gain";
 import { InvestmentTotals } from "@/components/InvestmentTotals";
-import { portfolioView, type AssetValuation, type PortfolioChild, type Totals } from "@/lib/domain/investments";
+import {
+  allocationByType,
+  portfolioAssetIds,
+  portfolioView,
+  type AssetValuation,
+  type PortfolioChild,
+  type Totals,
+} from "@/lib/domain/investments";
 import type { Portfolio } from "@/lib/domain/types";
 import { formatCents } from "@/lib/format";
 import { loadInvestments } from "@/lib/investments-data";
@@ -31,6 +38,7 @@ function PortfolioDetail() {
   const portfolio = data?.portfolios.find((p) => p.id === id);
   const view = data && portfolio ? portfolioView(portfolio.id, data.portfolios, data.valuations) : null;
   const parent = portfolio?.parentId ? data?.portfolios.find((p) => p.id === portfolio.parentId) : undefined;
+  const [groupBy, setGroupBy] = useState<"activos" | "tipos">("activos");
 
   return (
     <div className="space-y-4">
@@ -65,9 +73,32 @@ function PortfolioDetail() {
           ) : (
             <>
               <section className="rounded-xl bg-white p-4 shadow-sm">
-                <h2 className="mb-3 font-semibold">Pesos</h2>
-                <Donut slices={view.children.map((c) => ({ id: c.id, name: c.name, value: c.totals.value }))} />
-                {view.overlap && (
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h2 className="font-semibold">Pesos</h2>
+                  <div role="radiogroup" aria-label="Agrupar por" className="grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1 text-sm">
+                    {(["activos", "tipos"] as const).map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        role="radio"
+                        aria-checked={groupBy === g}
+                        onClick={() => setGroupBy(g)}
+                        className={`rounded-md px-3 py-1 font-medium ${groupBy === g ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"}`}
+                      >
+                        {g === "activos" ? "Activos" : "Tipos"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {groupBy === "tipos" ? (
+                  <Donut
+                    slices={allocationByType(portfolioAssetIds(portfolio.id, data.portfolios), data.assets, data.assetTypes, data.valuations)}
+                    showValues
+                  />
+                ) : (
+                  <Donut slices={view.children.map((c) => ({ id: c.id, name: c.name, value: c.totals.value }))} />
+                )}
+                {groupBy === "activos" && view.overlap && (
                   <p className="mt-2 text-xs text-amber-800">
                     Algún activo está en varias subcarteras: los pesos del gráfico son sobre la suma de las partes, y en la tabla suman más del 100 %.
                   </p>

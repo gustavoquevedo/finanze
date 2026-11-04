@@ -1,9 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { canBeParent, portfolioAssetIds, portfolioView, sumValuations, valueAsset, type ValuationContext } from "./investments";
+import {
+  allocationByType,
+  canBeParent,
+  portfolioAssetIds,
+  portfolioView,
+  sumValuations,
+  UNTYPED,
+  valueAsset,
+  type ValuationContext,
+} from "./investments";
 import type { Asset, AssetSnapshot, Portfolio, Property, Recurring } from "./types";
 
 const asset = (id: string, kind: Asset["kind"] = "fondo", propertyId: string | null = null): Asset => ({
-  id, name: id.toUpperCase(), kind, propertyId, active: true,
+  id, name: id.toUpperCase(), kind, propertyId, assetTypeId: null, active: true,
 });
 let n = 0;
 const snap = (assetId: string, date: string, value: number, purchaseValue: number | null = null, fiscalCost: number | null = null): AssetSnapshot => ({
@@ -83,5 +92,31 @@ describe("portfolios", () => {
     expect(canBeParent("root", "root", portfolios)).toBe(false);
     expect(canBeParent("bogle", "liq", portfolios)).toBe(true);
     expect(canBeParent("bogle", null, portfolios)).toBe(true);
+  });
+});
+
+describe("allocationByType", () => {
+  const types = [{ id: "rf", name: "Renta fija" }, { id: "rv", name: "Renta variable" }, { id: "liq", name: "Liquidez" }];
+  const assets = [
+    { ...asset("a"), assetTypeId: "rv" },
+    { ...asset("b"), assetTypeId: "rv" },
+    { ...asset("c"), assetTypeId: "rf" },
+    { ...asset("d"), assetTypeId: null },
+    { ...asset("e"), assetTypeId: "deleted-type" },
+    { ...asset("f"), assetTypeId: "liq" },
+  ];
+  const snaps = [snap("a", "2026-10-31", 600), snap("b", "2026-10-31", 400), snap("c", "2026-10-31", 500), snap("d", "2026-10-31", 100), snap("e", "2026-10-31", 50)];
+  const valuations = new Map(assets.map((a) => [a.id, valueAsset(a, ctx(snaps))]));
+
+  it("groups values by type in name order, untyped last, with stable colour positions", () => {
+    expect(allocationByType(["a", "b", "c", "d", "e", "f", "a"], assets, types, valuations)).toEqual([
+      { id: "rf", name: "Renta fija", value: 500, colorIndex: 1 },
+      { id: "rv", name: "Renta variable", value: 1000, colorIndex: 2 },
+      { id: UNTYPED, name: "Sin tipo", value: 150, colorIndex: null },
+    ]);
+  });
+
+  it("only counts the given assets", () => {
+    expect(allocationByType(["c"], assets, types, valuations).map((s) => s.id)).toEqual(["rf"]);
   });
 });

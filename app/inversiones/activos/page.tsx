@@ -8,7 +8,8 @@ import { loadInvestments } from "@/lib/investments-data";
 import { useData } from "@/lib/use-data";
 
 export default function AssetsPage() {
-  const { data, error } = useData(loadInvestments);
+  const { data, error } = useData(async (repo) => ({ ...(await loadInvestments(repo)), types: await repo.listAssetTypes() }));
+  const typeName = (id: string | null) => data?.types.find((t) => t.id === id)?.name ?? "Sin tipo";
 
   return (
     <div className="space-y-4">
@@ -24,7 +25,7 @@ export default function AssetsPage() {
       {data?.assets.length === 0 && <p className="text-center text-slate-500">No hay activos. Pulsa + para crear uno.</p>}
       {data &&
         ASSET_KINDS.map(({ value: kind, label }) => {
-          const items = data.assets.filter((a) => a.kind === kind).map((a) => data.valuations.get(a.id)!);
+          const items = data.assets.filter((a) => a.kind === kind).map((a) => ({ ...data.valuations.get(a.id)!, assetTypeId: a.assetTypeId }));
           if (items.length === 0) return null;
           return (
             <section key={kind} className="space-y-2">
@@ -38,8 +39,9 @@ export default function AssetsPage() {
                     >
                       <div className="min-w-0">
                         <p className="truncate font-medium">{v.name}</p>
-                        <p className="text-xs text-slate-500">
-                          {v.valueDate ? `Valor a ${formatShortDate(v.valueDate)} ${v.valueDate.slice(0, 4)}` : "Sin valor todavía"}
+                        <p className="truncate text-xs text-slate-500">
+                          {typeName(v.assetTypeId)} ·{" "}
+                          {v.valueDate ? `valor a ${formatShortDate(v.valueDate)} ${v.valueDate.slice(0, 4)}` : "sin valor todavía"}
                         </p>
                       </div>
                       <div className="shrink-0 text-right text-sm">

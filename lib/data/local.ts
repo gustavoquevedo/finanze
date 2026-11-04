@@ -1,6 +1,6 @@
 import { addMonths, dayInMonth } from "@/lib/domain/dates";
 import { planRecurringGeneration } from "@/lib/domain/recurring";
-import type { Asset, Category, Id, Portfolio, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Asset, AssetType, Category, Id, Portfolio, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 import {
   ConstraintError,
@@ -42,6 +42,7 @@ const emptySnapshot = (): Snapshot => ({
   categories: [],
   transactions: [],
   recurrings: [],
+  assetTypes: [],
   assets: [],
   assetSnapshots: [],
   portfolios: [],
@@ -100,7 +101,8 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
     return { ...r, generatedUntil: dates.at(-1) ?? null };
   });
-  return { ...data, properties, categories, transactions, recurrings };
+  const assets = (data.assets ?? []).map((a) => ({ ...a, assetTypeId: a.assetTypeId ?? null }));
+  return { ...data, assetTypes: data.assetTypes ?? [], assets, properties, categories, transactions, recurrings };
 }
 
 /** Removes assets with their snapshots and portfolio memberships. */
@@ -111,7 +113,17 @@ function removeAssets(d: Snapshot, ids: Set<Id>): void {
   for (const p of d.portfolios) p.assetIds = p.assetIds.filter((a) => !ids.has(a));
 }
 
+function assertAssetType(d: Snapshot, t: Pick<AssetType, "name">, id?: Id): void {
+  const name = t.name.trim();
+  if (!name) throw new ConstraintError("Asset type name is required");
+  const same = (x: string) => x.trim().toLocaleLowerCase("es") === name.toLocaleLowerCase("es");
+  if (d.assetTypes.some((x) => x.id !== id && same(x.name))) throw new ConstraintError("Duplicate asset type name");
+}
+
 function assertAsset(d: Snapshot, a: Omit<Asset, "id">): void {
+  if (a.assetTypeId !== null && !d.assetTypes.some((t) => t.id === a.assetTypeId)) {
+    throw new ConstraintError(`Unknown asset type: ${a.assetTypeId}`);
+  }
   if (!a.name.trim()) throw new ConstraintError("Asset name is required");
   if (!ASSET_KINDS.includes(a.kind)) throw new ConstraintError(`Invalid asset kind: ${String(a.kind)}`);
   if ((a.kind === "inmobiliario") !== (a.propertyId !== null)) throw new ConstraintError("Real estate assets come from flats");
@@ -386,6 +398,29 @@ export function createSnapshotRepository(store: SnapshotStore, options: Snapshot
       }),
 
     listAssets: () => read((d) => [...d.assets].sort((a, b) => a.name.localeCompare(b.name, "es"))),
+    listAssetTypes: () => read((d) => [...d.assetTypes].sort((a, b) => a.name.localeCompare(b.name, "es"))),
+    createAssetType: (input) =>
+      mutate((d) => {
+        assertAssetType(d, input);
+        const type = { ...input, name: input.name.trim(), id: newId() };
+        d.assetTypes.push(type);
+        return type;
+      }),
+    updateAssetType: (id, patch) =>
+      mutate((d) => {
+        const current = d.assetTypes[findIndex(d.assetTypes, id, "AssetType")];
+        const next = { ...current, ...patch };
+        assertAssetType(d, next, id);
+        return update(d.assetTypes, id, { ...patch, name: next.name.trim() }, "AssetType");
+      }),
+    deleteAssetType: (id) =>
+      mutate((d) => {
+        findIndex(d.assetTypes, id, "AssetType");
+        d.assetTypes = d.assetTypes.filter((t) => t.id !== id);
+        // Same as `on delete set null` in the SQL schema.
+        for (const a of d.assets) if (a.assetTypeId === id) a.assetTypeId = null;
+      }),
+
     createAsset: (input) =>
       mutate((d) => {
         assertAsset(d, input);
@@ -400,6 +435,7 @@ export function createSnapshotRepository(store: SnapshotStore, options: Snapshot
           throw new ConstraintError("Real estate assets come from flats");
         }
         if (patch.propertyId !== undefined && patch.propertyId !== current.propertyId) throw new ConstraintError("Cannot relink an asset");
+        if (patch.assetTypeId) assertAsset(d, { ...current, ...patch });
         return update(d.assets, id, patch, "Asset");
       }),
     deleteAsset: (id) =>
@@ -463,7 +499,9 @@ export function createSnapshotRepository(store: SnapshotStore, options: Snapshot
         const linked = new Set(data.assets.map((a) => a.propertyId));
         const missing = data.properties.filter((p) => !linked.has(p.id));
         if (missing.length === 0) return 0;
-        for (const p of missing) data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, active: true });
+        for (const p of missing) {
+          data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, assetTypeId: null, active: true });
+        }
         await store.save(data);
         return missing.length;
       }),
