@@ -103,7 +103,7 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
     return { ...r, generatedUntil: dates.at(-1) ?? null };
   });
-  const assets = (data.assets ?? []).map((a) => ({ ...a, assetTypeId: a.assetTypeId ?? null }));
+  const assets = (data.assets ?? []).map((a) => ({ ...a, assetTypeId: a.assetTypeId ?? null, dailyUse: a.dailyUse ?? true }));
   const assetTypes = (data.assetTypes ?? []).map((t) => ({ ...t, icon: t.icon ?? null }));
   return { ...data, assetTypes, assets, properties, categories, transactions, recurrings };
 }
@@ -509,7 +509,7 @@ export function createSnapshotRepository(store: SnapshotStore, options: Snapshot
         const missing = data.properties.filter((p) => !linked.has(p.id));
         if (missing.length === 0) return 0;
         for (const p of missing) {
-          data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, assetTypeId: null, active: true });
+          data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, assetTypeId: null, dailyUse: true, active: true });
         }
         await store.save(data);
         return missing.length;

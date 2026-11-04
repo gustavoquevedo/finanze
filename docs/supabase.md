@@ -65,3 +65,4 @@ SQL Editor **antes** (o justo después) de fusionar el PR, en orden de número.
 |---|---|
 | `002_asset_types.sql` | Tipos de activo: tabla `asset_types` y columna `assets.asset_type_id` |
 | `003_icons.sql` | Iconos: columna `icon` en `categories` y `asset_types` |
+| `004_daily_use.sql` | Cuentas del día a día: columna `assets.daily_use` |

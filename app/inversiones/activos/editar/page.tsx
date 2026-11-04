@@ -260,6 +260,7 @@ function AssetDetails({ asset, types, onSaved, onDelete }: { asset: Asset; types
   const [name, setName] = useState(asset.name);
   const [kind, setKind] = useState<AssetKind>(asset.kind);
   const [assetTypeId, setAssetTypeId] = useState(asset.assetTypeId ?? "");
+  const [dailyUse, setDailyUse] = useState(asset.dailyUse);
   const [error, setError] = useState<string>();
   return (
     <section className="space-y-3">
@@ -269,7 +270,7 @@ function AssetDetails({ asset, types, onSaved, onDelete }: { asset: Asset; types
         onSubmit={async (e) => {
           e.preventDefault();
           if (!name.trim()) return setError("Indica un nombre.");
-          await getRepository().updateAsset(asset.id, { name: name.trim(), kind, assetTypeId: assetTypeId || null });
+          await getRepository().updateAsset(asset.id, { name: name.trim(), kind, assetTypeId: assetTypeId || null, dailyUse });
           onSaved();
         }}
         className="space-y-3"
@@ -288,6 +289,18 @@ function AssetDetails({ asset, types, onSaved, onDelete }: { asset: Asset; types
           </select>
         </div>
         <AssetTypeSelect id="as-type" types={types} value={assetTypeId} onChange={setAssetTypeId} />
+        {kind === "efectivo" && (
+          <label className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white p-3">
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-emerald-700" checked={dailyUse} onChange={(e) => setDailyUse(e.target.checked)} />
+            <span>
+              <span className="block font-medium">Cuenta del día a día</span>
+              <span className="block text-sm text-slate-500">
+                Se usa para estimar el gasto no registrado con su saldo a fin de mes. Desmárcala en cuentas de ahorro de las que no
+                gastas.
+              </span>
+            </span>
+          </label>
+        )}
         <button type="submit" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-700">
           Guardar datos
         </button>

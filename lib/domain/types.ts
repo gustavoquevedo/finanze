@@ -148,6 +148,11 @@ export interface Asset {
   propertyId: Id | null;
   /** User-defined type, or `null` = «Sin tipo». */
   assetTypeId: Id | null;
+  /**
+   * Cash only: an everyday account, used to estimate unrecorded spending from the change in its
+   * month-end balance. Default true for cash; ignored for other kinds.
+   */
+  dailyUse: boolean;
   active: boolean;
 }
 

@@ -198,7 +198,7 @@ export function createSeedData(today: string = todayIso(), options: SeedOptions 
   const assetSnapshots: AssetSnapshot[] = [];
   const [typeRv, typeRf, typeLiq, typeRe] = DEFAULT_ASSET_TYPES.map((t): AssetType => ({ ...t, id: newId() }));
   const newAsset = (name: string, kind: Asset["kind"], type: AssetType | null, propertyId: string | null = null) => {
-    const a: Asset = { id: newId(), name, kind, propertyId, assetTypeId: type?.id ?? null, active: true };
+    const a: Asset = { id: newId(), name, kind, propertyId, assetTypeId: type?.id ?? null, dailyUse: true, active: true };
     assets.push(a);
     return a;
   };
@@ -223,9 +223,19 @@ export function createSeedData(today: string = todayIso(), options: SeedOptions 
   const rvValues = months.map((_, i) => round2((30000 + 300 * i) * (1.06 + 0.009 * i + wave(i, 0.025, 0))));
   const rfValues = months.map((_, i) => round2((15000 + 100 * i) * (1.008 + 0.0015 * i + wave(i, 0.004, 1))));
   const etfValues = months.map((_, i) => round2(8000 * (1.05 + 0.011 * i + wave(i, 0.03, 2))));
-  const cashValues = months.map((_, i) => round2(12000 + 140 * i + wave(i, 420, 0.5)));
+  // The everyday account moves with the month's money: income − expenses − principal − fund
+  // contributions − some spending that was never recorded (900–1.300 €), as in real life.
+  const cashValues: number[] = [];
+  months.forEach((month, i) => {
+    const inMonth = transactions.filter((t) => t.date.startsWith(month + "-"));
+    const sum = (f: (t: Transaction) => boolean) => inMonth.filter(f).reduce((s, t) => s + t.amount, 0) / 100;
+    const net = sum((t) => t.type === "ingreso") - sum((t) => t.type === "gasto");
+    const contributions = 300 + 100; // equity fund + bond fund
+    const unrecorded = 1100 + wave(i, 200, 1.7);
+    cashValues.push(round2((i === 0 ? 12000 : cashValues[i - 1]) + (i === 0 ? 0 : net - contributions - unrecorded)));
+  });
   months.forEach((_, i) => {
-    // 300 €/month into the equity fund and 100 €/month into the bond fund.
+    // 300 €/month into the equity fund and 100 €/month into the bond fund (from the first month).
     snapshot(rv, i, rvValues[i], 30000 + 300 * i, 22000 + 300 * i);
     snapshot(rf, i, rfValues[i], 15000 + 100 * i, 15000 + 100 * i);
     snapshot(etf, i, etfValues[i], i === 0 ? 8000 : null);

@@ -5,20 +5,29 @@ import { useEffect, useState } from "react";
 import { SummaryCard } from "@/components/SummaryCard";
 import { dataMode, isEmpty, lastBackupAt } from "@/lib/data";
 import { computeTotals } from "@/lib/domain/totals";
-import { formatMonth } from "@/lib/format";
+import { addMonths, todayIso } from "@/lib/domain/dates";
+import { everydayAccounts, isComputable, monthSpending } from "@/lib/domain/spending";
+import { formatCents, formatMonth } from "@/lib/format";
 import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function HomePage() {
   const { data, error } = useData(async (repo) => {
-    const [transactions, properties, categories] = await Promise.all([
+    const [transactions, properties, categories, assets, snapshots] = await Promise.all([
       repo.listTransactions(),
       repo.listProperties(),
       repo.listCategories(),
+      repo.listAssets(),
+      repo.listAssetSnapshots(),
     ]);
     const month = transactions[0]?.date.slice(0, 7) ?? null;
     const pending = transactions.filter((t) => !t.confirmed).length;
-    return { month, properties, pending, categories, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
+    // Estimated spending of the last closed month (only when there are everyday accounts).
+    const today = todayIso();
+    const spending = everydayAccounts(assets).length
+      ? monthSpending({ transactions, categories, assets, snapshots }, addMonths(today.slice(0, 7), -1), today)
+      : null;
+    return { month, properties, pending, categories, spending, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
   });
   // Read after mounting: the page is prerendered without access to the browser storage.
   const [lastBackup, setLastBackup] = useState<string | null>(null);
@@ -73,6 +82,19 @@ export default function HomePage() {
             />
           ))}
         </>
+      )}
+      {data?.spending && (
+        <Link href="/gasto-estimado" className="flex items-center justify-between gap-3 rounded-xl bg-white p-4 shadow-sm">
+          <span>
+            <span className="block text-sm text-slate-500">🧮 Gasto personal en {formatMonth(data.spending.month).toLowerCase()}</span>
+            {isComputable(data.spending) ? (
+              <span className="block text-lg font-semibold tabular-nums">{formatCents(data.spending.personalTotal)}</span>
+            ) : (
+              <span className="block text-sm text-amber-800">Faltan saldos para calcularlo</span>
+            )}
+          </span>
+          <span aria-hidden className="text-slate-400">›</span>
+        </Link>
       )}
       <Link
         href="/resumen"

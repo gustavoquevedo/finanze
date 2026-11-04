@@ -108,6 +108,7 @@ export function toRows(d: Snapshot): Record<Table, Row[]> {
       kind: a.kind,
       property_id: a.propertyId,
       asset_type_id: a.assetTypeId,
+      daily_use: a.dailyUse,
       active: a.active,
     })),
     asset_snapshots: d.assetSnapshots.map((s) => ({
@@ -213,6 +214,7 @@ export function fromRows(rows: Record<Table, Row[]>): Snapshot {
         kind: a.kind as Asset["kind"],
         propertyId: (a.property_id as string | null) ?? null,
         assetTypeId: (a.asset_type_id as string | null) ?? null,
+        dailyUse: (a.daily_use as boolean | null) ?? true,
         active: a.active as boolean,
       }),
     ),
