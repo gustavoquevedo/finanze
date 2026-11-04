@@ -4,16 +4,21 @@ import Link from "next/link";
 import { useState } from "react";
 import { SummaryCard } from "@/components/SummaryCard";
 import { restoreSeedData } from "@/lib/data";
+import { computeTotals } from "@/lib/domain/totals";
 import { formatMonth } from "@/lib/format";
 import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function HomePage() {
   const { data, error, reload } = useData(async (repo) => {
-    const [transactions, properties] = await Promise.all([repo.listTransactions(), repo.listProperties()]);
+    const [transactions, properties, categories] = await Promise.all([
+      repo.listTransactions(),
+      repo.listProperties(),
+      repo.listCategories(),
+    ]);
     const month = transactions[0]?.date.slice(0, 7) ?? null;
     const pending = transactions.filter((t) => !t.confirmed).length;
-    return { month, properties, pending, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
+    return { month, properties, pending, categories, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
   });
   const [restoring, setRestoring] = useState(false);
 
@@ -49,18 +54,18 @@ export default function HomePage() {
           <h2 className="text-sm font-medium text-slate-500">
             Resumen{data.month && ` de ${formatMonth(data.month).toLowerCase()}`}
           </h2>
-          <SummaryCard title="Global" href={transactionsHref({ mes: data.month ?? undefined })} transactions={data.monthTx} />
+          <SummaryCard title="Global" href={transactionsHref({ mes: data.month ?? undefined })} totals={computeTotals(data.monthTx, data.categories)} />
           <SummaryCard
             title="Personal"
             href={transactionsHref({ mes: data.month ?? undefined, piso: PERSONAL })}
-            transactions={data.monthTx.filter((t) => t.propertyId === null)}
+            totals={computeTotals(data.monthTx.filter((t) => t.propertyId === null), data.categories)}
           />
           {data.properties.map((p) => (
             <SummaryCard
               key={p.id}
               title={p.name}
               href={transactionsHref({ mes: data.month ?? undefined, piso: p.id })}
-              transactions={data.monthTx.filter((t) => t.propertyId === p.id)}
+              totals={computeTotals(data.monthTx.filter((t) => t.propertyId === p.id), data.categories)}
             />
           ))}
         </>

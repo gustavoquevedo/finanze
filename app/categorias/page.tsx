@@ -63,7 +63,12 @@ function CategoryRow({ category: c, uses }: { category: Category; uses: number }
       >
         <span className="min-w-0 truncate font-medium">{c.name}</span>
         <span className="flex shrink-0 items-center gap-2 text-xs text-slate-500">
-          {c.deductible && <span className="rounded bg-emerald-50 px-1.5 py-0.5 font-medium text-emerald-700">Deducible</span>}
+          {c.notExpense && <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium text-slate-600">No es gasto</span>}
+          {c.deductible && (
+            <span className="rounded bg-emerald-50 px-1.5 py-0.5 font-medium text-emerald-700">
+              Deducible{c.limitedDeduction && " · límite"}
+            </span>
+          )}
           {uses === 0 ? "Sin usar" : uses === 1 ? "1 uso" : `${uses} usos`}
           <span aria-hidden className="text-slate-400">›</span>
         </span>

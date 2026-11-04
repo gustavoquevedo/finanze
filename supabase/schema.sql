@@ -13,6 +13,8 @@ create table properties (
   address text not null default '',
   purchase_date date not null,
   acquisition_price bigint not null check (acquisition_price >= 0),
+  purchase_costs bigint not null default 0 check (purchase_costs >= 0),
+  cadastral_value bigint check (cadastral_value >= 0),
   construction_percentage numeric(5, 2) not null check (construction_percentage between 0 and 100),
   active boolean not null default true,
   created_at timestamptz not null default now()
@@ -25,7 +27,13 @@ create table categories (
   type transaction_type not null,
   scope category_scope not null,
   deductible boolean not null default false,
-  created_at timestamptz not null default now()
+  -- Money out that is not an expense (mortgage principal).
+  not_expense boolean not null default false,
+  -- Counts towards the Renta limit of interest + repairs <= income.
+  limited_deduction boolean not null default false,
+  created_at timestamptz not null default now(),
+  check (not (not_expense and deductible)),
+  check (not limited_deduction or deductible)
 );
 
 create table recurrings (

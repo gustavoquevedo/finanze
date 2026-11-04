@@ -3,9 +3,9 @@ import { categoriesFor, validateTransactionForm, type TransactionFormValues } fr
 import type { Category } from "./types";
 
 const categories: Category[] = [
-  { id: "rent", name: "Alquiler", type: "ingreso", scope: "piso", deductible: false },
-  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true },
-  { id: "food", name: "Alimentación", type: "gasto", scope: "personal", deductible: false },
+  { id: "rent", name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false },
+  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false },
+  { id: "food", name: "Alimentación", type: "gasto", scope: "personal", deductible: false, notExpense: false, limitedDeduction: false },
 ];
 
 const values = (o: Partial<TransactionFormValues> = {}): TransactionFormValues => ({

@@ -19,6 +19,10 @@ export interface Property {
   address: string;
   purchaseDate: IsoDate;
   acquisitionPrice: Cents;
+  /** Purchase costs and taxes (notary, registry, ITP/IVA…). Part of the acquisition cost for tax depreciation. */
+  purchaseCosts: Cents;
+  /** Total cadastral value (IBI receipt), or `null` if unknown. */
+  cadastralValue: Cents | null;
   /** Share (0-100) of the cadastral value that belongs to the building, used for depreciation. */
   constructionPercentage: number;
   active: boolean;
@@ -31,6 +35,16 @@ export interface Category {
   scope: CategoryScope;
   /** Deductible in the Spanish income tax return (Renta). */
   deductible: boolean;
+  /**
+   * Money out that is not an expense (e.g. mortgage principal): excluded from expenses and net,
+   * shown apart and included in cash flow. Only for `gasto`; never deductible.
+   */
+  notExpense: boolean;
+  /**
+   * Deductible expense subject to the Renta limit: interest plus repairs and maintenance
+   * cannot exceed the rental income (the excess carries over 4 years).
+   */
+  limitedDeduction: boolean;
 }
 
 export interface Transaction {

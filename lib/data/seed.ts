@@ -17,16 +17,18 @@ type CategoryKey =
   | "reparaciones" | "suministros" | "basuras" | "gestoria" | "otrosPiso"
   | "nomina" | "alimentacion" | "hogar" | "transporte" | "ocio" | "salud" | "otrosPersonal";
 
-const CATEGORIES: Record<CategoryKey, Omit<Category, "id">> = {
+type SeedCategory = Omit<Category, "id" | "notExpense" | "limitedDeduction"> & Partial<Pick<Category, "notExpense" | "limitedDeduction">>;
+
+const CATEGORIES: Record<CategoryKey, SeedCategory> = {
   alquiler: { name: "Alquiler", type: "ingreso", scope: "piso", deductible: false },
-  intereses: { name: "Intereses hipoteca", type: "gasto", scope: "piso", deductible: true },
+  intereses: { name: "Intereses hipoteca", type: "gasto", scope: "piso", deductible: true, limitedDeduction: true },
   // Paying off principal is money out, but not a deductible expense.
-  capital: { name: "Amortización capital hipoteca", type: "gasto", scope: "piso", deductible: false },
+  capital: { name: "Amortización capital hipoteca", type: "gasto", scope: "piso", deductible: false, notExpense: true },
   ibi: { name: "IBI", type: "gasto", scope: "piso", deductible: true },
   comunidad: { name: "Comunidad", type: "gasto", scope: "piso", deductible: true },
   seguroHogar: { name: "Seguro hogar", type: "gasto", scope: "piso", deductible: true },
   seguroImpago: { name: "Seguro impago", type: "gasto", scope: "piso", deductible: true },
-  reparaciones: { name: "Reparaciones y conservación", type: "gasto", scope: "piso", deductible: true },
+  reparaciones: { name: "Reparaciones y conservación", type: "gasto", scope: "piso", deductible: true, limitedDeduction: true },
   suministros: { name: "Suministros", type: "gasto", scope: "piso", deductible: true },
   basuras: { name: "Tasa de basuras", type: "gasto", scope: "piso", deductible: true },
   gestoria: { name: "Gestoría", type: "gasto", scope: "piso", deductible: true },
@@ -46,7 +48,10 @@ export function createSeedData(today: string = todayIso()): Snapshot {
   const firstDay = dayInMonth(months[0], 1);
 
   const cat = Object.fromEntries(
-    Object.entries(CATEGORIES).map(([key, value]) => [key, { ...value, id: newId() }]),
+    Object.entries(CATEGORIES).map(([key, value]) => [
+      key,
+      { notExpense: false, limitedDeduction: false, ...value, id: newId() },
+    ]),
   ) as Record<CategoryKey, Category>;
 
   const centro: Property = {
@@ -55,6 +60,8 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     address: "Calle del Ejemplo 12, 3º B, Valladolid",
     purchaseDate: "2019-03-15",
     acquisitionPrice: euros(168000),
+    purchaseCosts: euros(14280),
+    cadastralValue: euros(96400),
     constructionPercentage: 62,
     active: true,
   };
@@ -64,6 +71,8 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     address: "Avenida Ficticia 4, 1º A, Gandía",
     purchaseDate: "2022-06-01",
     acquisitionPrice: euros(129500),
+    purchaseCosts: euros(11650),
+    cadastralValue: euros(71200),
     constructionPercentage: 55,
     active: true,
   };

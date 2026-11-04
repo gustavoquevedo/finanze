@@ -1,9 +1,9 @@
 import Link from "next/link";
-import type { Transaction } from "@/lib/domain/types";
+import type { Totals as TotalsValue } from "@/lib/domain/totals";
 import { Totals } from "./Totals";
 
 /** Tappable summary card that opens the filtered transactions list. */
-export function SummaryCard({ title, href, transactions }: { title: string; href: string; transactions: Transaction[] }) {
+export function SummaryCard({ title, href, totals }: { title: string; href: string; totals: TotalsValue }) {
   return (
     <Link
       href={href}
@@ -14,7 +14,7 @@ export function SummaryCard({ title, href, transactions }: { title: string; href
         {title}
         <span aria-hidden className="text-slate-400">›</span>
       </h3>
-      <Totals transactions={transactions} />
+      <Totals totals={totals} />
     </Link>
   );
 }

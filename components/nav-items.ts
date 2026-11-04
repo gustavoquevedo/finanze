@@ -9,6 +9,7 @@ export const NAV_ITEMS = [
 export const MENU_ITEMS = [
   ...NAV_ITEMS,
   { href: "/resumen", label: "Resumen anual", icon: "📊" },
+  { href: "/renta", label: "Renta", icon: "🧾" },
   { href: "/categorias", label: "Categorías", icon: "🏷️" },
 ];
 

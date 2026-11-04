@@ -30,10 +30,12 @@ beforeEach(async () => {
     address: "Calle Falsa 1",
     purchaseDate: "2020-01-01",
     acquisitionPrice: 10000000,
+    purchaseCosts: 0,
+    cadastralValue: null,
     constructionPercentage: 60,
     active: true,
   });
-  rent = await repo.createCategory({ name: "Alquiler", type: "ingreso", scope: "piso", deductible: false });
+  rent = await repo.createCategory({ name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false });
 });
 
 describe("local repository", () => {
@@ -77,7 +79,7 @@ describe("local repository", () => {
   });
 
   it("sorts transactions newest first and filters them", async () => {
-    const gasto = await repo.createCategory({ name: "IBI", type: "gasto", scope: "piso", deductible: true });
+    const gasto = await repo.createCategory({ name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false });
     await repo.createTransaction(tx({ date: "2026-04-01" }));
     await repo.createTransaction(tx({ date: "2026-05-20", type: "gasto", categoryId: gasto.id, amount: 30000 }));
     await repo.createTransaction(tx({ date: "2026-05-02", propertyId: null }));
@@ -119,8 +121,8 @@ describe("local repository", () => {
     await repo.createTransaction(tx());
     await expect(repo.updateCategory(rent.id, { type: "gasto" })).rejects.toBeInstanceOf(ConstraintError);
     await expect(repo.updateCategory(rent.id, { scope: "personal" })).rejects.toBeInstanceOf(ConstraintError);
-    expect(await repo.updateCategory(rent.id, { name: "Rentas", deductible: true, type: "ingreso" })).toMatchObject({ name: "Rentas", deductible: true });
-    const unused = await repo.createCategory({ name: "Varios", type: "gasto", scope: "piso", deductible: false });
+    expect(await repo.updateCategory(rent.id, { name: "Rentas", deductible: true, type: "ingreso" })).toMatchObject({ name: "Rentas", deductible: true, notExpense: false, limitedDeduction: false });
+    const unused = await repo.createCategory({ name: "Varios", type: "gasto", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false });
     expect(await repo.updateCategory(unused.id, { type: "ingreso", scope: "personal" })).toMatchObject({ type: "ingreso", scope: "personal" });
   });
 
@@ -231,5 +233,22 @@ describe("migrateSnapshot", () => {
     const migrated = migrateSnapshot(old);
     expect(migrated.transactions.every((t) => t.confirmed)).toBe(true);
     expect(migrated.recurrings.map((r) => r.generatedUntil)).toEqual(["2026-10-01", null]);
+  });
+
+  it("infers the new category flags and property fields for older data", () => {
+    const old = {
+      properties: [{ id: "p1", name: "Piso" }],
+      categories: [
+        { id: "c1", name: "Amortización capital hipoteca", type: "gasto", deductible: false },
+        { id: "c2", name: "Intereses hipoteca", type: "gasto", deductible: true },
+        { id: "c3", name: "Reparaciones y conservación", type: "gasto", deductible: true },
+        { id: "c4", name: "IBI", type: "gasto", deductible: true },
+      ],
+      recurrings: [],
+      transactions: [],
+    } as unknown as Parameters<typeof migrateSnapshot>[0];
+    const m = migrateSnapshot(old);
+    expect(m.categories.map((c) => [c.notExpense, c.limitedDeduction])).toEqual([[true, false], [false, true], [false, true], [false, false]]);
+    expect(m.properties[0]).toMatchObject({ purchaseCosts: 0, cadastralValue: null });
   });
 });

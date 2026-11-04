@@ -49,6 +49,23 @@ function Segmented<T extends string>({
   );
 }
 
+function Check({ checked, onChange, title, hint }: { checked: boolean; onChange: (v: boolean) => void; title: string; hint: string }) {
+  return (
+    <label className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white p-3">
+      <input
+        type="checkbox"
+        className="mt-0.5 h-5 w-5 shrink-0 accent-emerald-700"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <span>
+        <span className="block font-medium">{title}</span>
+        <span className="block text-sm text-slate-500">{hint}</span>
+      </span>
+    </label>
+  );
+}
+
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
 export function CategoryForm({ initial, existing, editingId, usage, submitLabel, onSubmit, onDelete }: Props) {
@@ -118,24 +135,38 @@ export function CategoryForm({ initial, existing, editingId, usage, submitLabel,
         />
       </div>
 
-      <label className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white p-3">
-        <input
-          type="checkbox"
-          className="mt-0.5 h-5 w-5 accent-emerald-700"
-          checked={values.deductible}
-          onChange={(e) => set({ deductible: e.target.checked })}
-        />
-        <span>
-          <span className="block font-medium">Deducible en la Renta</span>
-          <span className="block text-sm text-slate-500">Se incluirá en el resumen para la Renta del piso.</span>
-        </span>
-      </label>
+      {values.type === "gasto" && (
+        <div className="space-y-2">
+          <Check
+            checked={values.notExpense}
+            onChange={(notExpense) => set({ notExpense, ...(notExpense ? { deductible: false, limitedDeduction: false } : {}) })}
+            title="No es gasto"
+            hint="Dinero que sale pero no es un gasto, como el capital de la hipoteca. No resta del neto; cuenta en el flujo de caja."
+          />
+          {!values.notExpense && (
+            <Check
+              checked={values.deductible}
+              onChange={(deductible) => set({ deductible, ...(deductible ? {} : { limitedDeduction: false }) })}
+              title="Deducible en la Renta"
+              hint="Se incluirá en el resumen para la Renta del piso."
+            />
+          )}
+          {values.deductible && !values.notExpense && (
+            <Check
+              checked={values.limitedDeduction}
+              onChange={(limitedDeduction) => set({ limitedDeduction })}
+              title="Cuenta en el límite de intereses y reparaciones"
+              hint="Intereses de financiación y gastos de reparación y conservación: juntos no pueden superar los ingresos del piso; el exceso se aplica en los 4 años siguientes."
+            />
+          )}
+        </div>
+      )}
 
       {used && usage && (
         <p className="rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-800">
           Se usa en {plural(usage.transactions, "movimiento", "movimientos")}
           {usage.recurrings > 0 && ` y ${plural(usage.recurrings, "recurrente", "recurrentes")}`}. Solo puedes cambiar el
-          nombre y si es deducible; no se puede eliminar.
+          nombre y las opciones fiscales; no se puede eliminar.
         </p>
       )}
 

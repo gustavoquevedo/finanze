@@ -1,34 +1,33 @@
-import type { Transaction } from "@/lib/domain/types";
+import type { Totals as TotalsValue } from "@/lib/domain/totals";
 import { Amount } from "./Amount";
 
-export function sumTotals(transactions: Transaction[]) {
-  let income = 0;
-  let expense = 0;
-  for (const t of transactions) {
-    if (t.type === "ingreso") income += t.amount;
-    else expense += t.amount;
-  }
-  return { income, expense, net: income - expense };
-}
-
-export function Totals(
-  props: { transactions: Transaction[] } | { totals: { income: number; expense: number; net: number } },
-) {
-  const { income, expense, net } = "totals" in props ? props.totals : sumTotals(props.transactions);
+/** Income, expenses and net; plus cash flow when there is mortgage principal. */
+export function Totals({ totals }: { totals: TotalsValue }) {
+  const { income, expense, net, principal, cashFlow } = totals;
   return (
-    <dl className="grid grid-cols-3 gap-2 text-sm">
-      <div>
-        <dt className="text-slate-500">Ingresos</dt>
-        <dd><Amount cents={income} type="ingreso" /></dd>
-      </div>
-      <div>
-        <dt className="text-slate-500">Gastos</dt>
-        <dd><Amount cents={expense} type="gasto" /></dd>
-      </div>
-      <div>
-        <dt className="text-slate-500">Neto</dt>
-        <dd className="font-semibold"><Amount cents={net} /></dd>
-      </div>
-    </dl>
+    <div>
+      <dl className="grid grid-cols-3 gap-2 text-sm">
+        <div>
+          <dt className="text-slate-500">Ingresos</dt>
+          <dd><Amount cents={income} type="ingreso" /></dd>
+        </div>
+        <div>
+          <dt className="text-slate-500">Gastos</dt>
+          <dd><Amount cents={expense} type="gasto" /></dd>
+        </div>
+        <div>
+          <dt className="text-slate-500">Neto</dt>
+          <dd className="font-semibold"><Amount cents={net} /></dd>
+        </div>
+      </dl>
+      {principal > 0 && (
+        <p className="mt-2 flex justify-between gap-2 border-t border-slate-100 pt-2 text-xs text-slate-500">
+          <span>Capital hipoteca <Amount cents={principal} type="gasto" /></span>
+          <span>
+            Flujo de caja <span className="font-medium"><Amount cents={cashFlow} /></span>
+          </span>
+        </p>
+      )}
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import type { Totals } from "./totals";
 import type { Category, Cents, Id, Transaction } from "./types";
 
 /** Which expenses to include. Income is never filtered (rent is not "deductible" but is needed). */
@@ -27,8 +28,11 @@ export interface MonthTotal {
 export interface AnnualSummary {
   year: number;
   income: CategoryTotal[];
+  /** Real expenses (without `notExpense` categories). */
   expense: CategoryTotal[];
-  totals: { income: Cents; expense: Cents; net: Cents };
+  /** Money out that is not an expense (mortgage principal). */
+  principal: CategoryTotal[];
+  totals: Totals;
   /** Always 12 months, January to December. */
   months: MonthTotal[];
   /** Pending (automatic, unconfirmed) transactions included in the totals. */
@@ -55,7 +59,9 @@ export function annualSummary(transactions: Transaction[], categories: Category[
     if (propertyId !== undefined && t.propertyId !== propertyId) continue;
     const category = byId.get(t.categoryId);
     if (!category) continue;
-    if (t.type === "gasto" && deductible !== "todos" && category.deductible !== (deductible === "deducibles")) continue;
+    // Principal is shown apart unless only deductible expenses are wanted.
+    if (t.type === "gasto" && !category.notExpense && deductible !== "todos" && category.deductible !== (deductible === "deducibles")) continue;
+    if (category.notExpense && deductible === "deducibles") continue;
 
     const entry = perCategory.get(category.id) ?? { category, amount: 0, count: 0 };
     entry.amount += t.amount;
@@ -64,18 +70,20 @@ export function annualSummary(transactions: Transaction[], categories: Category[
 
     const m = months[Number(t.date.slice(5, 7)) - 1];
     if (t.type === "ingreso") m.income += t.amount;
-    else m.expense += t.amount;
+    else if (!category.notExpense) m.expense += t.amount;
     if (!t.confirmed) pending += 1;
   }
 
   for (const m of months) m.net = m.income - m.expense;
   const sorted = [...perCategory.values()].sort((a, b) => b.amount - a.amount);
   const income = sorted.filter((c) => c.category.type === "ingreso");
-  const expense = sorted.filter((c) => c.category.type === "gasto");
+  const expense = sorted.filter((c) => c.category.type === "gasto" && !c.category.notExpense);
+  const principal = sorted.filter((c) => c.category.notExpense);
   const sum = (xs: CategoryTotal[]) => xs.reduce((s, x) => s + x.amount, 0);
-  const totals = { income: sum(income), expense: sum(expense), net: sum(income) - sum(expense) };
+  const net = sum(income) - sum(expense);
+  const totals = { income: sum(income), expense: sum(expense), net, principal: sum(principal), cashFlow: net - sum(principal) };
 
-  return { year, income, expense, totals, months, pending };
+  return { year, income, expense, principal, totals, months, pending };
 }
 
 /** Years with data, newest first, always including `currentYear`. */

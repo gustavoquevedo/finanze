@@ -104,13 +104,24 @@ function Summary() {
             )}
             {gastos === "deducibles" && (
               <p className="mt-2 text-xs text-slate-500">
-                Ingresos completos y solo gastos deducibles. Orientativo: no sustituye a un asesor.
+                Ingresos completos y solo gastos deducibles, sin amortización del inmueble. Para la Renta usa el resumen específico.
               </p>
             )}
           </section>
 
           <CategorySection title="Ingresos" items={summary.income} type="ingreso" linkFor={linkFor} />
           <CategorySection title="Gastos" items={summary.expense} type="gasto" linkFor={linkFor} />
+          {summary.principal.length > 0 && (
+            <CategorySection title="No es gasto (capital)" items={summary.principal} type="gasto" linkFor={linkFor} />
+          )}
+          {piso && piso !== PERSONAL && (
+            <Link
+              href={`/renta?piso=${encodeURIComponent(piso)}&anio=${year}`}
+              className="flex items-center justify-between rounded-xl bg-white p-4 font-medium text-emerald-700 shadow-sm"
+            >
+              🧾 Ver resumen para la Renta <span aria-hidden>›</span>
+            </Link>
+          )}
 
           <section className="space-y-2">
             <h2 className="text-sm font-medium text-slate-500">Por meses</h2>
@@ -158,7 +169,7 @@ function CategorySection({
   const total = items.reduce((s, x) => s + x.amount, 0);
   return (
     <section className="space-y-2">
-      <h2 className="text-sm font-medium text-slate-500">{title} por categoría</h2>
+      <h2 className="text-sm font-medium text-slate-500">{title.includes("(") ? title : `${title} por categoría`}</h2>
       {items.length === 0 ? (
         <p className="text-sm text-slate-400">Sin movimientos.</p>
       ) : (

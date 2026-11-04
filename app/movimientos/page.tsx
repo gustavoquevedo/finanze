@@ -7,6 +7,7 @@ import { Amount } from "@/components/Amount";
 import { PendingBadge } from "@/components/PendingBadge";
 import { Totals } from "@/components/Totals";
 import { getRepository, type TransactionFilter } from "@/lib/data";
+import { computeTotals } from "@/lib/domain/totals";
 import { formatMonth, formatShortDate } from "@/lib/format";
 import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
@@ -122,7 +123,7 @@ function TransactionsList() {
       {list.error && <p className="text-rose-700">Error: {list.error}</p>}
       {list.data && (
         <>
-          <div className="rounded-xl bg-white p-4 shadow-sm"><Totals transactions={list.data} /></div>
+          <div className="rounded-xl bg-white p-4 shadow-sm"><Totals totals={computeTotals(list.data, categories)} /></div>
           {list.data.length === 0 ? (
             <p className="text-center text-slate-500">
               {onlyPending ? "No hay movimientos pendientes de confirmar." : "No hay movimientos."}

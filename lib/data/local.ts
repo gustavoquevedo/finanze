@@ -1,5 +1,5 @@
 import { planRecurringGeneration } from "@/lib/domain/recurring";
-import type { Id, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Category, Id, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 import {
   ConstraintError,
@@ -59,13 +59,25 @@ function matches(t: Transaction, f: TransactionFilter): boolean {
  * continue from their latest generated transaction (no duplicates).
  */
 export function migrateSnapshot(data: Snapshot): Snapshot {
+  const properties = data.properties.map((p) => ({ ...p, purchaseCosts: p.purchaseCosts ?? 0, cadastralValue: p.cadastralValue ?? null }));
+  // Flags added later: infer them for the initial categories, by name.
+  const categories = data.categories.map((c) => ({
+    ...c,
+    notExpense: c.notExpense ?? (c.type === "gasto" && /capital hipoteca/i.test(c.name)),
+    limitedDeduction: c.limitedDeduction ?? (c.deductible && /^(intereses hipoteca|reparaciones y conservaci[oó]n)$/i.test(c.name)),
+  }));
   const transactions = data.transactions.map((t) => ({ ...t, confirmed: t.confirmed ?? true }));
   const recurrings = data.recurrings.map((r): Recurring => {
     if (r.generatedUntil !== undefined) return r;
     const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
     return { ...r, generatedUntil: dates.at(-1) ?? null };
   });
-  return { ...data, transactions, recurrings };
+  return { ...data, properties, categories, transactions, recurrings };
+}
+
+function assertCategory(c: Pick<Category, "type" | "deductible" | "notExpense" | "limitedDeduction">): void {
+  if (c.notExpense && (c.type !== "gasto" || c.deductible)) throw new ConstraintError("A non-expense must be a non-deductible gasto");
+  if (c.limitedDeduction && !c.deductible) throw new ConstraintError("Only deductible categories can count towards the limit");
 }
 
 const FREQUENCIES = ["mensual", "trimestral", "anual"];
@@ -170,6 +182,7 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
     listCategories: () => read((d) => [...d.categories].sort((a, b) => a.name.localeCompare(b.name, "es"))),
     createCategory: (input) =>
       mutate((d) => {
+        assertCategory(input);
         const category = { ...input, id: newId() };
         d.categories.push(category);
         return category;
@@ -184,6 +197,7 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
           d.transactions.some((t) => t.categoryId === id) || d.recurrings.some((r) => r.categoryId === id);
         // Transactions take their type and scope from the category, so these can't change once used.
         if (changesKind && inUse) throw new ConstraintError("Cannot change type or scope of a category in use");
+        assertCategory({ ...current, ...patch });
         return update(d.categories, id, patch, "Category");
       }),
     deleteCategory: (id) =>

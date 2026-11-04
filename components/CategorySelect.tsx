@@ -38,7 +38,7 @@ export function CategoryHint({ category }: { category?: Category }) {
   if (!category) return null;
   return (
     <p className={`mt-1 text-sm ${category.type === "gasto" ? "text-rose-700" : "text-emerald-700"}`}>
-      {category.type === "gasto" ? "Gasto" : "Ingreso"}
+      {category.notExpense ? "No es gasto (no resta del neto)" : category.type === "gasto" ? "Gasto" : "Ingreso"}
       {category.deductible && " · deducible en la Renta"}
     </p>
   );
