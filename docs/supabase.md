@@ -15,9 +15,9 @@ Supabase → **Authentication**:
 
 - **Sign In / Providers → Email**: activado (por defecto). «Confirm email» puede quedarse activado.
 - **URL Configuration**:
-  - **Site URL**: la URL de producción de Vercel.
+  - **Site URL**: `https://finanze-weld.vercel.app` (producción en Vercel).
   - **Redirect URLs** (añade las tres):
-    - `https://<url-de-produccion>/**`
+    - `https://finanze-weld.vercel.app/**`
     - `https://finanze-git-*-gusk1.vercel.app/**` (previews de cada PR)
     - `http://localhost:3000/**`
 
