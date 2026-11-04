@@ -140,6 +140,7 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
     kind: a.kind as Asset["kind"],
     propertyId: nullable<string>(a.propertyId),
     assetTypeId: nullable<string>(a.assetTypeId),
+    dailyUse: bool(a.dailyUse, true),
     active: bool(a.active, true),
   }));
   const assetSnapshots: AssetSnapshot[] = (raw.assetSnapshots ?? []).map((s) => ({

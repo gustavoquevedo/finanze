@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { assetHistory, firstValueDate, monthEnds, portfolioHistory, typeHistory, valuationsOverTime } from "./history";
 import type { Asset, AssetSnapshot, Portfolio } from "./types";
 
-const asset = (id: string, assetTypeId: string | null = null): Asset => ({ id, name: id.toUpperCase(), kind: "fondo", propertyId: null, assetTypeId, active: true });
+const asset = (id: string, assetTypeId: string | null = null): Asset => ({ id, name: id.toUpperCase(), kind: "fondo", propertyId: null, assetTypeId, dailyUse: true, active: true });
 let n = 0;
 const snap = (assetId: string, date: string, value: number, purchaseValue: number | null = null): AssetSnapshot => ({
   id: String(n++), assetId, date, value, purchaseValue, fiscalCost: null,

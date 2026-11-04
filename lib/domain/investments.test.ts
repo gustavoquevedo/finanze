@@ -12,7 +12,7 @@ import {
 import type { Asset, AssetSnapshot, Portfolio, Property, Recurring } from "./types";
 
 const asset = (id: string, kind: Asset["kind"] = "fondo", propertyId: string | null = null): Asset => ({
-  id, name: id.toUpperCase(), kind, propertyId, assetTypeId: null, active: true,
+  id, name: id.toUpperCase(), kind, propertyId, assetTypeId: null, dailyUse: true, active: true,
 });
 let n = 0;
 const snap = (assetId: string, date: string, value: number, purchaseValue: number | null = null, fiscalCost: number | null = null): AssetSnapshot => ({

@@ -129,6 +129,8 @@ create table assets (
   property_id uuid unique references properties (id) on delete cascade,
   -- null = «Sin tipo». Deleting a type leaves its assets untyped.
   asset_type_id uuid references asset_types (id) on delete set null,
+  -- Cash only: everyday account used to estimate unrecorded spending.
+  daily_use boolean not null default true,
   active boolean not null default true,
   created_at timestamptz not null default now(),
   check ((kind = 'inmobiliario') = (property_id is not null))

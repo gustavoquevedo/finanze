@@ -22,7 +22,7 @@ export default function NewAssetPage() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim()) return setError("Indica un nombre.");
-    const asset = await getRepository().createAsset({ name, kind, propertyId: null, assetTypeId: assetTypeId || null, active: true });
+    const asset = await getRepository().createAsset({ name, kind, propertyId: null, assetTypeId: assetTypeId || null, dailyUse: true, active: true });
     // Straight to the asset, to add its first value.
     router.replace(`/inversiones/activos/editar?id=${encodeURIComponent(asset.id)}`);
   }

@@ -124,6 +124,7 @@ Clasificación libre para los gráficos de reparto (renta variable, renta fija, 
 | `id` | sí | | |
 | `kind` | sí | | Producto: `"fondo"`, `"etf"`, `"efectivo"` o `"inmobiliario"` (decide el comportamiento) |
 | `assetTypeId` | no | `null` | Tipo de activo; `null` = «Sin tipo» |
+| `dailyUse` | no | `true` | Solo efectivo: cuenta del día a día, usada para estimar el gasto no registrado |
 | `name` | sí (no en inmobiliario) | | En inmobiliario se muestra el nombre del piso |
 | `propertyId` | solo inmobiliario | `null` | Piso del activo (uno por piso). Los pisos sin activo lo reciben solo al importar |
 | `active` | no | `true` | |

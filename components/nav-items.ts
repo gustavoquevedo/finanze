@@ -19,6 +19,7 @@ export const FINANZAS: NavSection = {
     { href: "/recurrentes", label: "Recurrentes", icon: "🔁", description: "Alquileres, recibos e hipotecas" },
     { href: "/pisos", label: "Pisos", icon: "🏢", description: "Fichas y totales del año" },
     { href: "/resumen", label: "Resumen anual", icon: "📊", description: "Por categoría y por mes" },
+    { href: "/gasto-estimado", label: "Gasto estimado", icon: "🧮", description: "Lo gastado sin apuntar: ingresos menos ahorro" },
     { href: "/renta", label: "Renta", icon: "🧾", description: "Rendimiento de cada piso para la declaración" },
     { href: "/categorias", label: "Categorías", icon: "🏷️", description: "Deducibles, no es gasto y límites" },
   ],
@@ -31,6 +32,7 @@ export const INVERSIONES: NavSection = {
   children: [
     { href: "/inversiones/carteras", label: "Carteras", icon: "🗂️", description: "Totales, plusvalías y pesos" },
     { href: "/inversiones/activos", label: "Activos", icon: "💼", description: "Fondos, ETF, efectivo e inmobiliario" },
+    { href: "/inversiones/saldos", label: "Saldos del mes", icon: "📝", description: "Valor de cuentas y fondos a fin de mes, de una vez" },
     { href: "/inversiones/tipos", label: "Tipos de activo", icon: "🏷️", description: "Renta variable, renta fija… para el reparto" },
   ],
 };
