@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Amount } from "@/components/Amount";
+import { Icon } from "@/lib/icons/Icon";
 import { Totals } from "@/components/Totals";
 import { todayIso } from "@/lib/domain/dates";
 import { annualSummary, availableYears, type CategoryTotal, type DeductibleFilter } from "@/lib/domain/summary";
@@ -178,7 +179,10 @@ function CategorySection({
             <li key={category.id}>
               <Link href={linkFor(category.id)} className="block px-4 py-3 active:bg-slate-50">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="min-w-0 truncate font-medium">{category.name}</span>
+                  <span className="flex min-w-0 items-center gap-2">
+                    <Icon name={category.icon} className="h-5 w-5 text-slate-500" />
+                    <span className="min-w-0 truncate font-medium">{category.name}</span>
+                  </span>
                   <span className="shrink-0 text-sm"><Amount cents={amount} type={type} /></span>
                 </div>
                 <div className="mt-1 flex items-center gap-2">

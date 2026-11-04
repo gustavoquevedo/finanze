@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { todayIso } from "@/lib/domain/dates";
+import { Icon } from "@/lib/icons/Icon";
 import { rentaSummary } from "@/lib/domain/renta";
 import type { CategoryTotal } from "@/lib/domain/summary";
 import { availableYears } from "@/lib/domain/summary";
@@ -60,7 +61,19 @@ function Renta() {
   const selectClass = "w-full rounded-lg border border-slate-300 bg-white px-2 py-2 text-sm";
   const link = (categoryId: string) => transactionsHref({ anio: String(year), piso: property?.id, categoria: categoryId });
   const rows = (items: CategoryTotal[]) =>
-    items.map((c) => <Row key={c.category.id} label={c.category.name} value={formatCents(c.amount)} href={link(c.category.id)} />);
+    items.map((c) => (
+      <Row
+        key={c.category.id}
+        label={
+          <span className="flex items-center gap-2">
+            <Icon name={c.category.icon} className="h-4 w-4 text-slate-500" />
+            {c.category.name}
+          </span>
+        }
+        value={formatCents(c.amount)}
+        href={link(c.category.id)}
+      />
+    ));
 
   return (
     <div className="space-y-4">

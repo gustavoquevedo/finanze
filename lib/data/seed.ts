@@ -2,6 +2,7 @@ import { addMonths, dayInMonth, todayIso } from "@/lib/domain/dates";
 import { annuityPayment } from "@/lib/domain/mortgage";
 import { occurrenceTransactions, occurrencesBetween, planOf } from "@/lib/domain/recurring";
 import type { Asset, AssetSnapshot, AssetType, Category, MortgageAdjustment, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import { DEFAULT_ASSET_TYPES, DEFAULT_CATEGORIES, type DefaultCategoryKey } from "./defaults";
 import { newId } from "./ids";
 
 /**
@@ -12,35 +13,8 @@ export const SEED_MONTHS = 6;
 
 const euros = (value: number) => Math.round(value * 100);
 
-type CategoryKey =
-  | "alquiler" | "intereses" | "capital" | "ibi" | "comunidad" | "seguroHogar" | "seguroImpago"
-  | "reparaciones" | "suministros" | "basuras" | "gestoria" | "otrosPiso"
-  | "nomina" | "alimentacion" | "hogar" | "transporte" | "ocio" | "salud" | "otrosPersonal";
-
-type SeedCategory = Omit<Category, "id" | "notExpense" | "limitedDeduction"> & Partial<Pick<Category, "notExpense" | "limitedDeduction">>;
-
-const CATEGORIES: Record<CategoryKey, SeedCategory> = {
-  alquiler: { name: "Alquiler", type: "ingreso", scope: "piso", deductible: false },
-  intereses: { name: "Intereses hipoteca", type: "gasto", scope: "piso", deductible: true, limitedDeduction: true },
-  // Paying off principal is money out, but not a deductible expense.
-  capital: { name: "Amortización capital hipoteca", type: "gasto", scope: "piso", deductible: false, notExpense: true },
-  ibi: { name: "IBI", type: "gasto", scope: "piso", deductible: true },
-  comunidad: { name: "Comunidad", type: "gasto", scope: "piso", deductible: true },
-  seguroHogar: { name: "Seguro hogar", type: "gasto", scope: "piso", deductible: true },
-  seguroImpago: { name: "Seguro impago", type: "gasto", scope: "piso", deductible: true },
-  reparaciones: { name: "Reparaciones y conservación", type: "gasto", scope: "piso", deductible: true, limitedDeduction: true },
-  suministros: { name: "Suministros", type: "gasto", scope: "piso", deductible: true },
-  basuras: { name: "Tasa de basuras", type: "gasto", scope: "piso", deductible: true },
-  gestoria: { name: "Gestoría", type: "gasto", scope: "piso", deductible: true },
-  otrosPiso: { name: "Otros", type: "gasto", scope: "piso", deductible: false },
-  nomina: { name: "Nómina", type: "ingreso", scope: "personal", deductible: false },
-  alimentacion: { name: "Alimentación", type: "gasto", scope: "personal", deductible: false },
-  hogar: { name: "Hogar y suministros", type: "gasto", scope: "personal", deductible: false },
-  transporte: { name: "Transporte", type: "gasto", scope: "personal", deductible: false },
-  ocio: { name: "Ocio", type: "gasto", scope: "personal", deductible: false },
-  salud: { name: "Salud", type: "gasto", scope: "personal", deductible: false },
-  otrosPersonal: { name: "Otros personales", type: "gasto", scope: "personal", deductible: false },
-};
+type CategoryKey = DefaultCategoryKey;
+const CATEGORIES = DEFAULT_CATEGORIES;
 
 export interface SeedOptions {
   /** Full months before `today`'s month to fill in. Default 6. */
@@ -222,11 +196,7 @@ export function createSeedData(today: string = todayIso(), options: SeedOptions 
   // Investments: monthly snapshots at the end of each seed month.
   const assets: Asset[] = [];
   const assetSnapshots: AssetSnapshot[] = [];
-  const assetType = (name: string): AssetType => ({ id: newId(), name });
-  const typeRv = assetType("Renta variable");
-  const typeRf = assetType("Renta fija");
-  const typeLiq = assetType("Liquidez");
-  const typeRe = assetType("Inmobiliario");
+  const [typeRv, typeRf, typeLiq, typeRe] = DEFAULT_ASSET_TYPES.map((t): AssetType => ({ ...t, id: newId() }));
   const newAsset = (name: string, kind: Asset["kind"], type: AssetType | null, propertyId: string | null = null) => {
     const a: Asset = { id: newId(), name, kind, propertyId, assetTypeId: type?.id ?? null, active: true };
     assets.push(a);

@@ -190,6 +190,7 @@ export interface AllocationSlice {
   value: Cents;
   /** Position of the type in the full, name-sorted list: keeps each type's colour stable. `null` = «Sin tipo». */
   colorIndex: number | null;
+  icon: string | null;
 }
 
 /**
@@ -209,9 +210,9 @@ export function allocationByType(assetIds: Iterable<Id>, assets: Asset[], types:
     totals.set(key, (totals.get(key) ?? 0) + value);
   }
   const slices: AllocationSlice[] = ordered
-    .map((t, i) => ({ id: t.id, name: t.name, value: totals.get(t.id) ?? 0, colorIndex: i }))
+    .map((t, i) => ({ id: t.id, name: t.name, value: totals.get(t.id) ?? 0, colorIndex: i, icon: t.icon }))
     .filter((s) => s.value > 0);
   const untyped = totals.get(UNTYPED);
-  if (untyped) slices.push({ id: UNTYPED, name: "Sin tipo", value: untyped, colorIndex: null });
+  if (untyped) slices.push({ id: UNTYPED, name: "Sin tipo", value: untyped, colorIndex: null, icon: null });
   return slices;
 }

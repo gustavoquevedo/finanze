@@ -12,6 +12,7 @@ import type {
   Snapshot,
   Transaction,
 } from "@/lib/domain/types";
+import { isIconId } from "@/lib/icons/catalog";
 import { migrateSnapshot } from "./local";
 
 /**
@@ -54,6 +55,7 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
     deductible: bool(c.deductible, false),
     notExpense: bool(c.notExpense, false),
     limitedDeduction: bool(c.limitedDeduction, false),
+    icon: nullable<string>(c.icon),
   }));
   const typeOf = (categoryId: unknown) => categories.find((c) => c.id === categoryId)?.type;
 
@@ -131,7 +133,7 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
     };
   });
 
-  const assetTypes: AssetType[] = (raw.assetTypes ?? []).map((t) => ({ id: t.id as string, name: str(t.name) }));
+  const assetTypes: AssetType[] = (raw.assetTypes ?? []).map((t) => ({ id: t.id as string, name: str(t.name), icon: nullable<string>(t.icon) }));
   const assets: Asset[] = (raw.assets ?? []).map((a) => ({
     id: a.id as string,
     name: str(a.name),
@@ -161,6 +163,11 @@ function normalize(raw: Partial<Record<keyof Snapshot, Raw[]>>): Snapshot {
 function validate(d: Snapshot): string[] {
   const errors: string[] = [];
   const at = (key: keyof Snapshot, i: number, id: string) => `${LABEL[key]} ${i + 1}${id ? ` (${id})` : ""}`;
+  const checkIcon = (where: string, icon: unknown) => {
+    if (icon !== null && (typeof icon !== "string" || !isIconId(icon))) {
+      errors.push(`${where}: el icono «${String(icon)}» no existe (lista en lib/icons/catalog.ts).`);
+    }
+  };
 
   // Unique ids per collection.
   for (const key of Object.keys(LABEL) as (keyof Snapshot)[]) {
@@ -206,6 +213,7 @@ function validate(d: Snapshot): string[] {
     if (c.scope !== "piso" && c.scope !== "personal") errors.push(`${w}: scope debe ser "piso" o "personal".`);
     if (c.notExpense && (c.type !== "gasto" || c.deductible)) errors.push(`${w}: notExpense solo vale para gastos no deducibles.`);
     if (c.limitedDeduction && !c.deductible) errors.push(`${w}: limitedDeduction requiere deductible: true.`);
+    checkIcon(w, c.icon);
   });
 
   d.transactions.forEach((t, i) => {
@@ -257,6 +265,7 @@ function validate(d: Snapshot): string[] {
     const name = t.name.trim().toLocaleLowerCase("es");
     if (!name) errors.push(`${w}: falta el nombre.`);
     else if (typeNames.has(name)) errors.push(`${w}: nombre repetido.`);
+    checkIcon(w, t.icon);
     typeNames.add(name);
   });
   const assetTypes = new Set(d.assetTypes.map((t) => t.id));

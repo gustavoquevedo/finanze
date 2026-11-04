@@ -3,11 +3,11 @@ import { defaultMortgageCategories, parseRate, validateMortgageForm, type Mortga
 import type { Category } from "./types";
 
 const c = (id: string, name: string, o: Partial<Category> = {}): Category => ({
-  id, name, type: "gasto", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false, ...o,
+  id, name, type: "gasto", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false, icon: null, ...o,
 });
 const categories = [
-  c("rep", "Reparaciones", { deductible: true, limitedDeduction: true }),
-  c("int", "Intereses hipoteca", { deductible: true, limitedDeduction: true }),
+  c("rep", "Reparaciones", { deductible: true, limitedDeduction: true, icon: null }),
+  c("int", "Intereses hipoteca", { deductible: true, limitedDeduction: true, icon: null }),
   c("cap", "Capital", { notExpense: true }),
 ];
 const values = (o: Partial<MortgageFormValues> = {}): MortgageFormValues => ({

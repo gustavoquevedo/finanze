@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { getRepository } from "@/lib/data";
+import { defaultCategories } from "@/lib/data/defaults";
+import { Icon } from "@/lib/icons/Icon";
 import type { Category, CategoryScope, TransactionType } from "@/lib/domain/types";
 import { useData } from "@/lib/use-data";
 
@@ -12,6 +16,7 @@ const GROUPS: { scope: CategoryScope; type: TransactionType; title: string }[] =
 ];
 
 export default function CategoriesPage() {
+  const [version, setVersion] = useState(0);
   const { data, error } = useData(async (repo) => {
     const [categories, transactions, recurrings] = await Promise.all([
       repo.listCategories(),
@@ -21,11 +26,31 @@ export default function CategoriesPage() {
     const uses = new Map<string, number>();
     for (const x of [...transactions, ...recurrings]) uses.set(x.categoryId, (uses.get(x.categoryId) ?? 0) + 1);
     return { categories, uses };
-  });
+  }, [version]);
+
+  // Starting categories not created yet (same name, scope and type).
+  const key = (c: Pick<Category, "name" | "scope" | "type">) => `${c.scope}|${c.type}|${c.name.trim().toLocaleLowerCase("es")}`;
+  const existing = new Set((data?.categories ?? []).map(key));
+  const missingDefaults = defaultCategories().filter((c) => !existing.has(key(c)));
+  async function addDefaults() {
+    for (const c of missingDefaults) await getRepository().createCategory(c);
+    setVersion((v) => v + 1);
+  }
 
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Categorías</h1>
+      {data && missingDefaults.length > 0 && (
+        <button
+          type="button"
+          onClick={() => void addDefaults()}
+          className="w-full rounded-lg border border-dashed border-emerald-600 px-4 py-2.5 text-sm font-medium text-emerald-700"
+        >
+          {data.categories.length === 0
+            ? "Añadir las categorías iniciales (alquiler, IBI, comunidad, seguros…)"
+            : `Añadir las ${missingDefaults.length} categorías iniciales que faltan`}
+        </button>
+      )}
       <Link
         href="/categorias/nueva"
         aria-label="Nueva categoría"
@@ -61,7 +86,10 @@ function CategoryRow({ category: c, uses }: { category: Category; uses: number }
         href={`/categorias/editar?id=${encodeURIComponent(c.id)}`}
         className="flex items-center justify-between gap-3 px-4 py-3 active:bg-slate-50"
       >
-        <span className="min-w-0 truncate font-medium">{c.name}</span>
+        <span className="flex min-w-0 items-center gap-3">
+          <Icon name={c.icon} className="h-5 w-5 text-slate-600" />
+          <span className="min-w-0 truncate font-medium">{c.name}</span>
+        </span>
         <span className="flex shrink-0 items-center gap-2 text-xs text-slate-500">
           {c.notExpense && <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium text-slate-600">No es gasto</span>}
           {c.deductible && (

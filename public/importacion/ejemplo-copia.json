@@ -28,11 +28,11 @@
     ],
 
     "categories": [
-      { "id": "cat-alquiler", "name": "Alquiler", "type": "ingreso", "scope": "piso" },
+      { "id": "cat-alquiler", "name": "Alquiler", "icon": "key", "type": "ingreso", "scope": "piso" },
       {
         "_nota": "Deducible y sujeto al límite de intereses + reparaciones <= ingresos.",
         "id": "cat-intereses",
-        "name": "Intereses hipoteca",
+        "name": "Intereses hipoteca", "icon": "percent",
         "type": "gasto",
         "scope": "piso",
         "deductible": true,
@@ -41,31 +41,31 @@
       {
         "_nota": "Sale dinero pero no es gasto: no resta del neto; cuenta en el flujo de caja.",
         "id": "cat-capital",
-        "name": "Amortización capital hipoteca",
+        "name": "Amortización capital hipoteca", "icon": "piggy-bank",
         "type": "gasto",
         "scope": "piso",
         "notExpense": true
       },
-      { "id": "cat-ibi", "name": "IBI", "type": "gasto", "scope": "piso", "deductible": true },
-      { "id": "cat-comunidad", "name": "Comunidad", "type": "gasto", "scope": "piso", "deductible": true },
-      { "id": "cat-seguro-hogar", "name": "Seguro hogar", "type": "gasto", "scope": "piso", "deductible": true },
+      { "id": "cat-ibi", "name": "IBI", "icon": "landmark", "type": "gasto", "scope": "piso", "deductible": true },
+      { "id": "cat-comunidad", "name": "Comunidad", "icon": "building", "type": "gasto", "scope": "piso", "deductible": true },
+      { "id": "cat-seguro-hogar", "name": "Seguro hogar", "icon": "shield", "type": "gasto", "scope": "piso", "deductible": true },
       {
         "id": "cat-reparaciones",
-        "name": "Reparaciones y conservación",
+        "name": "Reparaciones y conservación", "icon": "wrench",
         "type": "gasto",
         "scope": "piso",
         "deductible": true,
         "limitedDeduction": true
       },
-      { "id": "cat-nomina", "name": "Nómina", "type": "ingreso", "scope": "personal" },
+      { "id": "cat-nomina", "name": "Nómina", "icon": "briefcase", "type": "ingreso", "scope": "personal" },
       {
         "_nota": "Sin scope: por defecto es \"piso\", así que en categorías personales hay que indicarlo.",
         "id": "cat-supermercado",
-        "name": "Supermercado",
+        "name": "Supermercado", "icon": "shopping-cart",
         "type": "gasto",
         "scope": "personal"
       },
-      { "id": "cat-suscripciones", "name": "Suscripciones", "type": "gasto", "scope": "personal" }
+      { "id": "cat-suscripciones", "name": "Suscripciones", "icon": "tv", "type": "gasto", "scope": "personal" }
     ],
 
     "recurrings": [
@@ -246,13 +246,13 @@
 
     "assetTypes": [
       {
-        "_nota": "Tipos de activo definidos por ti, para los gráficos de reparto. Opcional: sin tipo, un activo sale como «Sin tipo».",
+        "_nota": "Tipos de activo definidos por ti, para los gráficos de reparto. icon es opcional (ids en lib/icons/catalog.ts).",
         "id": "tipo-rv",
-        "name": "Renta variable"
+        "name": "Renta variable", "icon": "trending-up"
       },
-      { "id": "tipo-rf", "name": "Renta fija" },
-      { "id": "tipo-liquidez", "name": "Liquidez" },
-      { "id": "tipo-inmobiliario", "name": "Inmobiliario" }
+      { "id": "tipo-rf", "name": "Renta fija", "icon": "landmark" },
+      { "id": "tipo-liquidez", "name": "Liquidez", "icon": "wallet" },
+      { "id": "tipo-inmobiliario", "name": "Inmobiliario", "icon": "house" }
     ],
 
     "assets": [

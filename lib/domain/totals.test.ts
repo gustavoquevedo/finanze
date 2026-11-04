@@ -3,7 +3,7 @@ import { computeTotals } from "./totals";
 import type { Category, Transaction } from "./types";
 
 const cat = (id: string, type: "ingreso" | "gasto", notExpense = false): Category => ({
-  id, name: id, type, scope: "piso", deductible: false, notExpense, limitedDeduction: false,
+  id, name: id, type, scope: "piso", deductible: false, notExpense, limitedDeduction: false, icon: null,
 });
 const categories = [cat("rent", "ingreso"), cat("ibi", "gasto"), cat("capital", "gasto", true)];
 const tx = (categoryId: string, amount: number): Transaction => ({

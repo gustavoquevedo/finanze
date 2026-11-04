@@ -3,10 +3,10 @@ import { annualSummary, availableYears } from "./summary";
 import type { Category, Transaction } from "./types";
 
 const categories: Category[] = [
-  { id: "rent", name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false },
-  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false },
-  { id: "capital", name: "Capital", type: "gasto", scope: "piso", deductible: false, notExpense: true, limitedDeduction: false },
-  { id: "food", name: "Comida", type: "gasto", scope: "personal", deductible: false, notExpense: false, limitedDeduction: false },
+  { id: "rent", name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false, icon: null },
+  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false, icon: null },
+  { id: "capital", name: "Capital", type: "gasto", scope: "piso", deductible: false, notExpense: true, limitedDeduction: false, icon: null },
+  { id: "food", name: "Comida", type: "gasto", scope: "personal", deductible: false, notExpense: false, limitedDeduction: false, icon: null },
 ];
 
 let n = 0;

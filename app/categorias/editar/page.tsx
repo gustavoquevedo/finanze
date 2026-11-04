@@ -44,7 +44,7 @@ function EditCategory() {
       {data && c && (
         <CategoryForm
           key={c.id}
-          initial={{ name: c.name, scope: c.scope, type: c.type, deductible: c.deductible, notExpense: c.notExpense, limitedDeduction: c.limitedDeduction }}
+          initial={{ name: c.name, scope: c.scope, type: c.type, deductible: c.deductible, notExpense: c.notExpense, limitedDeduction: c.limitedDeduction, icon: c.icon }}
           existing={data.categories}
           editingId={c.id}
           usage={data.usage}
