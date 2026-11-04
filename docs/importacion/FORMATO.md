@@ -4,7 +4,13 @@ Es el mismo fichero que genera **Datos y copia → Descargar copia**, y el que s
 Ejemplo completo y válido, con datos ficticios: [`public/importacion/ejemplo-copia.json`](../../public/importacion/ejemplo-copia.json)
 (desde la app: **Datos y copia → Descargar fichero de ejemplo**).
 
-> **Importar sustituye todos los datos del navegador**: no mezcla. Descarga antes una copia de lo que tengas.
+> Al importar puedes elegir:
+> - **Añadir a mis datos**: no borra nada. Las categorías (mismo nombre, ámbito y tipo) y los tipos de activo (mismo nombre)
+>   que ya existan se reutilizan; si no tenían icono, toman el del fichero. Todo lo demás se añade como nuevo.
+> - **Sustituir todos mis datos**: borra lo que hay y deja solo lo del fichero. Descarga antes una copia.
+>
+> Ficheros listos en `public/importacion/`: `ejemplo-copia.json` (un poco de todo, con notas), `demo-completo.json`
+> (12 meses de datos ficticios) y `categorias-y-tipos.json` (solo las categorías y tipos iniciales con iconos).
 
 ## Reglas generales
 

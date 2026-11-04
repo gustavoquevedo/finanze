@@ -6,7 +6,7 @@
   "data": {
     "properties": [
       {
-        "id": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "id": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "name": "Piso Centro",
         "address": "Calle del Ejemplo 12, 3º B, Valladolid",
         "purchaseDate": "2019-03-15",
@@ -17,7 +17,7 @@
         "active": true
       },
       {
-        "id": "9524ed47-9419-470f-af78-e4517b195935",
+        "id": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "name": "Apartamento Playa",
         "address": "Avenida Ficticia 4, 1º A, Gandía",
         "purchaseDate": "2022-06-01",
@@ -37,7 +37,7 @@
         "scope": "piso",
         "deductible": false,
         "icon": "key",
-        "id": "a8b98677-f88c-4179-b456-c29b0f97f77b"
+        "id": "8c31c95e-3436-4614-bd3e-4a27d8932604"
       },
       {
         "notExpense": false,
@@ -47,7 +47,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "percent",
-        "id": "07e8d369-08af-46ca-99de-25d3e8df5daa"
+        "id": "be48b5b4-9e65-4613-95b4-c56f74851482"
       },
       {
         "notExpense": true,
@@ -57,7 +57,7 @@
         "scope": "piso",
         "deductible": false,
         "icon": "piggy-bank",
-        "id": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519"
+        "id": "5ab43882-97e3-4a93-9d71-53c0fc437394"
       },
       {
         "notExpense": false,
@@ -67,7 +67,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "landmark",
-        "id": "c34340e5-2fc8-4b27-a20b-143a2639bac1"
+        "id": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799"
       },
       {
         "notExpense": false,
@@ -77,7 +77,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "building",
-        "id": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c"
+        "id": "5fc32844-1c20-4d27-bfa9-e675989bee19"
       },
       {
         "notExpense": false,
@@ -87,7 +87,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "shield",
-        "id": "3bb69e2f-47a7-449b-afeb-8c5dfc33b7f0"
+        "id": "59a54bfe-20c2-4941-b957-b5303e4ad2b7"
       },
       {
         "notExpense": false,
@@ -97,7 +97,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "shield-check",
-        "id": "938a0348-6efa-44c3-be5d-d0b1b7223520"
+        "id": "8e0f02c2-e79f-4097-9c0e-2bf1e10f4b2a"
       },
       {
         "notExpense": false,
@@ -107,7 +107,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "wrench",
-        "id": "8b07e1aa-64c4-47b4-90b2-855220689c30"
+        "id": "69df92c6-5d8a-49ae-b187-693672f50768"
       },
       {
         "notExpense": false,
@@ -117,7 +117,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "zap",
-        "id": "a1730b2b-e996-422b-a063-eb39f696fe72"
+        "id": "3ee93104-27fb-4cf2-95a1-b2d63d08f7e8"
       },
       {
         "notExpense": false,
@@ -127,7 +127,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "trash",
-        "id": "8eb0e7e8-49cc-42c7-a675-ef1864438e35"
+        "id": "b1833a29-1a45-40d4-b1dc-d722a79ff043"
       },
       {
         "notExpense": false,
@@ -137,7 +137,7 @@
         "scope": "piso",
         "deductible": true,
         "icon": "file-text",
-        "id": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb"
+        "id": "05d2e734-a201-45e9-bbc0-027b3ded674d"
       },
       {
         "notExpense": false,
@@ -147,7 +147,7 @@
         "scope": "piso",
         "deductible": false,
         "icon": "tag",
-        "id": "c6245e42-5d02-4961-bea9-f67af8700be3"
+        "id": "f311b4ba-c5bb-45f5-a613-9e0bc8a537b1"
       },
       {
         "notExpense": false,
@@ -157,7 +157,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "briefcase",
-        "id": "c29ef385-e1ab-4456-8535-69dbed1b4a97"
+        "id": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5"
       },
       {
         "notExpense": false,
@@ -167,7 +167,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "shopping-cart",
-        "id": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36"
+        "id": "bdd88bb5-4952-4173-b27b-d9a2840ec085"
       },
       {
         "notExpense": false,
@@ -177,7 +177,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "house",
-        "id": "74101f15-ee96-43c9-b1a9-8f499aa0adfc"
+        "id": "e0832c36-cdef-416d-962f-be73d93c23f1"
       },
       {
         "notExpense": false,
@@ -187,7 +187,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "car",
-        "id": "fb0dbd58-b118-45f9-8948-d1a826af1516"
+        "id": "f1b5c639-8d5b-405d-96d6-08c29fdcdded"
       },
       {
         "notExpense": false,
@@ -197,7 +197,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "ticket",
-        "id": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781"
+        "id": "ba175cd0-53b4-42f1-906d-33d6018131be"
       },
       {
         "notExpense": false,
@@ -207,7 +207,7 @@
         "scope": "personal",
         "deductible": false,
         "icon": "heart-pulse",
-        "id": "e85559c8-9a43-4930-8daf-ef885116b3b8"
+        "id": "1c4b3122-581e-4d25-9919-aa7d8c35acfa"
       },
       {
         "notExpense": false,
@@ -217,1447 +217,1447 @@
         "scope": "personal",
         "deductible": false,
         "icon": "package",
-        "id": "b6f3ffcb-6859-4cee-8843-2ece0d015b6e"
+        "id": "53af6298-c865-4173-a525-dc4dc29a8fa8"
       }
     ],
     "transactions": [
       {
         "date": "2025-11-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "ce96aed0-6073-4609-b565-4e555b229085",
+        "id": "a19f3951-f9fc-4445-963b-bb8b06f40e8b",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2025-12-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "518b722f-2fa4-4851-83d7-36ab79cd273d",
+        "id": "f48ffb30-5142-4110-ae53-d917441f30f3",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-01-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "50b5a1c7-75bd-4805-a1aa-0d08ebcfd7cb",
+        "id": "4ce79a79-8abe-4979-84de-e6100317d916",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-02-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "427f4374-df23-432b-a4d0-2db1bc4eb828",
+        "id": "96d34785-e78c-450a-a75d-4ea25fd41449",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-03-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "e204f6a9-8ea2-4eed-a4c5-250c1ef34318",
+        "id": "97760788-a650-4c1e-a403-40fe2c58c6ec",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-04-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "ae14d1e3-10cd-44b5-b4e8-11f630281a30",
+        "id": "6970fd19-7c1e-4e4c-8715-08385956345b",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-05-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "7c56bed2-a616-43a9-b515-fd22cfd20521",
+        "id": "b02edc82-c501-4e79-9b15-1cac46e672b0",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-06-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "b0559ad9-b9a3-48f1-9b0c-7e5e1d5fd04e",
+        "id": "5cd83fbe-0259-4316-9958-3e4dd039cd83",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-07-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "4449dbab-608c-42e3-9ffb-a3c6d133b972",
+        "id": "aa5f18b2-bf7d-457e-94b9-53fc27f7473e",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-08-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "68220e4d-bc78-4904-b4ae-a79ee179fee2",
+        "id": "cdddfb4b-2c5e-4985-a8f9-5ad9e57ed843",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-09-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "8b74e4ef-8de0-49a0-95c7-7084b2f4544f",
+        "id": "26c7f890-084e-4414-9cfa-b7c81212181d",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2026-10-01",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Alquiler Piso Centro",
-        "id": "f6731eb7-178b-49d2-a65e-8f4ab31355d0",
+        "id": "baad35c7-b00c-4fa1-bbf3-12c029f06cc8",
         "type": "ingreso",
-        "recurringId": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "recurringId": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "confirmed": true
       },
       {
         "date": "2025-11-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "299bde41-ad01-4fbb-8a1d-a6aaea825db6",
+        "id": "d32e7a50-4717-4bc8-a42c-7f92f9f76fc6",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2025-12-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "d7e9cb90-d10e-4259-9776-8a4143bebb51",
+        "id": "44957e57-5a9a-47ed-8031-e62e4f80ec40",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-01-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "aff95892-cd88-45b0-89d2-2d76868104ac",
+        "id": "f1630bb5-5ccf-451a-af49-550c3e3d59f6",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-02-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "648411b4-ceec-46fe-97f3-acc895d03943",
+        "id": "f68d3f7d-066f-4811-8f53-4bb6870ad29d",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-03-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "1b91d9d0-368e-49c4-a491-ce1e89587cf9",
+        "id": "4750e4b7-1b57-4d12-93cb-3df90104427f",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-04-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "e2902eae-4f81-432c-a412-c2e5819a90b7",
+        "id": "f1d7d733-cb7d-4dd8-afad-9fb73655e45e",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-05-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "de26b5cf-ce12-4a0e-9066-25504a7e78cc",
+        "id": "fc195b62-0370-4065-bde8-e9fa031a0a05",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-06-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "793a0752-59b0-4d78-94ac-03891a5e3f8b",
+        "id": "127e125c-30e7-43e8-ac6f-343ae5c5109f",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-07-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "3508f63f-2deb-4c1a-a1e0-487ce827bd6b",
+        "id": "679274d4-39ce-4b1b-b326-362981066d0b",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-08-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "fc901911-722f-4ed1-ade5-24d884074958",
+        "id": "f23617e9-9da1-4cbe-9a71-1fca5dd28a6c",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-09-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "4f4bcb19-6ee9-435c-b4da-30951754cc7d",
+        "id": "449fc56b-6e03-4437-88d1-6b98ce82f441",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2026-10-05",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Alquiler Apartamento Playa",
-        "id": "a1fe6059-2540-4fba-82bd-8c961ccb821a",
+        "id": "5e3da39a-acbb-43b9-af2c-ae75d2f091f3",
         "type": "ingreso",
-        "recurringId": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "recurringId": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "confirmed": true
       },
       {
         "date": "2025-11-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "3635ee24-a161-42bf-9ba9-9e9cbb96f6dc",
+        "id": "c2b0fec5-a785-4fab-af11-b398ddd78a50",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2025-12-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "424f2093-3799-4985-9886-09518f1395f6",
+        "id": "662b5ac6-1986-44ca-8475-c5fab822e826",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-01-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "001298a6-223d-4f32-b63e-0445289e515d",
+        "id": "d7dbaea6-b971-4694-ad17-7c6d31b66ee0",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-02-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "d7bd95a2-d53f-4baa-acba-e53fb3305dc8",
+        "id": "0aaff509-092c-4dcc-91f8-05d3cefa355c",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-03-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "abe3fbff-9497-4ee3-a921-b7dbe38f30c3",
+        "id": "5fecc67d-e7ca-4112-ac7e-67e5e24e05b8",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-04-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "78d433b8-72e2-4c93-b2db-88ec79c8aa32",
+        "id": "2c8aab67-6d4b-49c7-8287-ca0b45d3bfca",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-05-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "4fe94e73-47b8-4bcb-b0c1-d8f38d28e2f3",
+        "id": "e900c6f2-cbd0-42ec-b8b0-0f258bc1501d",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-06-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "00092cb2-6667-4b77-9e1e-62aab0448e0f",
+        "id": "34aa0c7a-cb1e-45fa-ab08-59ed85eaf6ee",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-07-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "1e057c06-cf09-4e09-8d52-ca3083da86e5",
+        "id": "1a8a9c67-14a1-4e55-996f-4a481c887e61",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-08-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "a0ca202b-509c-41c5-bc1d-af828a47a676",
+        "id": "d48291eb-571b-49bf-9550-855deb38a5d9",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-09-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "48feaae0-8afa-4e44-b711-f07b2a5c5aa8",
+        "id": "0841deb3-5de7-4f6a-aef7-89e93c9ca253",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2026-10-10",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Comunidad Piso Centro",
-        "id": "b2e3c857-2ffb-42fe-add0-310eb3e32fc7",
+        "id": "e281e987-cb66-4a26-a680-b22b20217e74",
         "type": "gasto",
-        "recurringId": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "recurringId": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "confirmed": true
       },
       {
         "date": "2025-11-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "779ab81f-a447-4b9d-bd76-c6e9b580a80d",
+        "id": "be838523-f78e-42e2-b63e-d544a7aa426d",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2025-12-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "9af39001-7f83-4a00-adef-00f20c34b657",
+        "id": "425e01b2-9d0f-45bb-af71-b900a645308d",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-01-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "dba08e30-76f3-488a-9aec-acbab07b8279",
+        "id": "b7cd26a1-8379-4f6c-836c-d83b5c8983f4",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-02-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "3f412ad0-8960-47dc-a1a9-3b3ed74c1129",
+        "id": "bd4dacd8-1056-4f61-8043-c86bbd75da4d",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-03-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "27579115-09ab-4018-838c-19345e5b2e6d",
+        "id": "844cba5c-7b9f-459f-b729-4df7e624f23d",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-04-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "db7d9e3d-1762-4be0-9742-198bd165eb91",
+        "id": "2bfa065f-366d-4c54-a80d-cf2d25c186eb",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-05-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "16fd618c-d610-44b4-a2bc-f4770f5028dd",
+        "id": "bfd27f7f-bff3-4a8e-a743-d2cbb138f2d2",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-06-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "68a68d2b-9e45-47b3-a5a0-703a812e0081",
+        "id": "5b70f7a7-ced8-4f49-b82b-0422dbdb7c6f",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-07-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "2f77bbc1-10cf-47a6-a8cd-3530969b9714",
+        "id": "d2904257-da9e-4d66-96b9-9593a659b297",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-08-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "c4f6677a-f309-432f-b319-9860e0e96162",
+        "id": "877e0689-5495-45bb-a354-85017ec1b0aa",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-09-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "16a42afc-ae7f-4ac9-854d-5e348d6cf19f",
+        "id": "45b9f5a0-a195-40e7-82a0-ec39b1b7c711",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2026-10-10",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Comunidad Apartamento Playa",
-        "id": "b71cfcb4-4dd9-4eac-a7ce-faadc3968ffc",
+        "id": "663c8f71-36e5-48c6-8826-98051b190eb5",
         "type": "gasto",
-        "recurringId": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "recurringId": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "confirmed": true
       },
       {
         "date": "2025-11-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "46763424-d6f3-4014-8147-688091227918",
+        "id": "d67abe66-f383-4615-8217-1defb83cb0c2",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2025-12-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "c346f879-ea8e-44b7-86e4-c031e7669af8",
+        "id": "52b28e19-cf3b-4604-aa63-33894e26a490",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-01-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "65205aff-de31-41db-b25d-b06bf910e095",
+        "id": "0274bda7-85fb-4ef2-aea0-2bf179528313",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-02-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "70063f88-4a51-4604-80ad-251a0c18b6af",
+        "id": "55bbe494-626c-4027-b6d0-a23857e6b53d",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-03-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "6854bc49-fafc-4701-9ca1-5b2dbb7b936b",
+        "id": "e78199c4-781e-4cd0-a436-ba1cd4b2ed82",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-04-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "0efecb4a-3468-4ac0-8f3e-94a7e9d15bb3",
+        "id": "f2cf7e14-3c25-42c0-a385-725e927aaa4d",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-05-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "c97374fe-8cbf-4992-a564-96c56f58d3b8",
+        "id": "b14561d6-7237-4b02-bb4e-3223e2c38dfa",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-06-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "3dcbc50c-19ec-4096-a320-850a27ccc424",
+        "id": "29e13d0c-b2cd-4f40-be84-b6c1e486f0a5",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-07-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "43f75aa1-59c8-4278-b51e-e6f9dfbff454",
+        "id": "4b2d22be-af66-48b7-a397-220997df6802",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-08-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "b2f4aa4e-fa9b-4bac-b94b-958f3ed4feb6",
+        "id": "f6bee691-a97b-4311-b135-24ed47868c90",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-09-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "b9523037-1436-4c26-b57d-2dad1c5f1a51",
+        "id": "18ef9eb1-3b57-49ec-9883-7fb76a670772",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2026-10-28",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "concept": "Nómina",
-        "id": "af8a9141-f507-4435-a24f-423023e754d4",
+        "id": "6a85a7a8-8dde-4c7b-8f33-0f53367079b1",
         "type": "ingreso",
-        "recurringId": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "recurringId": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "confirmed": true
       },
       {
         "date": "2025-11-20",
         "amount": 41237,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "IBI Piso Centro (1er plazo)",
-        "id": "c3be3cfc-d1ec-4926-92e6-793e2d12f688",
+        "id": "45160a05-04cb-4758-b42a-28cd1a577c62",
         "type": "gasto",
-        "recurringId": "28de9ab4-a526-4f2a-b0b4-d5c913b2be2b",
+        "recurringId": "fb3d0593-9462-4a4c-ad6c-9eb9315c264a",
         "confirmed": true
       },
       {
         "date": "2026-02-20",
         "amount": 41236,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "IBI Piso Centro (2º plazo)",
-        "id": "aa1d2a2f-1f3c-486c-ad22-dc17fdf34383",
+        "id": "73056124-d14d-4949-b1a7-4431f9129132",
         "type": "gasto",
-        "recurringId": "686f916d-dd70-41b9-a2ae-50beb0f5d5f1",
+        "recurringId": "7ba7c274-15ad-43a9-8c8c-feb6a77c4e58",
         "confirmed": true
       },
       {
         "date": "2026-01-15",
         "amount": 53890,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "IBI Apartamento Playa",
-        "id": "89612304-cabd-4e1d-9d35-8da3a35a31f9",
+        "id": "74b1c46e-5c8b-46b3-8cd2-9c6867c4679b",
         "type": "gasto",
-        "recurringId": "773b8c78-dcbb-4c4e-a79e-870f64032772",
+        "recurringId": "bfb2775d-8978-4805-8f5c-6641d1023a6b",
         "confirmed": true
       },
       {
         "date": "2025-12-07",
         "amount": 28640,
-        "categoryId": "3bb69e2f-47a7-449b-afeb-8c5dfc33b7f0",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "59a54bfe-20c2-4941-b957-b5303e4ad2b7",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Seguro hogar Piso Centro",
-        "id": "e636dd3e-debe-433e-bd1e-87a3edd27161",
+        "id": "27350751-2c57-475b-9551-b352e1ad9323",
         "type": "gasto",
-        "recurringId": "eb4c4c44-bbe8-44fa-96a6-308b50858890",
+        "recurringId": "ce54d66b-be6e-4853-95bf-75c9df27b6ae",
         "confirmed": true
       },
       {
         "date": "2026-03-07",
         "amount": 21475,
-        "categoryId": "3bb69e2f-47a7-449b-afeb-8c5dfc33b7f0",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "59a54bfe-20c2-4941-b957-b5303e4ad2b7",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Seguro hogar Apartamento Playa",
-        "id": "f6771da6-a1ae-4a53-928d-370d69b6d9e9",
+        "id": "fb8749e1-9c18-4064-b349-60427fa8ddad",
         "type": "gasto",
-        "recurringId": "7110811d-afd8-4510-a4ac-685c8b2dbb9c",
+        "recurringId": "7924fe84-d4e1-4216-a229-a073891c5f80",
         "confirmed": true
       },
       {
         "date": "2025-12-08",
         "amount": 31500,
-        "categoryId": "938a0348-6efa-44c3-be5d-d0b1b7223520",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8e0f02c2-e79f-4097-9c0e-2bf1e10f4b2a",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Seguro de impago Piso Centro",
-        "id": "a3e89b9d-4311-45b1-869d-107e8ba03022",
+        "id": "d4ece700-6b79-4b8b-a658-616cbe603d7d",
         "type": "gasto",
-        "recurringId": "879d32db-fbb6-4fd4-a5e0-df6c2ad17c07",
+        "recurringId": "8be3b711-2951-4fc9-8712-70f8b448b125",
         "confirmed": true
       },
       {
         "date": "2026-01-18",
         "amount": 9680,
-        "categoryId": "8eb0e7e8-49cc-42c7-a675-ef1864438e35",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "b1833a29-1a45-40d4-b1dc-d722a79ff043",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Tasa de basuras Apartamento Playa",
-        "id": "79edee29-8e81-47bd-8613-0664304d31ec",
+        "id": "7e572d2b-7a18-40c2-a86e-158b63ddfac5",
         "type": "gasto",
-        "recurringId": "b9421bf7-ee0e-4ecd-9f43-65c058754093",
+        "recurringId": "0c9c6f3e-02e5-4cf3-818a-6582d6faa57c",
         "confirmed": true
       },
       {
         "date": "2025-11-20",
         "amount": 6050,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Gestoría alquileres (trimestral)",
-        "id": "ac7d45e1-2ac2-4ec7-8db2-1e5c80864e79",
+        "id": "56fb3170-85eb-45aa-8ab1-c8e964ae2a12",
         "type": "gasto",
-        "recurringId": "9a4bff09-6cc1-46c4-adbc-6fbf12425740",
+        "recurringId": "481df5dc-1772-4848-945d-dcf8ec11d1f5",
         "confirmed": true
       },
       {
         "date": "2026-02-20",
         "amount": 6050,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Gestoría alquileres (trimestral)",
-        "id": "b76e4a2b-477b-4a8a-8136-e90135e0179c",
+        "id": "0f6ad390-da57-4d92-8290-388a85aba85d",
         "type": "gasto",
-        "recurringId": "9a4bff09-6cc1-46c4-adbc-6fbf12425740",
+        "recurringId": "481df5dc-1772-4848-945d-dcf8ec11d1f5",
         "confirmed": true
       },
       {
         "date": "2026-05-20",
         "amount": 6050,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Gestoría alquileres (trimestral)",
-        "id": "02b2ff20-3b96-472d-9a1f-ec34a8cf3844",
+        "id": "cb6a57b0-c3e8-4220-96a2-e7df61602a07",
         "type": "gasto",
-        "recurringId": "9a4bff09-6cc1-46c4-adbc-6fbf12425740",
+        "recurringId": "481df5dc-1772-4848-945d-dcf8ec11d1f5",
         "confirmed": true
       },
       {
         "date": "2026-08-20",
         "amount": 6050,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Gestoría alquileres (trimestral)",
-        "id": "63ccd8f0-60c5-4310-bbd4-0617635aa9b9",
+        "id": "0765d03b-f52a-41bd-8096-5616145062ad",
         "type": "gasto",
-        "recurringId": "9a4bff09-6cc1-46c4-adbc-6fbf12425740",
+        "recurringId": "481df5dc-1772-4848-945d-dcf8ec11d1f5",
         "confirmed": true
       },
       {
         "date": "2025-12-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "83de6edc-07b9-4ed7-a4c8-8f334cb62159",
+        "id": "087a0775-3167-477c-9a46-f7ac57c99678",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-01-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "586835e9-bddb-41a0-abb8-f813d0b0bbc3",
+        "id": "676a2af1-1d31-4f38-9d36-d0c5461c05f1",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-02-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "6430a51f-5117-4569-9687-a92a6d35a7ef",
+        "id": "79a61955-56f1-48ec-9f2c-fd89cfb3ce14",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-03-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "daeb968b-4368-4e1a-b8a3-44043dadc849",
+        "id": "fa74067b-c393-4526-83a3-3061ff428b31",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-04-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "07fafd53-b523-4357-b050-d3b28c7a4c38",
+        "id": "8c16b97a-de32-4ecd-8089-1bbbf955b346",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-05-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "b08e63b2-0d7b-4837-a71a-a10814f25289",
+        "id": "470ec922-71ae-4ac2-a949-9700185bcf3f",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-06-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "4dd3e388-4fbe-46d9-bda8-2d12c447c536",
+        "id": "632945f3-1e3c-43da-b333-fd8c0f4e8307",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-07-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "691cc97e-7d9a-4f08-a816-d463bebc99ad",
+        "id": "5e881d65-c31c-4ce6-841e-ec502e08f120",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-08-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "07010560-0da5-466c-a357-4d8428b76ea7",
+        "id": "6866456b-2c5b-4128-9f48-6f941eacb510",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-09-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "a79ad73f-09ad-4739-9369-b34404eb3af1",
+        "id": "a08c31ca-a226-47fc-a190-78ee8534ca29",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2026-10-15",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Plataforma de streaming",
-        "id": "aae3c1de-6c82-4464-b6c6-8f7cbf1543ec",
+        "id": "230064a3-05d4-4cba-a663-3190054a4b97",
         "type": "gasto",
-        "recurringId": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "recurringId": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "confirmed": true
       },
       {
         "date": "2025-11-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 23268,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 80/300",
-        "id": "bf84d7f0-2fef-4958-bab2-584114ea3bf2"
+        "id": "66ae99d1-2f78-4195-9e24-d8920e643c93"
       },
       {
         "date": "2025-11-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33015,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 80/300",
-        "id": "0c15dc23-c5b4-4198-8de1-b2de7b2cd787"
+        "id": "6922f330-3215-47f9-be0e-264516852c23"
       },
       {
         "date": "2025-12-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 23189,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 81/300",
-        "id": "8c0f55a2-1abe-4ee4-9600-b2f7b4b4208e"
+        "id": "f2862a08-7be3-44ee-b0cf-abd9e4593bb7"
       },
       {
         "date": "2025-12-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33094,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 81/300",
-        "id": "f56596ec-eeb5-4832-ac60-43373045ac47"
+        "id": "f5b57166-07e5-4e91-8436-dbb2cb9e172d"
       },
       {
         "date": "2026-01-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 23109,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 82/300",
-        "id": "95912c95-492c-42d3-8999-d8699610e98a"
+        "id": "8adb8004-990a-4c31-8fb7-df3dc6cb271e"
       },
       {
         "date": "2026-01-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33174,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 82/300",
-        "id": "2b5fe65a-3ca1-4ee7-bc91-e6b9498e36a0"
+        "id": "e2b602c5-5d9b-4922-a675-893fce07ddf7"
       },
       {
         "date": "2026-02-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 23028,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 83/300",
-        "id": "e580a81a-c870-4255-b59a-697623189d67"
+        "id": "bb286a51-4cc9-4be5-bcec-f2900056b4e8"
       },
       {
         "date": "2026-02-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33255,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 83/300",
-        "id": "88a08a86-1361-4c89-8860-48e8e73066a6"
+        "id": "87186e5e-eefc-4216-9f78-8fc6fdb0ae4c"
       },
       {
         "date": "2026-03-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22948,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 84/300",
-        "id": "4fc23266-852a-4c40-82dc-d2564578266e"
+        "id": "b8988b80-1b21-4e86-8a0e-4ada4b998815"
       },
       {
         "date": "2026-03-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33352,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 84/300",
-        "id": "af68fe89-cf67-4153-b297-74ee4f29e1f7"
+        "id": "b88cbda8-5755-4603-99b3-73a068918598"
       },
       {
         "date": "2026-04-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22867,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 85/300",
-        "id": "6ca0b67d-9965-42d8-acdf-51b3f0a445bd"
+        "id": "7045e464-1a04-44b0-9567-76f090596d7f"
       },
       {
         "date": "2026-04-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33433,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 85/300",
-        "id": "63abe0bf-a1be-4bbd-9e2f-9d1fac3f01a5"
+        "id": "6b5172c5-e81f-4e3f-b67b-9fcb50d8caeb"
       },
       {
         "date": "2026-05-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22787,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 86/300",
-        "id": "1c16945b-1336-47b8-817f-6a662334b8a5"
+        "id": "f68ba68f-daba-4a82-b695-02260cce7263"
       },
       {
         "date": "2026-05-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33513,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 86/300",
-        "id": "bf2c137a-afd1-4b83-82be-1824dacbd836"
+        "id": "27e88c6e-30d9-4c29-a555-bcd88083949a"
       },
       {
         "date": "2026-06-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22706,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 87/300",
-        "id": "4bb961cf-28d7-4821-9528-44d29ddf5af0"
+        "id": "b770b407-3ae0-4874-a296-ee09df750328"
       },
       {
         "date": "2026-06-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33594,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 87/300",
-        "id": "0e43b404-6a60-441d-8e78-ec0045decf6f"
+        "id": "8f8e107b-3872-432f-982e-1df01982a461"
       },
       {
         "date": "2026-07-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22625,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 88/300",
-        "id": "9143e1e2-0824-4994-a92b-d7075c6b3773"
+        "id": "1fff1e39-af52-42b4-a4ae-9976c9524ebb"
       },
       {
         "date": "2026-07-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33675,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 88/300",
-        "id": "96b607d9-0172-4334-b08d-3fe194cec14b"
+        "id": "75c4450a-5441-4c21-bf67-4f1bfb501544"
       },
       {
         "date": "2026-08-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22543,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 89/300",
-        "id": "93c852ad-3833-4bcf-99b5-5a759dbb1c90"
+        "id": "f5a7df75-5568-4c9d-86cb-5765a3085bcf"
       },
       {
         "date": "2026-08-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33757,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 89/300",
-        "id": "32e90e6a-3fdd-46dd-8ec9-50675d561029"
+        "id": "584165e2-48e8-4979-bc4f-46597a4193e2"
       },
       {
         "date": "2026-09-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22462,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 90/300",
-        "id": "a07b3ea0-8079-4243-b667-062b16ca8c5c"
+        "id": "972852e5-fdeb-42bc-9feb-633a4bb9a9e9"
       },
       {
         "date": "2026-09-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33838,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 90/300",
-        "id": "49fe7af4-472a-4c9b-af4a-ad43661308d2"
+        "id": "295aca9a-9e11-4c33-b3a5-f48a2e6f26d9"
       },
       {
         "date": "2026-10-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 22380,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Piso Centro · intereses cuota 91/300",
-        "id": "56e7bbff-91e6-4da8-aa01-82af45d8e754"
+        "id": "87e795f1-089c-4b0b-bd0a-3738cac817b6"
       },
       {
         "date": "2026-10-02",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "recurringId": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "recurringId": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "confirmed": true,
         "type": "gasto",
         "amount": 33920,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Piso Centro · capital cuota 91/300",
-        "id": "5051dc3e-7cd1-4765-be74-f5feeb1b5009"
+        "id": "8ae0fc99-4828-45ff-8a71-74c53a842384"
       },
       {
         "date": "2025-11-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 25094,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 41/360",
-        "id": "b9890f9f-2fdb-4be9-a1a4-4537268b46f7"
+        "id": "13c8763b-fa4a-4dc8-89ed-50bffde8f782"
       },
       {
         "date": "2025-11-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17037,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 41/360",
-        "id": "471b11b7-e61e-4f40-a38a-f5d6679eac72"
+        "id": "43ff5763-87b3-4f4c-b5ca-371c23e47b22"
       },
       {
         "date": "2025-12-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 25045,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 42/360",
-        "id": "77f8d347-1a98-4619-acb7-19942b80aa7a"
+        "id": "37ddcee7-65ee-4a08-ae9b-dddf9896fb33"
       },
       {
         "date": "2025-12-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17086,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 42/360",
-        "id": "6d3fda44-b677-4858-b95e-fc68a7b001f2"
+        "id": "952b7987-b818-41b2-b603-9c21dd58e114"
       },
       {
         "date": "2026-01-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24997,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 43/360",
-        "id": "05afe715-1169-4f15-9291-17512b006dc4"
+        "id": "7611bbd7-1eee-4021-a472-7edddfcb1436"
       },
       {
         "date": "2026-01-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17134,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 43/360",
-        "id": "a8ed5b42-0b6d-4b04-8d3d-9dc1182b4851"
+        "id": "31e4c09d-7a02-4c04-a3e8-75f1f6d58db2"
       },
       {
         "date": "2026-02-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24948,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 44/360",
-        "id": "8282dc45-6bca-4815-aa65-ef801e5e30d0"
+        "id": "19db35e3-916e-4797-a1b8-13960a76e37b"
       },
       {
         "date": "2026-02-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17183,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 44/360",
-        "id": "e960ef31-60be-4fe4-a48b-b8c9b5a9b2aa"
+        "id": "4c226a56-2da7-4a47-85ae-ab9235d8bdaf"
       },
       {
         "date": "2026-03-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24900,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 45/360",
-        "id": "d1059b17-2953-4ab4-9df6-286bb9a111f9"
+        "id": "3113bef9-69b0-4f50-b8e0-1dd90929eb79"
       },
       {
         "date": "2026-03-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17231,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 45/360",
-        "id": "fa462f93-7ad4-4165-a7a1-843ea8654804"
+        "id": "e100572c-83b4-4e4a-b2e1-3ef749598d5c"
       },
       {
         "date": "2026-04-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24851,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 46/360",
-        "id": "58f4a1db-8209-4b07-995d-f7397551ae06"
+        "id": "65adfa84-d83e-4c16-94a4-ddba9728849a"
       },
       {
         "date": "2026-04-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17280,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 46/360",
-        "id": "c860fb57-7de6-4814-b93b-207f4c2a490d"
+        "id": "ec084833-47d2-4ed0-b062-dd349a8f1a0e"
       },
       {
         "date": "2026-05-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24802,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 47/360",
-        "id": "bb6143e1-6314-44b0-afaf-52a3492a5bd5"
+        "id": "2dc61c31-23b0-46eb-9b61-86ab4a74000a"
       },
       {
         "date": "2026-05-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17329,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 47/360",
-        "id": "6cb4ba91-a0ff-4092-9224-b2b765b9431a"
+        "id": "a2b4cd92-281b-41d2-9ef3-b4ccdf2835b9"
       },
       {
         "date": "2026-06-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24753,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 48/360",
-        "id": "6124ede2-c1e3-45a8-a626-89cc5094625c"
+        "id": "1bb66c2a-a124-4f16-a2ec-6da3ebd0a8a1"
       },
       {
         "date": "2026-06-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17378,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 48/360",
-        "id": "213635be-b1c4-44c1-aa13-afbfff9986dd"
+        "id": "cec004ba-68d4-4b44-bd90-e2bfa8876e7a"
       },
       {
         "date": "2026-07-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24704,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 49/360",
-        "id": "1e86fa97-f702-453a-9476-195660d70687"
+        "id": "c0dcfb26-0298-4341-8e5a-ae5a91880c46"
       },
       {
         "date": "2026-07-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17427,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 49/360",
-        "id": "59ddf5a6-a78b-4023-9258-21398a201e37"
+        "id": "3cef4a56-bf56-4796-9a93-efa24e4930de"
       },
       {
         "date": "2026-08-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24654,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 50/360",
-        "id": "19bd255b-6bc1-420c-a789-ac269974f695"
+        "id": "c682454c-060d-4ff5-ad4b-fea7f7953d6d"
       },
       {
         "date": "2026-08-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17477,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 50/360",
-        "id": "19274552-c860-4e01-b27f-eac6854a2aea"
+        "id": "562286dc-a891-47ce-82d0-533a22dbe53d"
       },
       {
         "date": "2026-09-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24605,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 51/360",
-        "id": "a10626e6-a8b0-47d0-847f-3a73601346d8"
+        "id": "fff20af2-2d4d-4ed9-95cc-0a23aa72b992"
       },
       {
         "date": "2026-09-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17526,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 51/360",
-        "id": "d9e930f5-15e1-42d2-a4a9-4245be6b88da"
+        "id": "ff3f2c90-600f-4d48-8bf5-a037b3c01aa3"
       },
       {
         "date": "2026-10-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 24555,
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
         "concept": "Hipoteca Apartamento Playa · intereses cuota 52/360",
-        "id": "585acad3-2416-40cb-8497-004d6c909d33"
+        "id": "bc901113-83e9-49ac-a6e5-97b7d5274c76"
       },
       {
         "date": "2026-10-03",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
-        "recurringId": "0200907e-146e-4274-a271-b2eb075e1010",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
+        "recurringId": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "confirmed": true,
         "type": "gasto",
         "amount": 17576,
-        "categoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+        "categoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
         "concept": "Hipoteca Apartamento Playa · capital cuota 52/360",
-        "id": "2d30ec7f-2e59-4f67-abba-47ce881cdffa"
+        "id": "b07b11ab-8c15-4b84-9d08-b31b4ca8210d"
       },
       {
         "date": "2026-01-22",
         "amount": 18000,
-        "categoryId": "8b07e1aa-64c4-47b4-90b2-855220689c30",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "69df92c6-5d8a-49ae-b187-693672f50768",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Fontanero: cambio de grifo y latiguillos",
-        "id": "7a3e2122-2213-417e-a287-77678f76f75c",
+        "id": "983622d7-3898-4d42-8f37-cddeae3b0438",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1665,10 +1665,10 @@
       {
         "date": "2026-03-12",
         "amount": 34550,
-        "categoryId": "8b07e1aa-64c4-47b4-90b2-855220689c30",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "69df92c6-5d8a-49ae-b187-693672f50768",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Pintura salón",
-        "id": "a6089970-06ee-45bd-9b9f-cbc7bc050784",
+        "id": "f3b5df46-14f7-4ed6-bcb1-c78d98d330d1",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1676,10 +1676,10 @@
       {
         "date": "2026-04-25",
         "amount": 12100,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Gestoría: renovación contrato",
-        "id": "2dca3e36-8c1f-4fb0-abb0-b0b6a5703e8a",
+        "id": "db214fdb-823c-490f-93b4-5b4a8c1b33fb",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1687,10 +1687,10 @@
       {
         "date": "2026-02-06",
         "amount": 3890,
-        "categoryId": "a1730b2b-e996-422b-a063-eb39f696fe72",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "3ee93104-27fb-4cf2-95a1-b2d63d08f7e8",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Luz entre inquilinos",
-        "id": "5b08eec9-bf2d-44c1-83f7-b3eb27649a00",
+        "id": "55802459-3b95-4fc9-acb6-8b3bbd1bde14",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1698,10 +1698,10 @@
       {
         "date": "2026-06-09",
         "amount": 9500,
-        "categoryId": "8b07e1aa-64c4-47b4-90b2-855220689c30",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "69df92c6-5d8a-49ae-b187-693672f50768",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Revisión anual de la caldera",
-        "id": "12790ab3-d6c7-45b7-a162-8806a72fe759",
+        "id": "f18a2780-5070-454d-9bd8-118bd9c5af68",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1709,10 +1709,10 @@
       {
         "date": "2026-08-14",
         "amount": 42000,
-        "categoryId": "8b07e1aa-64c4-47b4-90b2-855220689c30",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "69df92c6-5d8a-49ae-b187-693672f50768",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "concept": "Cambio de termo eléctrico",
-        "id": "3340f380-0951-40c1-99c7-916b907dfc21",
+        "id": "2392e2c5-8212-400d-b2ad-ca7688216f66",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1720,10 +1720,10 @@
       {
         "date": "2026-09-03",
         "amount": 5420,
-        "categoryId": "c6245e42-5d02-4961-bea9-f67af8700be3",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "f311b4ba-c5bb-45f5-a613-9e0bc8a537b1",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "concept": "Cerrajero: copia de llaves",
-        "id": "c926013c-a2b8-409d-8046-ce59d62189c0",
+        "id": "5bd1fc51-5d76-4aaa-befd-b9e9ec9fc978",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1731,10 +1731,10 @@
       {
         "date": "2025-11-03",
         "amount": 9240,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "21e81227-26e6-4a50-9ba4-a6619b5ef8d7",
+        "id": "b5048559-8985-4df4-a814-58b25f5f22d3",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1742,10 +1742,10 @@
       {
         "date": "2025-11-17",
         "amount": 11875,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "becaf496-7d89-4a1d-b47d-3784ba389bec",
+        "id": "1b3b49d9-98fe-4dd8-a935-291554cd86af",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1753,10 +1753,10 @@
       {
         "date": "2025-11-09",
         "amount": 6420,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "88178e00-f428-4640-bc6b-66c3172ce611",
+        "id": "92354276-57a3-4575-a983-37c3b956fdf9",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1764,10 +1764,10 @@
       {
         "date": "2025-11-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "db157f63-7a17-4f44-8898-3002c286d087",
+        "id": "11d061ec-b710-474c-ab44-2cf0dc0bf73d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1775,10 +1775,10 @@
       {
         "date": "2025-11-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "f0dc53c6-0020-4c70-89d8-bcfb3a6b6050",
+        "id": "24a4cac8-8d9a-4c87-8e6c-1932ed0c5874",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1786,10 +1786,10 @@
       {
         "date": "2025-12-03",
         "amount": 9550,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "cd558bd3-e1f6-49a0-b858-4a6a376da64a",
+        "id": "e3ea2539-954f-4f47-a95d-aa4859639dfe",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1797,10 +1797,10 @@
       {
         "date": "2025-12-17",
         "amount": 11635,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "3c79ba5e-024a-45ed-8a5d-35a66f00a639",
+        "id": "26abedce-9b8a-41f4-be48-72ea44cee950",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1808,10 +1808,10 @@
       {
         "date": "2025-12-09",
         "amount": 7170,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "7e07a6fa-ae2b-4948-8c90-1d824b36e59c",
+        "id": "fcd62253-6343-41f6-a12a-fdd66122d8f7",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1819,10 +1819,10 @@
       {
         "date": "2025-12-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "d8b2ea6d-e27c-4d23-93fc-23dfc2b0841b",
+        "id": "7df9f658-476c-4a0d-a77f-e96d258db791",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1830,10 +1830,10 @@
       {
         "date": "2025-12-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "87546bd0-d0e4-46b1-87ab-61dd94704330",
+        "id": "2281dc85-9c1a-436f-afe8-379709a85d17",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1841,10 +1841,10 @@
       {
         "date": "2026-01-03",
         "amount": 9860,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "593591a7-9777-430b-90fa-71cb73b07c8e",
+        "id": "1bd0cee9-ebc2-423a-b0d1-dcaa44086c57",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1852,10 +1852,10 @@
       {
         "date": "2026-01-17",
         "amount": 11395,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "e875dc3b-a2cd-4e21-93e2-4128f935a2f7",
+        "id": "22d95b72-d562-41ad-92a0-4a9255972441",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1863,10 +1863,10 @@
       {
         "date": "2026-01-09",
         "amount": 7920,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "ae9e9f99-5d2f-4652-923e-f8f932f759bd",
+        "id": "d15cb73e-2197-4579-bfee-01300170a6a7",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1874,10 +1874,10 @@
       {
         "date": "2026-01-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "3b660761-a3fa-4d0f-a100-3789316db621",
+        "id": "5dda58c9-523c-49cb-ad82-82f41723d635",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1885,10 +1885,10 @@
       {
         "date": "2026-01-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "42374243-979f-4a31-b16d-d5276e048606",
+        "id": "35145aff-ffc7-4dd0-88fe-27ea44e791b0",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1896,10 +1896,10 @@
       {
         "date": "2026-02-03",
         "amount": 10170,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "acdea95b-d054-4851-aa4d-f51c75ba0783",
+        "id": "64284a30-9e4c-4e45-9a76-9e374a60b2b5",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1907,10 +1907,10 @@
       {
         "date": "2026-02-17",
         "amount": 11155,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "6e9fe95b-f695-407b-a997-e8923ba6db61",
+        "id": "180bdb79-2aee-4b75-82fb-0f4e70bd8144",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1918,10 +1918,10 @@
       {
         "date": "2026-02-09",
         "amount": 6420,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "366d946c-8382-4de1-ad8c-f9907b193ff6",
+        "id": "d9425abc-a5d2-411d-9433-43ea2127fc7e",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1929,10 +1929,10 @@
       {
         "date": "2026-02-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "a34fa55e-3694-41ea-991a-d23fc6322561",
+        "id": "6c7da03a-5581-447f-8b41-7383896395a5",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1940,10 +1940,10 @@
       {
         "date": "2026-02-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "3e2a1a8f-5a6c-4b08-8b55-5c333bcc5dc7",
+        "id": "0ea823d4-9cf6-4a86-b332-ed6d1675a892",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1951,10 +1951,10 @@
       {
         "date": "2026-03-03",
         "amount": 10480,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "a61de3dd-eb6c-4f6d-aebd-3e7584d76bb9",
+        "id": "557217c2-851d-4760-a60b-fe8b6068ee08",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1962,10 +1962,10 @@
       {
         "date": "2026-03-17",
         "amount": 10915,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "1c1872b2-b9dd-4a34-bff2-30cfebcd3673",
+        "id": "2c1e0a9d-9807-49ca-9f7a-79f45899254e",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1973,10 +1973,10 @@
       {
         "date": "2026-03-09",
         "amount": 7170,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "aea466b4-60d4-4a7b-b92e-dce21184f085",
+        "id": "75c95eb8-35e9-4d35-ae43-cb3d063d6fb0",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1984,10 +1984,10 @@
       {
         "date": "2026-03-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "226bd5bf-33b1-4d40-a9ae-542cd2485f4b",
+        "id": "d006c9e6-4402-48e3-b98f-8f275ee59390",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -1995,10 +1995,10 @@
       {
         "date": "2026-03-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "76f5f3d5-ca5e-45e7-bec1-6132595477e8",
+        "id": "33efa11e-5d79-41e0-86a7-6a12ed462f62",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2006,10 +2006,10 @@
       {
         "date": "2026-04-03",
         "amount": 10790,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "9cb65250-d2f1-4046-b27a-16c1584d686e",
+        "id": "13ddcf3e-4d4d-44c0-8737-5ac71ffed6c7",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2017,10 +2017,10 @@
       {
         "date": "2026-04-17",
         "amount": 10675,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "bef014f0-c287-4da9-923a-28b46f5225f2",
+        "id": "2d25990d-2c77-43ab-b7e4-afa718c273dc",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2028,10 +2028,10 @@
       {
         "date": "2026-04-09",
         "amount": 7920,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "df766907-b00a-414a-8aa9-63995d8d4cdc",
+        "id": "69e1f165-398e-4d04-b7a0-c42f4c864f70",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2039,10 +2039,10 @@
       {
         "date": "2026-04-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "0613d64b-76e9-44e6-8986-b61c4c807783",
+        "id": "2bcb456f-ccf9-481e-bce3-9137af46544f",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2050,10 +2050,10 @@
       {
         "date": "2026-04-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "d17102cc-3e29-4480-b308-7351bf0546ef",
+        "id": "ee4c2a19-523d-4370-9493-7ca296a8a814",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2061,10 +2061,10 @@
       {
         "date": "2026-05-03",
         "amount": 11100,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "f5bc58d1-c4fd-4ae5-b4e1-ae90238980fc",
+        "id": "887f593e-eb34-425d-be07-043ce791cbd7",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2072,10 +2072,10 @@
       {
         "date": "2026-05-17",
         "amount": 10435,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "dd071d85-c6d3-41e5-b9ca-5a0ac8b29e0e",
+        "id": "ebedd8c2-444f-43ec-a8bc-e58a1b19e53d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2083,10 +2083,10 @@
       {
         "date": "2026-05-09",
         "amount": 6420,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "6b27c19d-866f-4b94-848a-faaea3071b57",
+        "id": "fa924a61-fc6e-4db2-b0ef-ce1d138a2844",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2094,10 +2094,10 @@
       {
         "date": "2026-05-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "20f48c72-3024-4845-b630-988a2876cd5c",
+        "id": "f6fe98b0-258f-4669-9540-f7069c6c29a2",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2105,10 +2105,10 @@
       {
         "date": "2026-05-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "f99642e9-33bd-49f5-b95a-bb349606995b",
+        "id": "29bddc0d-2768-4a67-9864-fadbaa150f4d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2116,10 +2116,10 @@
       {
         "date": "2026-06-03",
         "amount": 11410,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "d1240ef5-a0b8-4eca-9c46-b7decbd87c44",
+        "id": "b42ec61b-2c3c-429a-9c4d-1619571f40c4",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2127,10 +2127,10 @@
       {
         "date": "2026-06-17",
         "amount": 10195,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "7e272ec7-1171-4ff0-b856-2dea965a3dd6",
+        "id": "0e664ad3-b936-4eca-8bc6-2aa148757688",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2138,10 +2138,10 @@
       {
         "date": "2026-06-09",
         "amount": 7170,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "3890b2a9-cbf7-4c04-8a4b-988c1c01cbc8",
+        "id": "cd18c6c2-b754-4fd3-8d32-0262b467a2ac",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2149,10 +2149,10 @@
       {
         "date": "2026-06-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "e6701da4-745d-4857-b954-bce1678e0ae3",
+        "id": "922df762-c8f8-4669-b34a-37401ec54b6d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2160,10 +2160,10 @@
       {
         "date": "2026-06-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "ce4abd1b-c6d3-4f66-8e2e-ee3f130e63a0",
+        "id": "0f40eac2-af4e-4fe0-ac42-bfd1d5c41fde",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2171,10 +2171,10 @@
       {
         "date": "2026-07-03",
         "amount": 11720,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "18c6f8c4-162d-443c-9e0e-6ce082631eb8",
+        "id": "96b3df6b-a631-4cd9-91d0-a38519847a7d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2182,10 +2182,10 @@
       {
         "date": "2026-07-17",
         "amount": 9955,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "eaa961fa-8791-4fca-99ff-6653f2de8ab7",
+        "id": "bdbedb37-47e3-4017-8181-6affb957a4ea",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2193,10 +2193,10 @@
       {
         "date": "2026-07-09",
         "amount": 7920,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "89ef62ce-e651-44f3-8427-e3907ed63b27",
+        "id": "dc6b6459-e1fc-4c91-acdc-4a88d7909e61",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2204,10 +2204,10 @@
       {
         "date": "2026-07-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "c10f4d39-1b90-41d1-b450-f87b7d5455b0",
+        "id": "034407a1-6621-4885-8e25-085f155cab59",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2215,10 +2215,10 @@
       {
         "date": "2026-07-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "df793d38-ae86-43ae-88c7-6f9f022b8369",
+        "id": "635584d9-eb65-463c-8d71-97db7df0f2c6",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2226,10 +2226,10 @@
       {
         "date": "2026-08-03",
         "amount": 12030,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "435167fb-80bb-48e7-8812-f6e9a528eb42",
+        "id": "6f97ee02-b816-4b68-8ea7-cf9146fa57b8",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2237,10 +2237,10 @@
       {
         "date": "2026-08-17",
         "amount": 9715,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "2af0466f-c4ec-4b7e-98a0-2b2c00716b61",
+        "id": "c7200f85-5bdf-4e3a-a3ac-05dfe070c060",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2248,10 +2248,10 @@
       {
         "date": "2026-08-09",
         "amount": 6420,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "b3f2acec-9d21-4601-afc8-62988629b259",
+        "id": "a239283d-8afc-4085-b508-23a5e40004fc",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2259,10 +2259,10 @@
       {
         "date": "2026-08-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "bc5e8670-e647-42b1-b17f-2612b7b47cb1",
+        "id": "333c6d76-fbce-44d5-94bd-90c1f1d89230",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2270,10 +2270,10 @@
       {
         "date": "2026-08-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "f6945e0b-84f8-4b94-a42a-c71ab09cbe99",
+        "id": "fbf03e1b-e940-4e56-b1d0-939d5b5e8457",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2281,10 +2281,10 @@
       {
         "date": "2026-09-03",
         "amount": 12340,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "71ceec7c-12f0-46b9-b39a-ef4c9185ef92",
+        "id": "b9e7613e-5ab2-4360-b82e-aa1ed22185bb",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2292,10 +2292,10 @@
       {
         "date": "2026-09-17",
         "amount": 9475,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "52d5f11f-4cad-4c28-9742-72ad2592151c",
+        "id": "4270a43a-9323-4201-96b3-1e4f9ab0457d",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2303,10 +2303,10 @@
       {
         "date": "2026-09-09",
         "amount": 7170,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "bd751f46-6626-48e2-a3f4-9f69f7dd4303",
+        "id": "c995e502-c3a4-4dc5-8681-ee585640d95a",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2314,10 +2314,10 @@
       {
         "date": "2026-09-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "9bee8319-b0c4-4ef4-8370-9f38e35d9900",
+        "id": "882dc3c9-52d1-4d85-b1e9-434a312f626f",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2325,10 +2325,10 @@
       {
         "date": "2026-09-14",
         "amount": 4500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "79cf5846-c484-44b1-9729-8841b5d28669",
+        "id": "85370527-545b-4c3f-8efb-e9f0b69129d7",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2336,10 +2336,10 @@
       {
         "date": "2026-10-03",
         "amount": 12650,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "e9168afe-2dc5-45c0-be2b-b645611aa886",
+        "id": "c31baf5f-9d08-4d94-8e81-470f244ae7da",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2347,10 +2347,10 @@
       {
         "date": "2026-10-17",
         "amount": 9235,
-        "categoryId": "9b3bdd8a-02b2-4ffc-89ee-63c579972b36",
+        "categoryId": "bdd88bb5-4952-4173-b27b-d9a2840ec085",
         "propertyId": null,
         "concept": "Supermercado",
-        "id": "3936a083-c859-4cca-8754-2bccd1dc4e99",
+        "id": "24459571-dc2f-4650-8283-c0ab774d76e3",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2358,10 +2358,10 @@
       {
         "date": "2026-10-09",
         "amount": 7920,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Luz y gas",
-        "id": "e1da2463-a62a-4c20-bdf9-db04ca413526",
+        "id": "4fdb5243-c9e3-4cfc-b182-ddfeb157a819",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2369,10 +2369,10 @@
       {
         "date": "2026-10-11",
         "amount": 3500,
-        "categoryId": "74101f15-ee96-43c9-b1a9-8f499aa0adfc",
+        "categoryId": "e0832c36-cdef-416d-962f-be73d93c23f1",
         "propertyId": null,
         "concept": "Fibra y móvil",
-        "id": "271ef0dc-cc15-440f-8d53-79e815829917",
+        "id": "f5d09d62-8a35-4d58-beae-bfa582efcff8",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2380,10 +2380,10 @@
       {
         "date": "2026-10-14",
         "amount": 6500,
-        "categoryId": "fb0dbd58-b118-45f9-8948-d1a826af1516",
+        "categoryId": "f1b5c639-8d5b-405d-96d6-08c29fdcdded",
         "propertyId": null,
         "concept": "Gasolina",
-        "id": "cf86c6cb-e0a4-423a-8bfa-814c30a8e88a",
+        "id": "cea6f10f-fd3e-4184-bb4e-acb205d4dfb9",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2391,10 +2391,10 @@
       {
         "date": "2025-11-21",
         "amount": 5800,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Cena con amigos",
-        "id": "fdf06f41-27be-4430-8879-b9235758076e",
+        "id": "cdc13943-566e-4ebf-aad7-c959e7dd6c32",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2402,10 +2402,10 @@
       {
         "date": "2026-01-26",
         "amount": 12490,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Entradas concierto",
-        "id": "e8ed7f2d-90d1-463f-b11c-05ca6c6ccb0b",
+        "id": "b6eaffd0-d5b3-4167-b46b-b47d860c3917",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2413,10 +2413,10 @@
       {
         "date": "2026-02-04",
         "amount": 4200,
-        "categoryId": "e85559c8-9a43-4930-8daf-ef885116b3b8",
+        "categoryId": "1c4b3122-581e-4d25-9919-aa7d8c35acfa",
         "propertyId": null,
         "concept": "Farmacia",
-        "id": "e48d929f-4ca5-4caf-b82a-08c198497ea1",
+        "id": "8fbd01e5-3c79-4b59-a05e-841a48a49f39",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2424,10 +2424,10 @@
       {
         "date": "2026-03-19",
         "amount": 7500,
-        "categoryId": "e85559c8-9a43-4930-8daf-ef885116b3b8",
+        "categoryId": "1c4b3122-581e-4d25-9919-aa7d8c35acfa",
         "propertyId": null,
         "concept": "Dentista: revisión",
-        "id": "5441cf1d-1298-4a1a-9e96-d6979031e6d7",
+        "id": "89e04832-1388-4d60-bdfc-bf96dc24a18c",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2435,10 +2435,10 @@
       {
         "date": "2026-04-15",
         "amount": 3999,
-        "categoryId": "b6f3ffcb-6859-4cee-8843-2ece0d015b6e",
+        "categoryId": "53af6298-c865-4173-a525-dc4dc29a8fa8",
         "propertyId": null,
         "concept": "Regalo cumpleaños",
-        "id": "8b267cb0-5f57-4cf7-bb88-c42b55ce9cd3",
+        "id": "87e53c4d-9d4b-4564-b2f3-ae8a3feb6529",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2446,10 +2446,10 @@
       {
         "date": "2026-05-21",
         "amount": 7000,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Cena con amigos",
-        "id": "010d1b5e-3694-4f61-a9ed-651e54e24092",
+        "id": "202fc029-26b5-4f78-9ed2-bfa5eb34cbe8",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2457,10 +2457,10 @@
       {
         "date": "2026-07-26",
         "amount": 12490,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "concept": "Escapada fin de semana",
-        "id": "6a3b182a-c00b-4615-8990-078e722986dd",
+        "id": "02d9db70-b7c3-465f-9b7f-ce5573b47479",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2468,10 +2468,10 @@
       {
         "date": "2026-08-04",
         "amount": 3700,
-        "categoryId": "e85559c8-9a43-4930-8daf-ef885116b3b8",
+        "categoryId": "1c4b3122-581e-4d25-9919-aa7d8c35acfa",
         "propertyId": null,
         "concept": "Farmacia",
-        "id": "3b88009a-17f5-4e0e-a824-e2b97b0f5106",
+        "id": "737b8bb9-fbae-4149-9d74-a8ea1efb78ef",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2479,10 +2479,10 @@
       {
         "date": "2026-09-19",
         "amount": 7500,
-        "categoryId": "e85559c8-9a43-4930-8daf-ef885116b3b8",
+        "categoryId": "1c4b3122-581e-4d25-9919-aa7d8c35acfa",
         "propertyId": null,
         "concept": "Dentista: revisión",
-        "id": "a5f294b4-68e5-42b6-a349-ab3b6905c387",
+        "id": "46d4a638-ccab-4d40-b6a6-52c55b8d884f",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2490,10 +2490,10 @@
       {
         "date": "2026-10-15",
         "amount": 5999,
-        "categoryId": "b6f3ffcb-6859-4cee-8843-2ece0d015b6e",
+        "categoryId": "53af6298-c865-4173-a525-dc4dc29a8fa8",
         "propertyId": null,
         "concept": "Regalos de Navidad",
-        "id": "0e853848-ad61-437c-83ad-f6d849bfc5d3",
+        "id": "f91398e5-d11c-4acf-8759-165f79b0f1e0",
         "type": "gasto",
         "recurringId": null,
         "confirmed": true
@@ -2503,10 +2503,10 @@
       {
         "concept": "Alquiler Piso Centro",
         "amount": 95000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "mensual",
-        "id": "a64aee40-6d9c-49cd-97f8-559bc4e8fbec",
+        "id": "0a9d62f2-8a5a-4fe9-acec-cb7c3f97466f",
         "kind": "fijo",
         "mortgage": null,
         "type": "ingreso",
@@ -2518,10 +2518,10 @@
       {
         "concept": "Alquiler Apartamento Playa",
         "amount": 78000,
-        "categoryId": "a8b98677-f88c-4179-b456-c29b0f97f77b",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "8c31c95e-3436-4614-bd3e-4a27d8932604",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "mensual",
-        "id": "7c333ec0-a16f-47fe-befd-e3b8c99a4b27",
+        "id": "519a2c79-a8dc-4665-a035-118e3aa702d6",
         "kind": "fijo",
         "mortgage": null,
         "type": "ingreso",
@@ -2533,10 +2533,10 @@
       {
         "concept": "Comunidad Piso Centro",
         "amount": 6500,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "mensual",
-        "id": "db32b69a-d143-45eb-8d29-3d6ba8eca4c3",
+        "id": "fc4eb201-98a6-4433-956f-51f99f6edf5a",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2548,10 +2548,10 @@
       {
         "concept": "Comunidad Apartamento Playa",
         "amount": 4800,
-        "categoryId": "518a83ad-d182-4e7d-bd8c-0b282cfb3d4c",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "5fc32844-1c20-4d27-bfa9-e675989bee19",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "mensual",
-        "id": "3fd44bed-f2b7-48b1-888d-7ae3affa5d03",
+        "id": "33acc46d-b31f-45e9-9394-326b9b058d90",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2563,10 +2563,10 @@
       {
         "concept": "Nómina",
         "amount": 235000,
-        "categoryId": "c29ef385-e1ab-4456-8535-69dbed1b4a97",
+        "categoryId": "3c6af839-f3fe-40b2-83a5-5a9f740ba2b5",
         "propertyId": null,
         "frequency": "mensual",
-        "id": "771ab541-431c-49de-ae86-3cee60e133a0",
+        "id": "d57f41c7-dc98-45c7-bb57-36575c1e3954",
         "kind": "fijo",
         "mortgage": null,
         "type": "ingreso",
@@ -2578,10 +2578,10 @@
       {
         "concept": "IBI Piso Centro (1er plazo)",
         "amount": 41237,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "anual",
-        "id": "28de9ab4-a526-4f2a-b0b4-d5c913b2be2b",
+        "id": "fb3d0593-9462-4a4c-ad6c-9eb9315c264a",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2593,10 +2593,10 @@
       {
         "concept": "IBI Piso Centro (2º plazo)",
         "amount": 41236,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "anual",
-        "id": "686f916d-dd70-41b9-a2ae-50beb0f5d5f1",
+        "id": "7ba7c274-15ad-43a9-8c8c-feb6a77c4e58",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2608,10 +2608,10 @@
       {
         "concept": "IBI Apartamento Playa",
         "amount": 53890,
-        "categoryId": "c34340e5-2fc8-4b27-a20b-143a2639bac1",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "fbfc7764-bf2c-41c0-87e8-6d57dd90d799",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "anual",
-        "id": "773b8c78-dcbb-4c4e-a79e-870f64032772",
+        "id": "bfb2775d-8978-4805-8f5c-6641d1023a6b",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2623,10 +2623,10 @@
       {
         "concept": "Seguro hogar Piso Centro",
         "amount": 28640,
-        "categoryId": "3bb69e2f-47a7-449b-afeb-8c5dfc33b7f0",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "59a54bfe-20c2-4941-b957-b5303e4ad2b7",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "anual",
-        "id": "eb4c4c44-bbe8-44fa-96a6-308b50858890",
+        "id": "ce54d66b-be6e-4853-95bf-75c9df27b6ae",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2638,10 +2638,10 @@
       {
         "concept": "Seguro hogar Apartamento Playa",
         "amount": 21475,
-        "categoryId": "3bb69e2f-47a7-449b-afeb-8c5dfc33b7f0",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "59a54bfe-20c2-4941-b957-b5303e4ad2b7",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "anual",
-        "id": "7110811d-afd8-4510-a4ac-685c8b2dbb9c",
+        "id": "7924fe84-d4e1-4216-a229-a073891c5f80",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2653,10 +2653,10 @@
       {
         "concept": "Seguro de impago Piso Centro",
         "amount": 31500,
-        "categoryId": "938a0348-6efa-44c3-be5d-d0b1b7223520",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "8e0f02c2-e79f-4097-9c0e-2bf1e10f4b2a",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "anual",
-        "id": "879d32db-fbb6-4fd4-a5e0-df6c2ad17c07",
+        "id": "8be3b711-2951-4fc9-8712-70f8b448b125",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2668,10 +2668,10 @@
       {
         "concept": "Tasa de basuras Apartamento Playa",
         "amount": 9680,
-        "categoryId": "8eb0e7e8-49cc-42c7-a675-ef1864438e35",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "b1833a29-1a45-40d4-b1dc-d722a79ff043",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "anual",
-        "id": "b9421bf7-ee0e-4ecd-9f43-65c058754093",
+        "id": "0c9c6f3e-02e5-4cf3-818a-6582d6faa57c",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2683,10 +2683,10 @@
       {
         "concept": "Gestoría alquileres (trimestral)",
         "amount": 6050,
-        "categoryId": "1fedb99c-e8be-409c-ad54-aa5a44bc3abb",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "05d2e734-a201-45e9-bbc0-027b3ded674d",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "trimestral",
-        "id": "9a4bff09-6cc1-46c4-adbc-6fbf12425740",
+        "id": "481df5dc-1772-4848-945d-dcf8ec11d1f5",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2698,10 +2698,10 @@
       {
         "concept": "Plataforma de streaming",
         "amount": 1299,
-        "categoryId": "c0381dc5-da1d-4917-8c19-3fdd6cd9f781",
+        "categoryId": "ba175cd0-53b4-42f1-906d-33d6018131be",
         "propertyId": null,
         "frequency": "mensual",
-        "id": "a31c8e5b-0133-4869-9e76-86c978beb3ac",
+        "id": "28db22bb-8502-40d3-a94d-f3ed976a464d",
         "kind": "fijo",
         "mortgage": null,
         "type": "gasto",
@@ -2711,13 +2711,13 @@
         "generatedUntil": "2026-10-31"
       },
       {
-        "id": "110aa384-03f4-4ca5-b3a2-9edb515721dc",
+        "id": "b900cee6-8269-4757-86d3-53da87b5e5e3",
         "kind": "hipoteca",
         "concept": "Hipoteca Piso Centro",
         "amount": 56283,
         "type": "gasto",
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
         "frequency": "mensual",
         "day": 2,
         "startDate": "2019-04-02",
@@ -2728,7 +2728,7 @@
           "annualRate": 2.9,
           "installments": 300,
           "interestMethod": "mensual",
-          "principalCategoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+          "principalCategoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
           "adjustments": [
             {
               "date": "2026-02-15",
@@ -2739,13 +2739,13 @@
         }
       },
       {
-        "id": "0200907e-146e-4274-a271-b2eb075e1010",
+        "id": "1a03b7b5-94bf-4504-ad24-c8826bebd9ab",
         "kind": "hipoteca",
         "concept": "Hipoteca Apartamento Playa",
         "amount": 42131,
         "type": "gasto",
-        "categoryId": "07e8d369-08af-46ca-99de-25d3e8df5daa",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "categoryId": "be48b5b4-9e65-4613-95b4-c56f74851482",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "frequency": "mensual",
         "day": 3,
         "startDate": "2022-07-03",
@@ -2756,7 +2756,7 @@
           "annualRate": 3.4,
           "installments": 360,
           "interestMethod": "mensual",
-          "principalCategoryId": "3ad28b0b-8564-4e23-a4b2-dbf216b0a519",
+          "principalCategoryId": "5ab43882-97e3-4a93-9d71-53c0fc437394",
           "adjustments": []
         }
       }
@@ -2765,486 +2765,486 @@
       {
         "name": "Renta variable",
         "icon": "trending-up",
-        "id": "cca74277-147e-4907-9af7-752b5fb92dd7"
+        "id": "3e4b9122-4c53-4aa2-8dc9-68a807f980ea"
       },
       {
         "name": "Renta fija",
         "icon": "landmark",
-        "id": "37aa184e-4263-41a7-af3f-0618ede4b6ea"
+        "id": "5317b11d-c151-4832-9698-038e1a4ae6e7"
       },
       {
         "name": "Liquidez",
         "icon": "wallet",
-        "id": "e7bd7e3e-fe00-4513-a0a2-26837b354fe2"
+        "id": "6c9bd366-5781-4a3d-a577-0ffb8d2d479d"
       },
       {
         "name": "Inmobiliario",
         "icon": "house",
-        "id": "4ed102d2-3185-4258-b07e-ddc5720df98e"
+        "id": "1d60d573-239d-4fa2-a936-80348a1fb12a"
       }
     ],
     "assets": [
       {
-        "id": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "name": "Fondo indexado RV global",
         "kind": "fondo",
         "propertyId": null,
-        "assetTypeId": "cca74277-147e-4907-9af7-752b5fb92dd7",
+        "assetTypeId": "3e4b9122-4c53-4aa2-8dc9-68a807f980ea",
         "active": true
       },
       {
-        "id": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "name": "Fondo indexado RF europea",
         "kind": "fondo",
         "propertyId": null,
-        "assetTypeId": "37aa184e-4263-41a7-af3f-0618ede4b6ea",
+        "assetTypeId": "5317b11d-c151-4832-9698-038e1a4ae6e7",
         "active": true
       },
       {
-        "id": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "12b76eb0-804b-487a-83af-325751f2853b",
         "name": "ETF S&P 500",
         "kind": "etf",
         "propertyId": null,
-        "assetTypeId": "cca74277-147e-4907-9af7-752b5fb92dd7",
+        "assetTypeId": "3e4b9122-4c53-4aa2-8dc9-68a807f980ea",
         "active": true
       },
       {
-        "id": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "name": "Cuenta remunerada",
         "kind": "efectivo",
         "propertyId": null,
-        "assetTypeId": "e7bd7e3e-fe00-4513-a0a2-26837b354fe2",
+        "assetTypeId": "6c9bd366-5781-4a3d-a577-0ffb8d2d479d",
         "active": true
       },
       {
-        "id": "92ff0c0d-496e-4909-9c73-a9f7b94985b9",
+        "id": "1aaf161f-d55f-424d-9820-11bb83761e58",
         "name": "Piso Centro",
         "kind": "inmobiliario",
-        "propertyId": "a6b09691-c6e7-4c55-a1f0-9e6fcb930a85",
-        "assetTypeId": "4ed102d2-3185-4258-b07e-ddc5720df98e",
+        "propertyId": "9e2ea460-8425-45d8-afb5-09444ae247a6",
+        "assetTypeId": "1d60d573-239d-4fa2-a936-80348a1fb12a",
         "active": true
       },
       {
-        "id": "513cdfb7-4934-4bdb-8375-a7b990ba1b95",
+        "id": "e0a0b7d2-bcdf-4482-87d6-4c7dbde1360f",
         "name": "Apartamento Playa",
         "kind": "inmobiliario",
-        "propertyId": "9524ed47-9419-470f-af78-e4517b195935",
+        "propertyId": "93c51b36-83a6-492c-8828-fd2efad2d543",
         "assetTypeId": null,
         "active": true
       }
     ],
     "assetSnapshots": [
       {
-        "id": "a3f2a825-6c7b-4a79-b83e-8a72ea6dc63a",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "407da596-bd40-454f-b22c-f63c0d34c8dc",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2025-11-30",
         "value": 3180000,
         "purchaseValue": 3000000,
         "fiscalCost": 2200000
       },
       {
-        "id": "4c6ea7e9-e4c0-4dc6-b825-3742878dd3dd",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "90b2b02c-5c61-42de-a1ef-671051d0ee34",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2025-11-30",
         "value": 1517049,
         "purchaseValue": 1500000,
         "fiscalCost": 1500000
       },
       {
-        "id": "0fc60c5d-7bfc-4d63-b01a-3e6b59871397",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "e9f0162c-0715-4e5d-86b6-38313629ddbc",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2025-11-30",
         "value": 861823,
         "purchaseValue": 800000,
         "fiscalCost": null
       },
       {
-        "id": "b7f48754-1f9c-4621-9d41-5770f5df8f22",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "d50f4479-1dd6-4774-b5d2-602418701779",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2025-11-30",
         "value": 1220136,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "204441e9-b0b6-48cd-94f3-cec52f87d4b1",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "2f770b4b-e0b1-4c19-9023-70e8ad8bf8b5",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2025-12-31",
         "value": 3312060,
         "purchaseValue": 3030000,
         "fiscalCost": 2230000
       },
       {
-        "id": "69ada0c4-a7cb-4811-a648-b401670544f9",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "398f0ff8-2f23-45a6-a205-02c47f8b5eb5",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2025-12-31",
         "value": 1528849,
         "purchaseValue": 1510000,
         "fiscalCost": 1510000
       },
       {
-        "id": "cf80771f-92ea-4296-9bc7-6a080fda1afe",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "73d09bec-a3d5-4295-b207-154857b1ec7d",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2025-12-31",
         "value": 845014,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "ef9388bc-f4fc-42ad-95c6-4c9dd8c23d3c",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "92926060-893a-41f5-9799-ab4c30fda63c",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2025-12-31",
         "value": 1254902,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "e6a59ebb-0492-4efd-8753-47064bb659b1",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "fba2c66b-438c-48b1-80d1-76cc1a8eaf82",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-01-31",
         "value": 3338116,
         "purchaseValue": 3060000,
         "fiscalCost": 2260000
       },
       {
-        "id": "8333161b-26a3-44ca-813f-e0280ba099bd",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "b75a3a67-4798-41de-b6bc-a7c7824dec65",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-01-31",
         "value": 1534029,
         "purchaseValue": 1520000,
         "fiscalCost": 1520000
       },
       {
-        "id": "f5a6a52b-2f64-4f27-8d48-c7bd1ea18a97",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "f24bbf2d-1381-4454-8209-6df05e6527da",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-01-31",
         "value": 833751,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "8b5f7c9a-5921-4fa9-b2f5-8a5cb3b0df21",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "7eba71a4-7618-4f42-bad8-a2d537c72b29",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-01-31",
         "value": 1229746,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "05ff4e63-e9fc-44f7-b031-f190c2ede908",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "d37003bb-546e-4004-8860-4b8e1b675893",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-02-28",
         "value": 3305700,
         "purchaseValue": 3090000,
         "fiscalCost": 2290000
       },
       {
-        "id": "8439e11f-8da5-4f3c-b0e4-3ba4e9fd6df1",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "bfa7e941-87e0-4703-98c8-d62c1edd98a1",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-02-28",
         "value": 1543112,
         "purchaseValue": 1530000,
         "fiscalCost": 1530000
       },
       {
-        "id": "9dff5c0d-a574-46a8-b439-47e526139ac0",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "b55973c7-0f82-47a3-bef3-f1d6f55b6e6e",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-02-28",
         "value": 857427,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "6b665dcf-e636-42a8-85c5-940f0075561c",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "d59dddd7-6db5-4a57-9b0c-896aea3a91a3",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-02-28",
         "value": 1202033,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "5bca5998-7c01-433d-8c78-8fb16dce7559",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "10b8d1e3-de86-46c4-a2ed-f8ccd9085946",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-03-31",
         "value": 3350611,
         "purchaseValue": 3120000,
         "fiscalCost": 2320000
       },
       {
-        "id": "4966329b-2f59-4214-a0fe-ce06aabe70f7",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "6ccc5959-dbd2-4793-a65d-680375543ae4",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-03-31",
         "value": 1561048,
         "purchaseValue": 1540000,
         "fiscalCost": 1540000
       },
       {
-        "id": "67b93f42-56be-492e-aef4-1d3dc997edb0",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "c02107a6-c2d4-498a-bf38-925e9a0b2d12",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-03-31",
         "value": 894248,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "7d672e65-c1ea-4e72-9ef8-9e8ea09ada9d",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "e1832d0e-e6e1-4b78-8145-a1af11632e10",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-03-31",
         "value": 1232871,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "c77d5db4-ef9e-4ec6-93c1-f5ce96d40d3e",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "2993b9ab-e776-4b7f-9158-88e5239960ab",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-04-30",
         "value": 3497691,
         "purchaseValue": 3150000,
         "fiscalCost": 2350000
       },
       {
-        "id": "802545c4-404b-44d3-9278-3f2025b72c19",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "30d88cba-5c0a-46d2-b847-2317510ded11",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-04-30",
         "value": 1579841,
         "purchaseValue": 1550000,
         "fiscalCost": 1550000
       },
       {
-        "id": "b75d76d4-109e-4f5b-84bf-786d53595595",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "f655c957-464a-4c27-bda4-547ec29399b1",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-04-30",
         "value": 903164,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "6557bb98-aa08-4ede-9e67-bfb34363fdfb",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "22009bfc-1cd5-4d8d-8f5e-91f2aab361a8",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-04-30",
         "value": 1297593,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "52599278-dd5c-449d-ba67-3473aa160712",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "10916bde-3a1e-478a-a46f-d96720a962dc",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-05-31",
         "value": 3621904,
         "purchaseValue": 3180000,
         "fiscalCost": 2380000
       },
       {
-        "id": "b50c3af4-a55d-402b-bb6d-cb490cd4744a",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "55ee7dd5-7771-4a38-96d4-f86f6e8567b8",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-05-31",
         "value": 1590170,
         "purchaseValue": 1560000,
         "fiscalCost": 1560000
       },
       {
-        "id": "5686a35a-3b03-4da6-b104-26eb3173b5d8",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "e8b4df00-2d00-45f2-aa81-60153eb505f0",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-05-31",
         "value": 884005,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "3af7c6e2-b98d-4ccc-bf3e-7f60a4f838c2",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "18b6798a-b7a5-47c1-b33c-cd91932545d4",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-05-31",
         "value": 1321891,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "ad80d2f9-3dfb-41b8-b341-8b86ca4af15c",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "b8a05595-7653-4759-b622-4d482039d78d",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-06-30",
         "value": 3630438,
         "purchaseValue": 3210000,
         "fiscalCost": 2410000
       },
       {
-        "id": "cbef4fdf-dee0-488b-8fbb-42a360eedb5b",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "ee984aa4-ccf6-430b-86dd-cf95b1619e33",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-06-30",
         "value": 1595120,
         "purchaseValue": 1570000,
         "fiscalCost": 1570000
       },
       {
-        "id": "c4a084de-8a14-452a-8485-dca39d819b5e",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "36d122a8-5707-4261-93e4-34ff3adfe1c0",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-06-30",
         "value": 877731,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "ce8a9978-632a-499e-ad5d-a4acb2384103",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "50833e8b-8f50-4718-9ef1-01329ac454fd",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-06-30",
         "value": 1290678,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "0ce016ec-84d1-4fdd-b7f9-bd36ec33721c",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "bfa0e082-fb7a-4b5a-ac6a-7e77d28c1609",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-07-31",
         "value": 3600626,
         "purchaseValue": 3240000,
         "fiscalCost": 2440000
       },
       {
-        "id": "bd7aa421-ac3d-41bc-a2f2-f557edbad502",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "1e094b88-1145-4c2e-a4d6-7120242d776d",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-07-31",
         "value": 1605790,
         "purchaseValue": 1580000,
         "fiscalCost": 1580000
       },
       {
-        "id": "35e96b58-410a-4dac-a7cc-81a6e21bc43f",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "9dd65bb4-bc04-4ad6-8082-dc2eb5954ea7",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-07-31",
         "value": 906425,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "1c91bb3f-a06f-47cc-8f6e-f5ca51c10a66",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "729adfa8-6278-430a-9edc-2d960824abde",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-07-31",
         "value": 1270192,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "cce9a16b-85c4-4f3f-8cd2-ac5c6292c1e2",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "11176bea-8777-4ccc-b3d1-46127665ace5",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-08-31",
         "value": 3668778,
         "purchaseValue": 3270000,
         "fiscalCost": 2470000
       },
       {
-        "id": "03f9ce36-fcf8-46f6-8743-1f4d69048535",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "690c6780-7c06-4c6b-91ab-e5ffc028d2cf",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-08-31",
         "value": 1625032,
         "purchaseValue": 1590000,
         "fiscalCost": 1590000
       },
       {
-        "id": "309eb90f-b24a-499d-9635-365c6f5dfe1b",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "c552442e-d8b5-4327-bab7-a0fb60ca8e8d",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-08-31",
         "value": 940943,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "567087cf-2d47-4861-b21e-1284977e1b56",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "3aa7762a-6f8b-4305-99ba-fc3b9087da94",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-08-31",
         "value": 1310954,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "3efc235b-a5aa-44db-9783-5d891d371d79",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "1fc17645-2294-4a2e-a1ba-b67c61896d66",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-09-30",
         "value": 3829664,
         "purchaseValue": 3300000,
         "fiscalCost": 2500000
       },
       {
-        "id": "aa792cf8-7ea2-44c7-bce2-f4d97433d6a4",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "2651215b-96ca-4686-b0b6-87c38d2ddcdf",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-09-30",
         "value": 1643140,
         "purchaseValue": 1600000,
         "fiscalCost": 1600000
       },
       {
-        "id": "a3f562f1-045c-4f7d-a78c-bf9c4010d9d0",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "e98811b6-5e56-4439-9ea1-7811c968d83c",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-09-30",
         "value": 943607,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "38d675e8-cd05-4706-b45f-dfda37543d12",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "41d0973d-5dc4-48eb-828f-8959e4f82569",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-09-30",
         "value": 1373759,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "d07ae64e-307a-40ad-95ff-46f00463785a",
-        "assetId": "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
+        "id": "9735b8cf-ac09-49fc-a429-b80388e5eae0",
+        "assetId": "4c06aa5d-9b37-4415-848c-3f43a92b0638",
         "date": "2026-10-31",
         "value": 3941619,
         "purchaseValue": 3330000,
         "fiscalCost": 2530000
       },
       {
-        "id": "3cefd4e3-9378-4318-bdb0-bdfdc82cdaa0",
-        "assetId": "dec3beaf-32ee-4855-b925-1d81949e8ba2",
+        "id": "109a4d4e-a738-4236-9c97-4aa12e23e019",
+        "assetId": "4be8c4c8-70c8-42fc-97a6-5923e890b34a",
         "date": "2026-10-31",
         "value": 1652000,
         "purchaseValue": 1610000,
         "fiscalCost": 1610000
       },
       {
-        "id": "cfae5b0f-495a-470d-b7f7-e0d2c5baaab7",
-        "assetId": "33be3ab1-e45b-4abf-b1b7-215bed084cb8",
+        "id": "4a16f055-09aa-4280-804f-add1d90af588",
+        "assetId": "12b76eb0-804b-487a-83af-325751f2853b",
         "date": "2026-10-31",
         "value": 923407,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "8cf1e0ae-0204-4cdb-b342-cb73050f2000",
-        "assetId": "3697d26c-92ee-4831-8821-b2c902ca1ca3",
+        "id": "5307e2d9-a057-4902-8dc2-90e60f9c0ba7",
+        "assetId": "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
         "date": "2026-10-31",
         "value": 1387107,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "7e2664e9-7021-48cd-a384-1cffe7d2213e",
-        "assetId": "92ff0c0d-496e-4909-9c73-a9f7b94985b9",
+        "id": "391808e5-4bbe-41b6-9d52-97a49ab03fc9",
+        "assetId": "1aaf161f-d55f-424d-9820-11bb83761e58",
         "date": "2025-11-30",
         "value": 24500000,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "156fa11d-069c-43c1-a00d-b3742eb1052f",
-        "assetId": "513cdfb7-4934-4bdb-8375-a7b990ba1b95",
+        "id": "5d3e5c5f-8133-4982-8b76-dfd5582be627",
+        "assetId": "e0a0b7d2-bcdf-4482-87d6-4c7dbde1360f",
         "date": "2025-11-30",
         "value": 16800000,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "91350314-33c7-4e84-997a-2fe5bdff903c",
-        "assetId": "92ff0c0d-496e-4909-9c73-a9f7b94985b9",
+        "id": "15761ad0-2a15-4a02-80b1-e8f0fd7fe191",
+        "assetId": "1aaf161f-d55f-424d-9820-11bb83761e58",
         "date": "2026-10-31",
         "value": 25150000,
         "purchaseValue": null,
         "fiscalCost": null
       },
       {
-        "id": "726d6c16-0867-4f21-b717-af047c3b4436",
-        "assetId": "513cdfb7-4934-4bdb-8375-a7b990ba1b95",
+        "id": "065d5e44-f07c-42a3-a250-ac3a2fc673a6",
+        "assetId": "e0a0b7d2-bcdf-4482-87d6-4c7dbde1360f",
         "date": "2026-10-31",
         "value": 17120000,
         "purchaseValue": null,
@@ -3253,39 +3253,39 @@
     ],
     "portfolios": [
       {
-        "id": "e25ec506-c3f7-4d7f-a942-14ae714e3725",
+        "id": "1ae64e90-d5d2-4c9b-87c7-4ec7c83359d1",
         "name": "Patrimonio",
         "parentId": null,
         "assetIds": [
-          "3697d26c-92ee-4831-8821-b2c902ca1ca3",
-          "92ff0c0d-496e-4909-9c73-a9f7b94985b9",
-          "513cdfb7-4934-4bdb-8375-a7b990ba1b95"
+          "f7a8611c-edf6-4d12-9cec-dc8469c2c721",
+          "1aaf161f-d55f-424d-9820-11bb83761e58",
+          "e0a0b7d2-bcdf-4482-87d6-4c7dbde1360f"
         ]
       },
       {
-        "id": "f5f9b8fc-8e1a-4768-aefd-80350d10dbd2",
+        "id": "f50d803c-1660-4e77-8be7-69992cdfbd16",
         "name": "Indexada",
-        "parentId": "e25ec506-c3f7-4d7f-a942-14ae714e3725",
+        "parentId": "1ae64e90-d5d2-4c9b-87c7-4ec7c83359d1",
         "assetIds": [
-          "33be3ab1-e45b-4abf-b1b7-215bed084cb8"
+          "12b76eb0-804b-487a-83af-325751f2853b"
         ]
       },
       {
-        "id": "78958f92-5020-4143-bb12-787deca0ae39",
+        "id": "1f66eae1-aa9c-467b-8155-15ce4a8de568",
         "name": "Bogle",
-        "parentId": "f5f9b8fc-8e1a-4768-aefd-80350d10dbd2",
+        "parentId": "f50d803c-1660-4e77-8be7-69992cdfbd16",
         "assetIds": [
-          "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
-          "dec3beaf-32ee-4855-b925-1d81949e8ba2"
+          "4c06aa5d-9b37-4415-848c-3f43a92b0638",
+          "4be8c4c8-70c8-42fc-97a6-5923e890b34a"
         ]
       },
       {
-        "id": "6ff9b0ae-21c2-4053-8791-9b8a199d6a23",
+        "id": "b5d0823b-adf5-4f44-aba6-ab91f1a56ad6",
         "name": "Renta variable",
         "parentId": null,
         "assetIds": [
-          "4423dcc8-63b9-4736-a3d3-bf13b3dc531b",
-          "33be3ab1-e45b-4abf-b1b7-215bed084cb8"
+          "4c06aa5d-9b37-4415-848c-3f43a92b0638",
+          "12b76eb0-804b-487a-83af-325751f2853b"
         ]
       }
     ]

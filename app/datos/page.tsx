@@ -8,6 +8,7 @@ import {
   browserData,
   dataMode,
   deleteAllData,
+  addBackup,
   exportBackup,
   importBackup,
   lastBackupAt,
@@ -30,10 +31,12 @@ const LABELS: Record<keyof BackupSummary, string> = {
   portfolios: "carteras",
 };
 
+/** «2 pisos · 207 movimientos…», leaving out empty sections. */
 const describe = (summary: BackupSummary) =>
   Object.entries(summary)
+    .filter(([, n]) => n > 0)
     .map(([k, n]) => `${n} ${LABELS[k as keyof BackupSummary]}`)
-    .join(" · ");
+    .join(" · ") || "Sin datos";
 
 const when = (iso: string) =>
   new Date(iso).toLocaleString("es-ES", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -89,16 +92,43 @@ export default function DataPage() {
     setParsed(parseBackup(await file.text()));
   }
 
+  function resetFile() {
+    setParsed(null);
+    setFileName(null);
+    if (fileInput.current) fileInput.current.value = "";
+  }
+
   async function handleImport() {
     if (!parsed?.ok) return;
     if (!window.confirm(`Se sustituirán TODOS los datos ${cloud ? "de tu cuenta" : "de este navegador"} por los de la copia. ¿Continuar?`)) return;
     setBusy(true);
     try {
       await importBackup(parsed.data);
-      setParsed(null);
-      setFileName(null);
-      if (fileInput.current) fileInput.current.value = "";
+      resetFile();
       setMessage("Copia importada.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleAdd() {
+    if (!parsed?.ok) return;
+    setBusy(true);
+    try {
+      const { added, reused } = await addBackup(parsed.data);
+      resetFile();
+      const parts = Object.entries(added)
+        .filter(([, n]) => n > 0)
+        .map(([k, n]) => `${n} ${LABELS[k as keyof BackupSummary]}`);
+      const same = reused.categories + reused.assetTypes;
+      setMessage(
+        `Añadido: ${parts.length ? parts.join(" · ") : "nada nuevo"}.` +
+          (same
+            ? same === 1
+              ? " 1 categoría o tipo ya existía y se ha reutilizado."
+              : ` ${same} categorías o tipos ya existían y se han reutilizado.`
+            : ""),
+      );
     } finally {
       setBusy(false);
     }
@@ -190,7 +220,7 @@ export default function DataPage() {
       <section className="space-y-3 rounded-xl bg-white p-4 shadow-sm">
         <h2 className="font-semibold">Importar</h2>
         <p className="text-sm text-slate-600">
-          Sustituye todos los datos {cloud ? "de tu cuenta" : "de este navegador"} por los de una copia.
+          Añade a tus datos lo que haya en un fichero, o sustituye con él todos los datos {cloud ? "de tu cuenta" : "de este navegador"}.
         </p>
         <p className="text-xs text-slate-500">
           ¿Vas a preparar el fichero desde otra fuente, como un Excel?{" "}
@@ -205,6 +235,13 @@ export default function DataPage() {
             Descargar datos de demostración
           </a>{" "}
           (ficticios) e impórtalos aquí.
+        </p>
+        <p className="text-xs text-slate-500">
+          ¿Solo quieres las categorías y los tipos de activo iniciales, con sus iconos?{" "}
+          <a href="/importacion/categorias-y-tipos.json" download className="font-medium text-emerald-700 underline">
+            Descargar categorías y tipos
+          </a>{" "}
+          e impórtalos con «Añadir a mis datos».
         </p>
         {/* The native file button is in the browser's language: use our own label instead. */}
         <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm">
@@ -228,13 +265,24 @@ export default function DataPage() {
             </div>
             <button
               type="button"
+              onClick={() => void handleAdd()}
+              disabled={busy}
+              className="w-full rounded-lg bg-emerald-700 px-4 py-3 font-medium text-white disabled:opacity-50"
+            >
+              Añadir a mis datos
+            </button>
+            <p className="text-xs text-slate-500">
+              No borra nada. Las categorías y tipos con el mismo nombre se reutilizan (sin duplicarlos); el resto se añade como nuevo.
+            </p>
+            <button
+              type="button"
               onClick={() => void handleImport()}
               disabled={busy}
-              className="w-full rounded-lg bg-rose-700 px-4 py-3 font-medium text-white disabled:opacity-50"
+              className="w-full rounded-lg border-2 border-rose-600 bg-white px-4 py-3 font-medium text-rose-700 disabled:opacity-50"
             >
-              Sustituir mis datos por esta copia
+              Sustituir todos mis datos por esta copia
             </button>
-            <p className="text-xs text-slate-500">Consejo: descarga antes una copia de lo que tienes ahora.</p>
+            <p className="text-xs text-slate-500">Borra lo que tienes ahora. Consejo: descarga antes una copia.</p>
           </div>
         )}
       </section>
