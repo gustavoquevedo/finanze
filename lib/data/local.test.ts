@@ -264,7 +264,7 @@ describe("migrateSnapshot", () => {
     const m = {
       kind: "hipoteca" as const, concept: "Hipoteca", amount: 56283, type: "gasto" as const, categoryId: interest.id,
       propertyId: property.id, frequency: "mensual" as const, day: 2, startDate: "2026-09-02", endDate: "2026-11-02", generatedUntil: null,
-      mortgage: { principal: 150000, annualRate: 3, installments: 3, principalCategoryId: capital.id, adjustments: [] },
+      mortgage: { principal: 150000, annualRate: 3, installments: 3, interestMethod: "mensual" as const, principalCategoryId: capital.id, adjustments: [] },
     };
     await expect(repo.createRecurring({ ...m, endDate: "2026-12-02" })).rejects.toBeInstanceOf(ConstraintError);
     await expect(repo.createRecurring({ ...m, mortgage: { ...m.mortgage, principalCategoryId: "nope" } })).rejects.toBeInstanceOf(ConstraintError);

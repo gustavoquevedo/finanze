@@ -15,11 +15,25 @@ export type Frequency = "mensual" | "trimestral" | "anual";
 /** `fijo`: same amount each time. `hipoteca`: French-system mortgage split into interest and principal. */
 export type RecurringKind = "fijo" | "hipoteca";
 
-/** Real outstanding principal at a date (from the bank); the schedule is recalculated from there. */
+/**
+ * Correction from the bank, applied from its date on (after any installment on or before it):
+ * - `balance`: real outstanding principal; the payment is recalculated for the remaining term
+ *   unless `payment` is also given.
+ * - `payment`: the bank's installment amount, kept from then on; interest is computed on the
+ *   balance and the rest of the payment is principal.
+ * At least one of the two is set.
+ */
 export interface MortgageAdjustment {
   date: IsoDate;
-  balance: Cents;
+  balance: Cents | null;
+  payment: Cents | null;
 }
+
+/**
+ * How monthly interest is computed: `mensual` = balance × TIN / 12; `dias365` / `dias360` =
+ * balance × TIN × days since the previous installment / 365 (or 360).
+ */
+export type InterestMethod = "mensual" | "dias365" | "dias360";
 
 export interface MortgageTerms {
   /** Initial loan principal. */
@@ -28,6 +42,7 @@ export interface MortgageTerms {
   annualRate: number;
   /** Total number of monthly installments. */
   installments: number;
+  interestMethod: InterestMethod;
   /** Category for the principal part (the recurring's `categoryId` is for the interest). */
   principalCategoryId: Id;
   adjustments: MortgageAdjustment[];

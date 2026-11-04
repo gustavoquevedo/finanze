@@ -12,7 +12,7 @@ const categories = [
 ];
 const values = (o: Partial<MortgageFormValues> = {}): MortgageFormValues => ({
   propertyId: "a", concept: " Hipoteca Centro ", principal: "120.000", annualRate: "2,9", firstDate: "2019-04-02",
-  lastDate: "2044-03-02", interestCategoryId: "int", principalCategoryId: "cap", generateFrom: "", ...o,
+  lastDate: "2044-03-02", interestCategoryId: "int", principalCategoryId: "cap", generateFrom: "", interestMethod: "mensual", ...o,
 });
 
 describe("mortgage form", () => {
@@ -33,7 +33,7 @@ describe("mortgage form", () => {
     expect(r.ok && r.value).toMatchObject({
       kind: "hipoteca", concept: "Hipoteca Centro", amount: 56283, categoryId: "int", day: 2, frequency: "mensual",
       startDate: "2019-04-02", endDate: "2044-03-02",
-      mortgage: { principal: 12000000, annualRate: 2.9, installments: 300, principalCategoryId: "cap", adjustments: [] },
+      mortgage: { principal: 12000000, annualRate: 2.9, installments: 300, interestMethod: "mensual", principalCategoryId: "cap", adjustments: [] },
     });
     expect(r.ok && r.generatedUntil).toBeNull();
   });

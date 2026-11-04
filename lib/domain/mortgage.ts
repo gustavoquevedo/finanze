@@ -1,5 +1,5 @@
 import { addMonths, dayInMonth } from "./dates";
-import type { Cents, IsoDate, MortgageAdjustment } from "./types";
+import type { Cents, InterestMethod, IsoDate, MortgageAdjustment } from "./types";
 
 export interface MortgageInstallment {
   /** 1-based installment number. */
@@ -53,6 +53,19 @@ export interface MortgagePlanInput {
   /** Day of the month of each installment. */
   day: number;
   adjustments: MortgageAdjustment[];
+  /** Default `mensual`. */
+  interestMethod?: InterestMethod;
+}
+
+const dayNumber = (iso: IsoDate) =>
+  Date.UTC(Number(iso.slice(0, 4)), Number(iso.slice(5, 7)) - 1, Number(iso.slice(8, 10))) / 86400000;
+
+/** Interest for one period from `from` to `to`. */
+export function periodInterest(balance: Cents, annualRate: number, method: InterestMethod, from: IsoDate, to: IsoDate): Cents {
+  const rate = annualRate / 100;
+  if (method === "mensual") return Math.round((balance * rate) / 12);
+  const days = dayNumber(to) - dayNumber(from);
+  return Math.round((balance * rate * days) / (method === "dias365" ? 365 : 360));
 }
 
 /**
@@ -61,29 +74,33 @@ export interface MortgagePlanInput {
  * remaining installments. Stops early if the balance reaches 0.
  */
 export function mortgagePlan(input: MortgagePlanInput): DatedInstallment[] {
-  const { annualRate, installments: n, startDate, day } = input;
-  const r = annualRate / 100 / 12;
+  const { annualRate, installments: n, startDate, day, interestMethod = "mensual" } = input;
   const adjustments = [...input.adjustments].sort((a, b) => a.date.localeCompare(b.date));
   const startMonth = startDate.slice(0, 7);
   const result: DatedInstallment[] = [];
   let balance = input.principal;
   let payment = annuityPayment(balance, annualRate, n);
+  let previous = dayInMonth(addMonths(startMonth, -1), day);
   let next = 0;
 
   for (let k = 1; k <= n; k++) {
     const date = dayInMonth(addMonths(startMonth, k - 1), day);
     let adjusted = false;
     while (next < adjustments.length && adjustments[next].date < date) {
-      balance = adjustments[next].balance;
-      payment = annuityPayment(balance, annualRate, n - k + 1);
+      const a = adjustments[next];
+      if (a.balance !== null) balance = a.balance;
+      // The bank's payment wins; otherwise recalculate it for the remaining term.
+      payment = a.payment ?? annuityPayment(balance, annualRate, n - k + 1);
       adjusted = true;
       next++;
     }
     if (balance <= 0) break;
-    const interest = Math.round(balance * r);
+    const interest = periodInterest(balance, annualRate, interestMethod, previous, date);
+    // The last installment pays off whatever is left.
     const amortized = k === n ? balance : Math.max(0, Math.min(payment - interest, balance));
     balance -= amortized;
     result.push({ number: k, of: n, date, payment: interest + amortized, interest, principal: amortized, balance, adjusted });
+    previous = date;
   }
   return result;
 }
@@ -112,13 +129,13 @@ export function mortgageStatus(
   const rest = plan.slice(paid.length);
   const last = paid.at(-1) ?? null;
   const adjustment = adjustments
-    .filter((a) => a.date <= today && (!last || a.date >= last.date))
+    .filter((a) => a.balance !== null && a.date <= today && (!last || a.date >= last.date))
     .sort((a, b) => a.date.localeCompare(b.date))
     .at(-1);
   return {
     last,
     next: rest[0] ?? null,
-    balance: adjustment ? adjustment.balance : last ? last.balance : principal,
+    balance: adjustment?.balance ?? (last ? last.balance : principal),
     remainingInterest: rest.reduce((s, q) => s + q.interest, 0),
     remainingInstallments: rest.length,
   };

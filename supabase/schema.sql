@@ -6,6 +6,7 @@ create type transaction_type as enum ('ingreso', 'gasto');
 create type category_scope as enum ('personal', 'piso');
 create type frequency as enum ('mensual', 'trimestral', 'anual');
 create type recurring_kind as enum ('fijo', 'hipoteca');
+create type interest_method as enum ('mensual', 'dias365', 'dias360');
 
 create table properties (
   id uuid primary key default gen_random_uuid(),
@@ -56,6 +57,8 @@ create table recurrings (
   mortgage_principal bigint check (mortgage_principal > 0),
   mortgage_annual_rate numeric(6, 3) check (mortgage_annual_rate between 0 and 30),
   mortgage_installments smallint check (mortgage_installments between 1 and 600),
+  -- mensual = TIN/12; dias365/dias360 = by days since the previous installment.
+  mortgage_interest_method interest_method,
   mortgage_principal_category_id uuid references categories (id),
   created_at timestamptz not null default now(),
   check (end_date is null or end_date >= start_date),
@@ -67,13 +70,15 @@ create table recurrings (
   )
 );
 
--- Real outstanding principal at a date; the schedule is recalculated from there.
+-- Bank corrections from a date: real outstanding principal and/or the bank's installment.
 create table mortgage_adjustments (
   recurring_id uuid not null references recurrings (id) on delete cascade,
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   date date not null,
-  balance bigint not null check (balance >= 0),
-  primary key (recurring_id, date)
+  balance bigint check (balance >= 0),
+  payment bigint check (payment > 0),
+  primary key (recurring_id, date),
+  check (balance is not null or payment is not null)
 );
 
 create table transactions (

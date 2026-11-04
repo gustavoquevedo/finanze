@@ -87,7 +87,7 @@ describe("mortgage recurrings", () => {
     day: 2,
     startDate: "2019-04-02",
     endDate: "2044-03-02",
-    mortgage: { principal: 12000000, annualRate: 2.9, installments: 300, principalCategoryId: "capital", adjustments: [] },
+    mortgage: { principal: 12000000, annualRate: 2.9, installments: 300, interestMethod: "mensual", principalCategoryId: "capital", adjustments: [] },
   });
 
   it("generates interest and principal for each due installment", () => {
@@ -108,7 +108,7 @@ describe("mortgage recurrings", () => {
   });
 
   it("uses the adjusted schedule for future installments", () => {
-    const adjusted = { ...mortgage, generatedUntil: "2026-09-30", mortgage: { ...mortgage.mortgage!, adjustments: [{ date: "2026-09-15", balance: 9000000 }] } };
+    const adjusted = { ...mortgage, generatedUntil: "2026-09-30", mortgage: { ...mortgage.mortgage!, adjustments: [{ date: "2026-09-15", balance: 9000000, payment: null }] } };
     const [interest] = planRecurringGeneration([adjusted], "2026-10-02").transactions;
     expect(interest.amount).toBe(Math.round((9000000 * 0.029) / 12));
   });

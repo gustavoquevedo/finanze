@@ -142,7 +142,9 @@ export function createSeedData(today: string = todayIso()): Snapshot {
       startDate,
       endDate,
       generatedUntil: seedEnd,
-      mortgage: { principal: euros(principal), annualRate, installments, principalCategoryId: cat.capital.id, adjustments: [] },
+      mortgage: {
+        principal: euros(principal), annualRate, installments, interestMethod: "mensual", principalCategoryId: cat.capital.id, adjustments: [],
+      },
     };
     recurrings.push(rule);
     const plan = planOf(rule);

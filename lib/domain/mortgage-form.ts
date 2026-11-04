@@ -3,7 +3,7 @@ import { annuityPayment, installmentsBetween } from "./mortgage";
 import { parseEuros } from "./money";
 import type { RecurringInput } from "./recurring-form";
 import { categoriesFor } from "./transaction-form";
-import type { Category, MortgageAdjustment } from "./types";
+import type { Category, InterestMethod, MortgageAdjustment } from "./types";
 
 export interface MortgageFormValues {
   propertyId: string;
@@ -15,6 +15,7 @@ export interface MortgageFormValues {
   lastDate: string;
   interestCategoryId: string;
   principalCategoryId: string;
+  interestMethod: InterestMethod;
   /** Create only: generate past installments from this date. */
   generateFrom: string;
 }
@@ -95,7 +96,14 @@ export function validateMortgageForm(
       startDate: values.firstDate,
       // The last installment falls on the same day of the month as the first.
       endDate: dayInMonth(addMonths(values.firstDate.slice(0, 7), n - 1), day),
-      mortgage: { principal, annualRate: rate, installments: n, principalCategoryId: principalCat.id, adjustments },
+      mortgage: {
+        principal,
+        annualRate: rate,
+        installments: n,
+        interestMethod: values.interestMethod,
+        principalCategoryId: principalCat.id,
+        adjustments,
+      },
     },
   };
 }

@@ -13,7 +13,7 @@ import {
 import { parseEuros } from "@/lib/domain/money";
 import type { RecurringInput } from "@/lib/domain/recurring-form";
 import { categoriesFor } from "@/lib/domain/transaction-form";
-import type { Category, MortgageAdjustment, Property } from "@/lib/domain/types";
+import type { Category, InterestMethod, MortgageAdjustment, Property } from "@/lib/domain/types";
 import { formatCents, formatShortDate } from "@/lib/format";
 import { CategorySelect } from "./CategorySelect";
 import { inputClass, labelClass } from "./form-styles";
@@ -82,7 +82,15 @@ export function MortgageForm({ initial, categories, properties, adjustments = []
   const n = iso(values.firstDate) && iso(values.lastDate) && values.lastDate > values.firstDate ? installmentsBetween(values.firstDate, values.lastDate) : 0;
   const plan =
     principal && rate !== null && n > 0 && n <= 600
-      ? mortgagePlan({ principal, annualRate: rate, installments: n, startDate: values.firstDate, day: Number(values.firstDate.slice(8, 10)), adjustments })
+      ? mortgagePlan({
+          principal,
+          annualRate: rate,
+          installments: n,
+          startDate: values.firstDate,
+          day: Number(values.firstDate.slice(8, 10)),
+          adjustments,
+          interestMethod: values.interestMethod,
+        })
       : null;
   const status = plan && principal ? mortgageStatus(plan, principal, today, adjustments) : null;
   const from = values.generateFrom && values.generateFrom > values.firstDate ? values.generateFrom : values.firstDate;
@@ -120,6 +128,23 @@ export function MortgageForm({ initial, categories, properties, adjustments = []
       <div className="grid grid-cols-2 gap-3">
         {field("firstDate", "Primera cuota", { type: "date" })}
         {field("lastDate", "Última cuota", { type: "date" })}
+      </div>
+
+      <div>
+        <label htmlFor="mg-method" className={labelClass}>Cálculo de intereses</label>
+        <select
+          id="mg-method"
+          className={inputClass}
+          value={values.interestMethod}
+          onChange={(e) => set({ interestMethod: e.target.value as InterestMethod })}
+        >
+          <option value="mensual">Mensual: TIN ÷ 12 (lo más habitual)</option>
+          <option value="dias365">Por días, base 365</option>
+          <option value="dias360">Por días, base 360</option>
+        </select>
+        <p className="mt-1 text-xs text-slate-500">
+          Si los intereses del banco cambian un poco cada mes según los días, prueba «por días».
+        </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

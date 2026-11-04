@@ -70,7 +70,7 @@ function NewRecurring() {
           creating
           initial={{
             propertyId: "", concept: "", principal: "", annualRate: "", firstDate: "", lastDate: "",
-            interestCategoryId: "", principalCategoryId: "", generateFrom: "",
+            interestCategoryId: "", principalCategoryId: "", generateFrom: "", interestMethod: "mensual",
           }}
           categories={data.categories}
           properties={data.properties}

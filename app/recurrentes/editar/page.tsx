@@ -55,6 +55,7 @@ function EditRecurring() {
               interestCategoryId: r.categoryId,
               principalCategoryId: r.mortgage.principalCategoryId,
               generateFrom: "",
+              interestMethod: r.mortgage.interestMethod,
             }}
             adjustments={r.mortgage.adjustments}
             categories={data.categories}
@@ -77,7 +78,7 @@ function EditRecurring() {
               setVersion((v) => v + 1);
             }}
           />
-          <MortgageTable plan={planOf(r)} today={todayIso()} />
+          <MortgageTable plan={planOf(r)} today={todayIso()} fullHref={`/recurrentes/cuadro?id=${encodeURIComponent(r.id)}`} />
         </div>
       )}
       {data && r && r.kind !== "hipoteca" && (

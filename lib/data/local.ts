@@ -69,7 +69,14 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
   }));
   const transactions = data.transactions.map((t) => ({ ...t, confirmed: t.confirmed ?? true }));
   const recurrings = data.recurrings.map((old): Recurring => {
-    const r = { ...old, kind: old.kind ?? "fijo", mortgage: old.mortgage ?? null };
+    const mortgage = old.mortgage
+      ? {
+          ...old.mortgage,
+          interestMethod: old.mortgage.interestMethod ?? "mensual",
+          adjustments: old.mortgage.adjustments.map((a) => ({ date: a.date, balance: a.balance ?? null, payment: a.payment ?? null })),
+        }
+      : null;
+    const r = { ...old, kind: old.kind ?? "fijo", mortgage };
     if (r.generatedUntil !== undefined) return r;
     const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
     return { ...r, generatedUntil: dates.at(-1) ?? null };
@@ -98,9 +105,12 @@ function assertMortgage(r: Pick<Recurring, "kind" | "mortgage" | "frequency" | "
   if (r.day !== Number(r.startDate.slice(8, 10))) throw new ConstraintError("Mortgage day must match the first installment");
   const last = dayInMonth(addMonths(r.startDate.slice(0, 7), m.installments - 1), r.day);
   if (r.endDate !== last) throw new ConstraintError(`Mortgage end date must be the last installment (${last})`);
+  if (!["mensual", "dias365", "dias360"].includes(m.interestMethod)) throw new ConstraintError("Invalid interest method");
   for (const a of m.adjustments) {
     assertIsoDate(a.date);
-    if (!Number.isInteger(a.balance) || a.balance < 0) throw new ConstraintError("Invalid adjustment balance");
+    if (a.balance === null && a.payment === null) throw new ConstraintError("Adjustment needs a balance or a payment");
+    if (a.balance !== null && (!Number.isInteger(a.balance) || a.balance < 0)) throw new ConstraintError("Invalid adjustment balance");
+    if (a.payment !== null && (!Number.isInteger(a.payment) || a.payment <= 0)) throw new ConstraintError("Invalid adjustment payment");
   }
 }
 
