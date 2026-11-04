@@ -1,3 +1,4 @@
+import { todayIso } from "@/lib/domain/dates";
 import { createLocalRepository } from "./local";
 import type { Repository } from "./repository";
 import { createSeedData } from "./seed";
@@ -15,6 +16,16 @@ export function getRepository(): Repository {
     instance = createLocalRepository({ storage: window.localStorage, initialData: () => createSeedData() });
   }
   return instance;
+}
+
+/**
+ * Repository after generating any recurring transactions due today.
+ * Pages load data through this, so automatic transactions appear on their day.
+ */
+export async function loadRepository(): Promise<Repository> {
+  const repo = getRepository();
+  await repo.generateDueTransactions(todayIso());
+  return repo;
 }
 
 /** Replaces all data with fresh fictitious test data. */

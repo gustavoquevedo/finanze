@@ -40,6 +40,8 @@ create table recurrings (
   day smallint not null check (day between 1 and 31),
   start_date date not null,
   end_date date,
+  -- Occurrences up to this date have already been generated.
+  generated_until date,
   created_at timestamptz not null default now(),
   check (end_date is null or end_date >= start_date)
 );
@@ -54,6 +56,8 @@ create table transactions (
   property_id uuid references properties (id) on delete cascade,
   concept text not null default '',
   recurring_id uuid references recurrings (id) on delete set null,
+  -- false = generated automatically and pending confirmation (already counts in totals).
+  confirmed boolean not null default true,
   created_at timestamptz not null default now()
 );
 

@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { BackLink } from "@/components/BackLink";
+import { PendingBadge } from "@/components/PendingBadge";
 import { TransactionForm } from "@/components/TransactionForm";
 import { getRepository } from "@/lib/data";
 import { centsToInput } from "@/lib/domain/money";
@@ -54,16 +55,34 @@ function EditTransaction() {
           }}
           categories={data.categories}
           properties={data.properties}
-          submitLabel="Guardar cambios"
+          submitLabel={t.confirmed ? "Guardar cambios" : "Confirmar"}
           recurringNote={
-            data.recurring
-              ? `Generado por el recurrente «${data.recurring.concept}». Los cambios solo afectan a este movimiento.`
-              : undefined
+            !t.confirmed ? (
+              <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                <PendingBadge /> Generado automáticamente
+                {data.recurring && <> por «{data.recurring.concept}»</>}. Ya cuenta en los totales; revisa el importe y confírmalo.
+              </p>
+            ) : data.recurring ? (
+              <p className="rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-800">
+                Generado por el recurrente «{data.recurring.concept}». Los cambios solo afectan a este movimiento.
+              </p>
+            ) : undefined
           }
           onSubmit={async (value) => {
-            await getRepository().updateTransaction(t.id, value);
+            await getRepository().updateTransaction(t.id, { ...value, confirmed: true });
             router.back();
           }}
+          secondary={
+            t.confirmed
+              ? undefined
+              : {
+                  label: "Guardar sin confirmar",
+                  onSubmit: async (value) => {
+                    await getRepository().updateTransaction(t.id, value);
+                    router.back();
+                  },
+                }
+          }
           onDelete={async () => {
             await getRepository().deleteTransaction(t.id);
             router.back();

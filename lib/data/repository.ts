@@ -19,6 +19,8 @@ export interface TransactionFilter {
   /** A property id, or `null` for personal transactions only. */
   propertyId?: Id | null;
   categoryId?: Id;
+  /** `false` = only pending (automatic, not yet confirmed). */
+  confirmed?: boolean;
 }
 
 /**
@@ -48,6 +50,12 @@ export interface Repository {
   createRecurring(input: New<Recurring>): Promise<Recurring>;
   updateRecurring(id: Id, patch: Patch<Recurring>): Promise<Recurring>;
   deleteRecurring(id: Id): Promise<void>;
+
+  /**
+   * Creates pending transactions for every recurring occurrence due by `today`
+   * that has not been generated yet. Returns how many were created.
+   */
+  generateDueTransactions(today: IsoDate): Promise<number>;
 
   exportSnapshot(): Promise<Snapshot>;
   /** Replaces all data with the given snapshot. */

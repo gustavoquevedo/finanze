@@ -44,6 +44,11 @@ export interface Transaction {
   concept: string;
   /** Recurring rule that generated this transaction, if any. */
   recurringId: Id | null;
+  /**
+   * `false` while an automatically generated transaction is pending confirmation.
+   * Pending transactions already count in totals. Manual transactions are always confirmed.
+   */
+  confirmed: boolean;
 }
 
 export interface Recurring {
@@ -54,10 +59,16 @@ export interface Recurring {
   categoryId: Id;
   propertyId: Id | null;
   frequency: Frequency;
-  /** Day of the month (1-31) on which it is charged. */
+  /** Day of the month (1-31) on which it is charged; clamped to the month's last day. */
   day: number;
+  /**
+   * First occurrence. Its month anchors quarterly and yearly rules
+   * (e.g. yearly from 2026-03-01 → every 1 March).
+   */
   startDate: IsoDate;
   endDate: IsoDate | null;
+  /** Occurrences up to this date have already been generated (so deleted ones are not recreated). */
+  generatedUntil: IsoDate | null;
 }
 
 /** Full data set, used for seeding, export and restore. */

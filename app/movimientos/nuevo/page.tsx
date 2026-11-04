@@ -44,7 +44,7 @@ function NewTransaction() {
           properties={data.properties}
           submitLabel="Añadir movimiento"
           onSubmit={async (value) => {
-            await getRepository().createTransaction({ ...value, recurringId: null });
+            await getRepository().createTransaction({ ...value, recurringId: null, confirmed: true });
             router.back();
           }}
         />

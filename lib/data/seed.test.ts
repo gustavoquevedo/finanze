@@ -51,4 +51,10 @@ describe("seed data", () => {
       if (t.propertyId) expect(props.has(t.propertyId)).toBe(true);
     }
   });
+
+  it("has yearly recurrings and every seed transaction confirmed", () => {
+    expect(data.transactions.every((t) => t.confirmed)).toBe(true);
+    expect(data.recurrings.filter((r) => r.frequency === "anual").length).toBeGreaterThanOrEqual(5);
+    expect(data.recurrings.every((r) => r.generatedUntil === "2026-10-31")).toBe(true);
+  });
 });

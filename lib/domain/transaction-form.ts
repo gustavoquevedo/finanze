@@ -14,7 +14,7 @@ export interface TransactionFormValues {
 export type TransactionFormErrors = Partial<Record<keyof TransactionFormValues, string>>;
 
 export type TransactionFormResult =
-  | { ok: true; value: Omit<Transaction, "id" | "recurringId"> }
+  | { ok: true; value: Omit<Transaction, "id" | "recurringId" | "confirmed"> }
   | { ok: false; errors: TransactionFormErrors };
 
 /** Categories allowed for a property ("" = personal). */

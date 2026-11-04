@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { Amount } from "@/components/Amount";
+import { PendingBadge } from "@/components/PendingBadge";
 import { Totals } from "@/components/Totals";
-import type { TransactionFilter } from "@/lib/data";
+import { getRepository, type TransactionFilter } from "@/lib/data";
 import { formatMonth, formatShortDate } from "@/lib/format";
-import { PERSONAL, transactionsHref } from "@/lib/transactions-url";
+import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function TransactionsPage() {
@@ -25,13 +26,15 @@ function TransactionsList() {
   const month = params.get("mes") ?? "";
   const property = params.get("piso") ?? "";
   const category = params.get("categoria") ?? "";
+  const onlyPending = params.get("estado") === PENDING;
 
   // Filters live in the URL so cards can link here and "back" keeps them.
-  const setFilter = (key: "mes" | "piso" | "categoria", value: string) => {
-    const next = { mes: month, piso: property, categoria: category, [key]: value };
+  const setFilter = (key: "mes" | "piso" | "categoria" | "estado", value: string) => {
+    const next = { mes: month, piso: property, categoria: category, estado: onlyPending ? PENDING : "", [key]: value };
     router.replace(transactionsHref(next), { scroll: false });
   };
 
+  const [version, setVersion] = useState(0);
   const options = useData(async (repo) => {
     const [properties, categories, all] = await Promise.all([
       repo.listProperties(),
@@ -45,8 +48,16 @@ function TransactionsList() {
     month: month || undefined,
     categoryId: category || undefined,
     propertyId: property === PERSONAL ? null : property || undefined,
+    confirmed: onlyPending ? false : undefined,
   };
-  const list = useData((repo) => repo.listTransactions(filter), [month, property, category]);
+  const list = useData((repo) => repo.listTransactions(filter), [month, property, category, version]);
+  const pending = useData((repo) => repo.listTransactions({ ...filter, confirmed: false }), [month, property, category, version]);
+
+  async function confirm(ids: string[]) {
+    const repo = getRepository();
+    for (const id of ids) await repo.updateTransaction(id, { confirmed: true });
+    setVersion((v) => v + 1);
+  }
 
   const categories = new Map(options.data?.categories.map((c) => [c.id, c]));
   const properties = new Map(options.data?.properties.map((p) => [p.id, p]));
@@ -79,32 +90,73 @@ function TransactionsList() {
         </select>
       </div>
 
+      {(pending.data?.length ?? 0) > 0 || onlyPending ? (
+        <button
+          type="button"
+          onClick={() => setFilter("estado", onlyPending ? "" : PENDING)}
+          aria-pressed={onlyPending}
+          className={`flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm ${onlyPending ? "border-amber-500 bg-amber-100 text-amber-900" : "border-amber-300 bg-amber-50 text-amber-800"}`}
+        >
+          <span aria-hidden>⟳</span>
+          <span className="flex-1">
+            {pending.data?.length === 1 ? "1 automático pendiente" : `${pending.data?.length ?? 0} automáticos pendientes`} de confirmar
+          </span>
+          <span className="font-medium">{onlyPending ? "Ver todos" : "Ver"}</span>
+        </button>
+      ) : null}
+
       {list.error && <p className="text-rose-700">Error: {list.error}</p>}
       {list.data && (
         <>
           <div className="rounded-xl bg-white p-4 shadow-sm"><Totals transactions={list.data} /></div>
           {list.data.length === 0 ? (
-            <p className="text-center text-slate-500">No hay movimientos.</p>
+            <p className="text-center text-slate-500">
+              {onlyPending ? "No hay movimientos pendientes de confirmar." : "No hay movimientos."}
+            </p>
           ) : (
-            <ul className="divide-y divide-slate-100 rounded-xl bg-white shadow-sm">
-              {list.data.map((t) => (
-                <li key={t.id}>
-                  <Link
-                    href={`/movimientos/editar?id=${encodeURIComponent(t.id)}`}
-                    className="flex items-center justify-between gap-3 px-4 py-3 active:bg-slate-50"
-                  >
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{t.concept || categories.get(t.categoryId)?.name}</p>
-                    <p className="truncate text-xs text-slate-500">
-                      {formatShortDate(t.date)} · {categories.get(t.categoryId)?.name} ·{" "}
-                      {t.propertyId ? properties.get(t.propertyId)?.name : "Personal"}
-                    </p>
-                  </div>
-                  <span className="shrink-0 text-sm"><Amount cents={t.amount} type={t.type} /></span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <>
+              {onlyPending && (
+                <button
+                  type="button"
+                  onClick={() => confirm(list.data!.map((t) => t.id))}
+                  className="w-full rounded-lg bg-amber-500 px-4 py-3 font-medium text-white"
+                >
+                  {list.data.length === 1 ? "Confirmar" : `Confirmar los ${list.data.length}`}
+                </button>
+              )}
+              <ul className="divide-y divide-slate-100 rounded-xl bg-white shadow-sm">
+                {list.data.map((t) => (
+                  <li key={t.id} className={`flex items-center ${t.confirmed ? "" : "bg-amber-50/60"}`}>
+                    <Link
+                      href={`/movimientos/editar?id=${encodeURIComponent(t.id)}`}
+                      className="flex min-w-0 flex-1 items-center justify-between gap-3 py-3 pl-4 pr-2 active:bg-slate-50"
+                    >
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">{t.concept || categories.get(t.categoryId)?.name}</p>
+                        <p className="truncate text-xs text-slate-500">
+                          {!t.confirmed && <PendingBadge />}
+                          {formatShortDate(t.date)} · {categories.get(t.categoryId)?.name} ·{" "}
+                          {t.propertyId ? properties.get(t.propertyId)?.name : "Personal"}
+                        </p>
+                      </div>
+                      <span className="shrink-0 text-sm"><Amount cents={t.amount} type={t.type} /></span>
+                    </Link>
+                    {t.confirmed ? (
+                      <span className="w-2 shrink-0" />
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => confirm([t.id])}
+                        aria-label={`Confirmar ${t.concept}`}
+                        className="mr-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-400 text-amber-700 active:bg-amber-100"
+                      >
+                        ✓
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </>
       )}

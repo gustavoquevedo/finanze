@@ -1,17 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { SummaryCard } from "@/components/SummaryCard";
 import { restoreSeedData } from "@/lib/data";
 import { formatMonth } from "@/lib/format";
-import { PERSONAL, transactionsHref } from "@/lib/transactions-url";
+import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function HomePage() {
   const { data, error, reload } = useData(async (repo) => {
     const [transactions, properties] = await Promise.all([repo.listTransactions(), repo.listProperties()]);
     const month = transactions[0]?.date.slice(0, 7) ?? null;
-    return { month, properties, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
+    const pending = transactions.filter((t) => !t.confirmed).length;
+    return { month, properties, pending, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
   });
   const [restoring, setRestoring] = useState(false);
 
@@ -32,6 +34,18 @@ export default function HomePage() {
       {error && <p className="text-rose-700">Error: {error}</p>}
       {data && (
         <>
+          {data.pending > 0 && (
+            <Link
+              href={transactionsHref({ estado: PENDING })}
+              className="flex items-center gap-2 rounded-xl border border-amber-300 bg-amber-50 p-4 text-amber-900"
+            >
+              <span aria-hidden>⟳</span>
+              <span className="flex-1">
+                {data.pending === 1 ? "1 movimiento automático" : `${data.pending} movimientos automáticos`} por confirmar
+              </span>
+              <span aria-hidden>›</span>
+            </Link>
+          )}
           <h2 className="text-sm font-medium text-slate-500">
             Resumen{data.month && ` de ${formatMonth(data.month).toLowerCase()}`}
           </h2>

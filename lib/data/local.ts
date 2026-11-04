@@ -1,4 +1,5 @@
-import type { Id, Snapshot, Transaction } from "@/lib/domain/types";
+import { planRecurringGeneration } from "@/lib/domain/recurring";
+import type { Id, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 import {
   ConstraintError,
@@ -48,7 +49,36 @@ function matches(t: Transaction, f: TransactionFilter): boolean {
   if (f.to && t.date > f.to) return false;
   if (f.propertyId !== undefined && t.propertyId !== f.propertyId) return false;
   if (f.categoryId && t.categoryId !== f.categoryId) return false;
+  if (f.confirmed !== undefined && t.confirmed !== f.confirmed) return false;
   return true;
+}
+
+/**
+ * Fills fields added after data was first stored, so older data keeps working:
+ * transactions without `confirmed` are confirmed, and recurrings without `generatedUntil`
+ * continue from their latest generated transaction (no duplicates).
+ */
+export function migrateSnapshot(data: Snapshot): Snapshot {
+  const transactions = data.transactions.map((t) => ({ ...t, confirmed: t.confirmed ?? true }));
+  const recurrings = data.recurrings.map((r): Recurring => {
+    if (r.generatedUntil !== undefined) return r;
+    const dates = transactions.filter((t) => t.recurringId === r.id).map((t) => t.date).sort();
+    return { ...r, generatedUntil: dates.at(-1) ?? null };
+  });
+  return { ...data, transactions, recurrings };
+}
+
+const FREQUENCIES = ["mensual", "trimestral", "anual"];
+
+function assertRecurring(r: Pick<Recurring, "amount" | "startDate" | "endDate" | "day" | "frequency">): void {
+  assertCents(r.amount);
+  assertIsoDate(r.startDate);
+  if (r.endDate !== null) {
+    assertIsoDate(r.endDate);
+    if (r.endDate < r.startDate) throw new ConstraintError("End date is before start date");
+  }
+  if (!Number.isInteger(r.day) || r.day < 1 || r.day > 31) throw new ConstraintError(`Invalid day: ${r.day}`);
+  if (!FREQUENCIES.includes(r.frequency)) throw new ConstraintError(`Invalid frequency: ${r.frequency}`);
 }
 
 /** Repository backed by `localStorage` (phase 1). The whole data set is stored as one JSON document. */
@@ -63,7 +93,7 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
       return data;
     }
     try {
-      return { ...emptySnapshot(), ...(JSON.parse(raw) as Partial<Snapshot>) };
+      return migrateSnapshot({ ...emptySnapshot(), ...(JSON.parse(raw) as Partial<Snapshot>) });
     } catch {
       throw new Error(`Corrupt data in storage key "${key}"`);
     }
@@ -187,8 +217,7 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
     listRecurrings: () => read((d) => [...d.recurrings].sort((a, b) => a.concept.localeCompare(b.concept, "es"))),
     createRecurring: (input) =>
       mutate((d) => {
-        assertCents(input.amount);
-        assertIsoDate(input.startDate);
+        assertRecurring(input);
         checkRefs(d, input);
         const recurring = { ...input, id: newId() };
         d.recurrings.push(recurring);
@@ -197,7 +226,7 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
     updateRecurring: (id, patch) =>
       mutate((d) => {
         const next = { ...d.recurrings[findIndex(d.recurrings, id, "Recurring")], ...patch };
-        assertCents(next.amount);
+        assertRecurring(next);
         checkRefs(d, next);
         return update(d.recurrings, id, patch, "Recurring");
       }),
@@ -208,6 +237,16 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
         // Same as `on delete set null`: generated transactions are kept.
         for (const t of d.transactions) if (t.recurringId === id) t.recurringId = null;
       }),
+
+    generateDueTransactions: async (today) => {
+      const data = load();
+      const plan = planRecurringGeneration(data.recurrings, today);
+      if (plan.generatedUntil.size === 0) return 0;
+      for (const t of plan.transactions) data.transactions.push({ ...t, id: newId() });
+      for (const r of data.recurrings) r.generatedUntil = plan.generatedUntil.get(r.id) ?? r.generatedUntil;
+      save(data);
+      return plan.transactions.length;
+    },
 
     exportSnapshot: () => read((d) => d),
     replaceAll: (snapshot) =>
