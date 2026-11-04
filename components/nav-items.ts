@@ -36,6 +36,8 @@ export const INVERSIONES: NavSection = {
 
 export const HOME: NavLink = { href: "/", label: "Inicio", icon: "🏠" };
 
+export const DATOS: NavLink = { href: "/datos", label: "Datos y copia", icon: "💾" };
+
 /** Bottom bar and top level of the header menu. */
 export const NAV_ITEMS: (NavLink | NavSection)[] = [HOME, FINANZAS, INVERSIONES];
 

@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SummaryCard } from "@/components/SummaryCard";
-import { restoreSeedData } from "@/lib/data";
+import { lastBackupAt } from "@/lib/data";
 import { computeTotals } from "@/lib/domain/totals";
 import { formatMonth } from "@/lib/format";
 import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function HomePage() {
-  const { data, error, reload } = useData(async (repo) => {
+  const { data, error } = useData(async (repo) => {
     const [transactions, properties, categories] = await Promise.all([
       repo.listTransactions(),
       repo.listProperties(),
@@ -20,18 +20,9 @@ export default function HomePage() {
     const pending = transactions.filter((t) => !t.confirmed).length;
     return { month, properties, pending, categories, monthTx: month ? transactions.filter((t) => t.date.startsWith(month)) : [] };
   });
-  const [restoring, setRestoring] = useState(false);
-
-  async function handleRestore() {
-    if (!window.confirm("Se borrarán todos los datos y se cargarán los datos de prueba. ¿Continuar?")) return;
-    setRestoring(true);
-    try {
-      await restoreSeedData();
-      reload();
-    } finally {
-      setRestoring(false);
-    }
-  }
+  // Read after mounting: the page is prerendered without access to the browser storage.
+  const [lastBackup, setLastBackup] = useState<string | null>(null);
+  useEffect(() => setLastBackup(lastBackupAt()), []);
 
   return (
     <div className="space-y-4">
@@ -76,17 +67,17 @@ export default function HomePage() {
       >
         📊 Ver resumen anual <span aria-hidden>›</span>
       </Link>
-      <section className="rounded-xl border border-dashed border-slate-300 p-4 text-sm">
-        <p className="mb-3 text-slate-600">Los datos se guardan solo en este navegador.</p>
-        <button
-          type="button"
-          onClick={handleRestore}
-          disabled={restoring}
-          className="w-full rounded-lg bg-slate-800 px-4 py-3 font-medium text-white disabled:opacity-50"
-        >
-          {restoring ? "Restaurando…" : "Restaurar datos de prueba"}
-        </button>
-      </section>
+      <Link href="/datos" className="flex items-center gap-3 rounded-xl border border-dashed border-slate-300 p-4 text-sm">
+        <span aria-hidden className="text-xl">💾</span>
+        <span className="flex-1">
+          <span className="block font-medium">Datos y copia de seguridad</span>
+          <span className="block text-slate-600">
+            Los datos se guardan solo en este navegador.{" "}
+            {lastBackup ? `Última copia: ${new Date(lastBackup).toLocaleDateString("es-ES")}.` : "Aún no has hecho ninguna copia."}
+          </span>
+        </span>
+        <span aria-hidden className="text-slate-400">›</span>
+      </Link>
     </div>
   );
 }
