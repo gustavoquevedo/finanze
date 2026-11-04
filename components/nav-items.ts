@@ -31,6 +31,7 @@ export const INVERSIONES: NavSection = {
   children: [
     { href: "/inversiones/carteras", label: "Carteras", icon: "🗂️", description: "Totales, plusvalías y pesos" },
     { href: "/inversiones/activos", label: "Activos", icon: "💼", description: "Fondos, ETF, efectivo e inmobiliario" },
+    { href: "/inversiones/tipos", label: "Tipos de activo", icon: "🏷️", description: "Renta variable, renta fija… para el reparto" },
   ],
 };
 

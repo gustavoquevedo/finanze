@@ -24,7 +24,7 @@ describe("assets and snapshots", () => {
     const [a] = await repo.listAssets();
     expect(a).toMatchObject({ kind: "inmobiliario", propertyId: p.id });
     await expect(repo.deleteAsset(a.id)).rejects.toBeInstanceOf(ConstraintError);
-    await expect(repo.createAsset({ name: "X", kind: "inmobiliario", propertyId: null, active: true })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.createAsset({ name: "X", kind: "inmobiliario", propertyId: null, assetTypeId: null, active: true })).rejects.toBeInstanceOf(ConstraintError);
   });
 
   it("deleting a flat removes its asset, snapshots and memberships", async () => {
@@ -40,7 +40,7 @@ describe("assets and snapshots", () => {
   });
 
   it("keeps one snapshot per asset and date, sorted by date", async () => {
-    const a = await repo.createAsset({ name: " Fondo ", kind: "fondo", propertyId: null, active: true });
+    const a = await repo.createAsset({ name: " Fondo ", kind: "fondo", propertyId: null, assetTypeId: null, active: true });
     expect(a.name).toBe("Fondo");
     await repo.saveAssetSnapshot({ assetId: a.id, date: "2026-02-01", value: 200, purchaseValue: null, fiscalCost: null });
     await repo.saveAssetSnapshot({ assetId: a.id, date: "2026-01-01", value: 100, purchaseValue: 90, fiscalCost: 80 });
@@ -51,13 +51,29 @@ describe("assets and snapshots", () => {
   });
 
   it("deleting an asset removes its snapshots and portfolio memberships", async () => {
-    const a = await repo.createAsset({ name: "Fondo", kind: "fondo", propertyId: null, active: true });
+    const a = await repo.createAsset({ name: "Fondo", kind: "fondo", propertyId: null, assetTypeId: null, active: true });
     await repo.saveAssetSnapshot({ assetId: a.id, date: "2026-01-01", value: 100, purchaseValue: null, fiscalCost: null });
     const pf = await repo.createPortfolio({ name: "Bogle", parentId: null, assetIds: [a.id, a.id] });
     expect(pf.assetIds).toEqual([a.id]);
     await repo.deleteAsset(a.id);
     expect(await repo.listAssetSnapshots()).toEqual([]);
     expect((await repo.listPortfolios())[0].assetIds).toEqual([]);
+  });
+});
+
+describe("asset types", () => {
+  it("creates unique types and untypes assets when one is deleted", async () => {
+    const rv = await repo.createAssetType({ name: " Renta variable " });
+    expect(rv.name).toBe("Renta variable");
+    await expect(repo.createAssetType({ name: "renta variable" })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.createAssetType({ name: " " })).rejects.toBeInstanceOf(ConstraintError);
+    const a = await repo.createAsset({ name: "Fondo", kind: "fondo", propertyId: null, assetTypeId: rv.id, active: true });
+    await expect(repo.createAsset({ name: "X", kind: "fondo", propertyId: null, assetTypeId: "nope", active: true })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.updateAsset(a.id, { assetTypeId: "nope" })).rejects.toBeInstanceOf(ConstraintError);
+    expect(await repo.updateAssetType(rv.id, { name: "RV" })).toMatchObject({ name: "RV" });
+    await repo.deleteAssetType(rv.id);
+    expect((await repo.listAssets())[0].assetTypeId).toBeNull();
+    expect(await repo.listAssetTypes()).toEqual([]);
   });
 });
 

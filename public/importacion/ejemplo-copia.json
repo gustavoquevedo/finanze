@@ -244,17 +244,40 @@
       }
     ],
 
+    "assetTypes": [
+      {
+        "_nota": "Tipos de activo definidos por ti, para los gráficos de reparto. Opcional: sin tipo, un activo sale como «Sin tipo».",
+        "id": "tipo-rv",
+        "name": "Renta variable"
+      },
+      { "id": "tipo-rf", "name": "Renta fija" },
+      { "id": "tipo-liquidez", "name": "Liquidez" },
+      { "id": "tipo-inmobiliario", "name": "Inmobiliario" }
+    ],
+
     "assets": [
-      { "id": "fondo-rv", "name": "Fondo indexado RV global", "kind": "fondo" },
-      { "id": "fondo-rf", "name": "Fondo indexado RF europea", "kind": "fondo" },
-      { "id": "etf-sp500", "name": "ETF S&P 500", "kind": "etf" },
-      { "id": "cuenta-remunerada", "name": "Cuenta remunerada", "kind": "efectivo" },
+      {
+        "_nota": "kind es el producto (fondo, etf, efectivo, inmobiliario); assetTypeId, el tipo de activo (opcional).",
+        "id": "fondo-rv",
+        "name": "Fondo indexado RV global",
+        "kind": "fondo",
+        "assetTypeId": "tipo-rv"
+      },
+      { "id": "fondo-rf", "name": "Fondo indexado RF europea", "kind": "fondo", "assetTypeId": "tipo-rf" },
+      { "id": "etf-sp500", "name": "ETF S&P 500", "kind": "etf", "assetTypeId": "tipo-rv" },
+      {
+        "_nota": "Sin assetTypeId: aparecerá como «Sin tipo».",
+        "id": "cuenta-remunerada",
+        "name": "Cuenta remunerada",
+        "kind": "efectivo"
+      },
       {
         "_nota": "Inmueble: kind inmobiliario y propertyId del piso; el nombre, la compra y el coste fiscal salen del piso. Si no incluyes el de un piso (aquí piso-playa), se crea solo al importar.",
         "id": "inm-centro",
         "name": "Piso Centro",
         "kind": "inmobiliario",
-        "propertyId": "piso-centro"
+        "propertyId": "piso-centro",
+        "assetTypeId": "tipo-inmobiliario"
       }
     ],
 

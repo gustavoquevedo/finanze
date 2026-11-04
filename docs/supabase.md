@@ -54,3 +54,13 @@ le impediría ver tus datos).
 ## En local
 
 Copia `.env.example` a `.env.local` y rellena las dos variables. Sin ese archivo, la app usa `localStorage`.
+
+## Cambios de esquema (migraciones)
+
+`supabase/schema.sql` es siempre el esquema completo, para proyectos nuevos. Cuando un PR cambia la base de datos,
+incluye además un archivo en `supabase/migrations/` para la base de datos que ya tienes: ejecútalo una vez en el
+SQL Editor **antes** (o justo después) de fusionar el PR, en orden de número.
+
+| Archivo | Qué hace |
+|---|---|
+| `002_asset_types.sql` | Tipos de activo: tabla `asset_types` y columna `assets.asset_type_id` |

@@ -126,7 +126,14 @@ export interface Recurring {
   mortgage: MortgageTerms | null;
 }
 
+/** Product kind: fixed, it decides behaviour (cash has no gains; real estate comes from a flat). Shown as «Producto». */
 export type AssetKind = "fondo" | "etf" | "efectivo" | "inmobiliario";
+
+/** User-defined classification of assets (e.g. «Renta variable»), used for allocation charts. */
+export interface AssetType {
+  id: Id;
+  name: string;
+}
 
 export interface Asset {
   id: Id;
@@ -135,6 +142,8 @@ export interface Asset {
   kind: AssetKind;
   /** Real estate assets are created automatically from a flat. */
   propertyId: Id | null;
+  /** User-defined type, or `null` = «Sin tipo». */
+  assetTypeId: Id | null;
   active: boolean;
 }
 
@@ -170,6 +179,7 @@ export interface Snapshot {
   categories: Category[];
   transactions: Transaction[];
   recurrings: Recurring[];
+  assetTypes: AssetType[];
   assets: Asset[];
   assetSnapshots: AssetSnapshot[];
   portfolios: Portfolio[];

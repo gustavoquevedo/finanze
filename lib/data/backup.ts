@@ -17,6 +17,7 @@ const COLLECTIONS = [
   "categories",
   "transactions",
   "recurrings",
+  "assetTypes",
   "assets",
   "assetSnapshots",
   "portfolios",

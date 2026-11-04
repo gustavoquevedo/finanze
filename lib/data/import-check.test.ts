@@ -18,7 +18,10 @@ describe("example import file", () => {
     const r = parseBackup(exampleText);
     if (!r.ok) throw new Error(r.error);
     const { data } = r;
-    expect(r.summary).toEqual({ properties: 2, categories: 10, transactions: 11, recurrings: 5, assets: 5, assetSnapshots: 8, portfolios: 4 });
+    expect(r.summary).toEqual({
+      properties: 2, categories: 10, transactions: 11, recurrings: 5, assetTypes: 4, assets: 5, assetSnapshots: 8, portfolios: 4,
+    });
+    expect(data.assets.find((a) => a.id === "cuenta-remunerada")!.assetTypeId).toBeNull();
 
     expect(data.properties[1]).toMatchObject({ address: "", purchaseCosts: 0, cadastralValue: null, active: true });
     expect(data.categories.find((c) => c.id === "cat-alquiler")).toMatchObject({ deductible: false, notExpense: false });
@@ -76,6 +79,15 @@ describe("validation messages", () => {
     expect(e).toContain("Categoría 11 (cat-alquiler): id repetido.");
     expect(e).toContain("el activo «nope» no existe");
     expect(e).toContain("ciclo de carteras");
+  });
+
+  it("checks asset types", () => {
+    const f = example();
+    f.data.assets[0].assetTypeId = "tipo-x";
+    f.data.assetTypes.push({ id: "tipo-otro", name: "renta VARIABLE" });
+    const e = errorsOf(f);
+    expect(e).toContain("Activo 1 (fondo-rv): el tipo de activo «tipo-x» no existe.");
+    expect(e).toContain("Tipo de activo 5 (tipo-otro): nombre repetido.");
   });
 
   it("checks mortgages and category flags", () => {

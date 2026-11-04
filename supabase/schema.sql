@@ -108,6 +108,14 @@ create index transactions_category_idx on transactions (category_id);
 
 create type asset_kind as enum ('fondo', 'etf', 'efectivo', 'inmobiliario');
 
+-- User-defined classification of assets (e.g. «Renta variable»).
+create table asset_types (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  name text not null check (length(trim(name)) > 0),
+  created_at timestamptz not null default now()
+);
+
 create table assets (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
@@ -115,6 +123,8 @@ create table assets (
   kind asset_kind not null,
   -- Real estate assets come from a flat (one per flat).
   property_id uuid unique references properties (id) on delete cascade,
+  -- null = «Sin tipo». Deleting a type leaves its assets untyped.
+  asset_type_id uuid references asset_types (id) on delete set null,
   active boolean not null default true,
   created_at timestamptz not null default now(),
   check ((kind = 'inmobiliario') = (property_id is not null))
@@ -156,6 +166,7 @@ alter table categories enable row level security;
 alter table recurrings enable row level security;
 alter table transactions enable row level security;
 alter table mortgage_adjustments enable row level security;
+alter table asset_types enable row level security;
 alter table assets enable row level security;
 alter table asset_snapshots enable row level security;
 alter table portfolios enable row level security;
@@ -171,6 +182,8 @@ create policy "own rows" on transactions for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on mortgage_adjustments for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on asset_types for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on assets for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on asset_snapshots for all
@@ -185,6 +198,7 @@ create index properties_user_idx on properties (user_id);
 create index categories_user_idx on categories (user_id);
 create index recurrings_user_idx on recurrings (user_id);
 create index mortgage_adjustments_user_idx on mortgage_adjustments (user_id);
+create index asset_types_user_idx on asset_types (user_id);
 create index assets_user_idx on assets (user_id);
 create index asset_snapshots_user_idx on asset_snapshots (user_id);
 create index portfolios_user_idx on portfolios (user_id);

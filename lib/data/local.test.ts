@@ -48,7 +48,7 @@ describe("local repository", () => {
     const s = createMemoryStorage();
     const seeded = createLocalRepository({ storage: s, initialData: () => createSeedData("2026-11-02") });
     expect((await seeded.listProperties()).length).toBe(2);
-    await seeded.replaceAll({ properties: [], categories: [], transactions: [], recurrings: [], assets: [], assetSnapshots: [], portfolios: [] });
+    await seeded.replaceAll({ properties: [], categories: [], transactions: [], recurrings: [], assetTypes: [], assets: [], assetSnapshots: [], portfolios: [] });
     const again = createLocalRepository({ storage: s, initialData: () => createSeedData("2026-11-02") });
     expect(await again.listProperties()).toEqual([]);
   });

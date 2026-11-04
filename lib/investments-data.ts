@@ -4,7 +4,8 @@ import { valueAsset, type AssetValuation } from "@/lib/domain/investments";
 
 /** Everything the investment pages need, valued today. */
 export async function loadInvestments(repo: Repository, date: string = todayIso()) {
-  const [assets, snapshots, properties, recurrings, portfolios] = await Promise.all([
+  const [assetTypes, assets, snapshots, properties, recurrings, portfolios] = await Promise.all([
+    repo.listAssetTypes(),
     repo.listAssets(),
     repo.listAssetSnapshots(),
     repo.listProperties(),
@@ -13,5 +14,5 @@ export async function loadInvestments(repo: Repository, date: string = todayIso(
   ]);
   const ctx = { snapshots, properties, recurrings, date };
   const valuations = new Map<string, AssetValuation>(assets.map((a) => [a.id, valueAsset(a, ctx)]));
-  return { assets, snapshots, properties, recurrings, portfolios, valuations, date };
+  return { assetTypes, assets, snapshots, properties, recurrings, portfolios, valuations, date };
 }

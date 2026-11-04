@@ -24,7 +24,7 @@ Ejemplo completo y válido, con datos ficticios: [`public/importacion/ejemplo-co
   "exportedAt": "2026-11-04T12:00:00.000Z",
   "data": {
     "properties": [], "categories": [], "transactions": [], "recurrings": [],
-    "assets": [], "assetSnapshots": [], "portfolios": []
+    "assetTypes": [], "assets": [], "assetSnapshots": [], "portfolios": []
   }
 }
 ```
@@ -101,12 +101,21 @@ Hipoteca (`kind: "hipoteca"`): `categoryId` es la categoría de **intereses**. `
 | `interestMethod` | no | `"mensual"` | `"mensual"` (TIN/12), `"dias365"` o `"dias360"` (por días) |
 | `adjustments` | no | `[]` | Datos del banco desde una fecha: `{ "date", "balance", "payment" }`, con `balance` (capital pendiente) y/o `payment` (cuota) en céntimos; el que no uses, `null` |
 
+## `assetTypes` — tipos de activo
+
+Clasificación libre para los gráficos de reparto (renta variable, renta fija, liquidez…).
+
+| Campo | Obligatorio | Por defecto | Notas |
+|---|---|---|---|
+| `id`, `name` | sí | | Nombres únicos (sin distinguir mayúsculas) |
+
 ## `assets` — activos
 
 | Campo | Obligatorio | Por defecto | Notas |
 |---|---|---|---|
 | `id` | sí | | |
-| `kind` | sí | | `"fondo"`, `"etf"`, `"efectivo"` o `"inmobiliario"` |
+| `kind` | sí | | Producto: `"fondo"`, `"etf"`, `"efectivo"` o `"inmobiliario"` (decide el comportamiento) |
+| `assetTypeId` | no | `null` | Tipo de activo; `null` = «Sin tipo» |
 | `name` | sí (no en inmobiliario) | | En inmobiliario se muestra el nombre del piso |
 | `propertyId` | solo inmobiliario | `null` | Piso del activo (uno por piso). Los pisos sin activo lo reciben solo al importar |
 | `active` | no | `true` | |

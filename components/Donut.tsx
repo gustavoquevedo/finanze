@@ -8,13 +8,20 @@ import { formatCents } from "@/lib/format";
  * Assigned in fixed order by the entity's position, never by its value.
  */
 export const SERIES_COLORS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"];
-const OTHER_COLOR = "#a3a3a3";
+/** Neutral greys: «Sin tipo» (uncategorised) and the folded «Otros». */
+const UNCATEGORISED_COLOR = "#a3a3a3";
+const OTHER_COLOR = "#d4d4d4";
 const MAX_SLICES = SERIES_COLORS.length;
 
 export interface Slice {
   id: string;
   name: string;
   value: number;
+  /**
+   * Fixed colour slot of the entity (stable across charts). `null` = uncategorised (grey).
+   * When omitted, slots follow the slices' order.
+   */
+  colorIndex?: number | null;
 }
 
 interface Arc extends Slice {
@@ -24,17 +31,30 @@ interface Arc extends Slice {
   end: number;
 }
 
-/** Folds anything past the 8th slice (in given order) into "Otros". */
-function toArcs(slices: Slice[]): Arc[] {
+/**
+ * Assigns colours and folds what doesn't fit into «Otros»: past the 8th slice by position, or slices
+ * whose fixed slot is beyond the palette. Colours are never cycled.
+ */
+export function toArcs(slices: Slice[]): Arc[] {
   const positive = slices.filter((s) => s.value > 0);
-  const main = positive.slice(0, positive.length > MAX_SLICES ? MAX_SLICES - 1 : MAX_SLICES);
-  const rest = positive.slice(main.length);
-  const items = rest.length ? [...main, { id: "__otros", name: "Otros", value: rest.reduce((s, x) => s + x.value, 0) }] : main;
+  const fixed = positive.some((s) => s.colorIndex !== undefined);
+  let items: (Slice & { color: string })[];
+  if (fixed) {
+    const fits = (s: Slice) => s.colorIndex === null || (s.colorIndex !== undefined && s.colorIndex < MAX_SLICES);
+    const rest = positive.filter((s) => !fits(s));
+    items = positive.filter(fits).map((s) => ({ ...s, color: s.colorIndex === null ? UNCATEGORISED_COLOR : SERIES_COLORS[s.colorIndex!] }));
+    if (rest.length) items.push({ id: "__otros", name: "Otros", value: rest.reduce((t, x) => t + x.value, 0), color: OTHER_COLOR });
+  } else {
+    const main = positive.slice(0, positive.length > MAX_SLICES ? MAX_SLICES - 1 : MAX_SLICES);
+    const rest = positive.slice(main.length);
+    items = main.map((s, i) => ({ ...s, color: SERIES_COLORS[i] }));
+    if (rest.length) items.push({ id: "__otros", name: "Otros", value: rest.reduce((t, x) => t + x.value, 0), color: OTHER_COLOR });
+  }
   const total = items.reduce((s, x) => s + x.value, 0);
   let angle = 0;
-  return items.map((s, i) => {
+  return items.map((s) => {
     const share = total ? s.value / total : 0;
-    const arc = { ...s, color: s.id === "__otros" ? OTHER_COLOR : SERIES_COLORS[i], share, start: angle, end: angle + share * 2 * Math.PI };
+    const arc = { ...s, share, start: angle, end: angle + share * 2 * Math.PI };
     angle = arc.end;
     return arc;
   });
@@ -52,7 +72,7 @@ function arcPath(cx: number, cy: number, r: number, inner: number, start: number
 }
 
 /** Donut with legend. Tap a slice or legend row to see its value in the centre. */
-export function Donut({ slices, totalLabel = "Total" }: { slices: Slice[]; totalLabel?: string }) {
+export function Donut({ slices, totalLabel = "Total", showValues = false }: { slices: Slice[]; totalLabel?: string; showValues?: boolean }) {
   const arcs = toArcs(slices);
   const [selected, setSelected] = useState<string | null>(null);
   const current = arcs.find((a) => a.id === selected) ?? null;
@@ -98,7 +118,8 @@ export function Donut({ slices, totalLabel = "Total" }: { slices: Slice[]; total
             >
               <span aria-hidden className="h-3 w-3 shrink-0 rounded-sm" style={{ background: a.color }} />
               <span className="min-w-0 flex-1 truncate text-slate-700">{a.name}</span>
-              <span className="shrink-0 tabular-nums text-slate-900">{pct(a.share)}</span>
+              {showValues && <span className="shrink-0 tabular-nums text-slate-600">{formatCents(a.value)}</span>}
+              <span className="w-14 shrink-0 text-right tabular-nums text-slate-900">{pct(a.share)}</span>
             </button>
           </li>
         ))}
