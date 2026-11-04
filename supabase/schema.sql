@@ -1,6 +1,10 @@
--- Finanzas y pisos — esquema para la fase 2 (Supabase / Postgres).
--- No se ejecuta todavía. Refleja los tipos de lib/domain/types.ts.
--- Importes en céntimos (bigint). Fechas como date.
+-- Finanzas y pisos — esquema de la base de datos (Supabase / Postgres).
+--
+-- Cómo usarlo: Supabase → SQL Editor → New query → pega TODO este archivo → Run.
+-- Se ejecuta una sola vez, en un proyecto vacío.
+--
+-- Refleja los tipos de lib/domain/types.ts. Importes en céntimos (bigint); fechas como date.
+-- Cada fila lleva user_id = auth.uid() y RLS impide ver o tocar filas de otros usuarios.
 
 create type transaction_type as enum ('ingreso', 'gasto');
 create type category_scope as enum ('personal', 'piso');
@@ -175,3 +179,17 @@ create policy "own rows" on portfolios for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on portfolio_assets for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Índices por usuario (las políticas RLS filtran por user_id).
+create index properties_user_idx on properties (user_id);
+create index categories_user_idx on categories (user_id);
+create index recurrings_user_idx on recurrings (user_id);
+create index mortgage_adjustments_user_idx on mortgage_adjustments (user_id);
+create index assets_user_idx on assets (user_id);
+create index asset_snapshots_user_idx on asset_snapshots (user_id);
+create index portfolios_user_idx on portfolios (user_id);
+create index portfolio_assets_user_idx on portfolio_assets (user_id);
+
+-- Acceso solo para usuarios con sesión (RLS limita además a sus propias filas).
+revoke all on all tables in schema public from anon;
+grant select, insert, update, delete on all tables in schema public to authenticated;

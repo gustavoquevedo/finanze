@@ -1,24 +1,48 @@
 import { todayIso } from "@/lib/domain/dates";
 import type { Snapshot } from "@/lib/domain/types";
-import { backupFileName, createBackup } from "./backup";
-import { createLocalRepository } from "./local";
+import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
+import { backupFileName, createBackup, summarize, type BackupSummary } from "./backup";
+import { remapIds } from "./ids";
+import { createLocalRepository, createLocalStore, createSnapshotRepository, STORAGE_KEY } from "./local";
 import type { Repository } from "./repository";
 import { createSeedData } from "./seed";
+import { createSupabaseDb } from "./supabase-db";
+import { createSupabaseStore, type SupabaseStore } from "./supabase-store";
 
 export { parseBackup, type BackupSummary, type ParsedBackup } from "./backup";
 export type { Repository, TransactionFilter } from "./repository";
 
+/** Where data lives, from the configuration: Supabase when its variables are set. */
+export const dataMode: "supabase" | "local" = isSupabaseConfigured ? "supabase" : "local";
+
 let instance: Repository | null = null;
+let cloudStore: SupabaseStore | null = null;
 
 /**
- * The configured repository. Switching to Supabase (phase 2) only touches this function.
- * Browser only: phase 1 stores data in `localStorage`.
+ * The configured repository. Switching storage only touches this function.
+ * Browser only. In Supabase mode it needs a signed-in user (see AuthGate).
  */
 export function getRepository(): Repository {
   if (!instance) {
-    instance = createLocalRepository({ storage: window.localStorage, initialData: () => createSeedData() });
+    if (dataMode === "supabase") {
+      cloudStore = createSupabaseStore(createSupabaseDb(getSupabase()));
+      // Database ids are UUIDs: readable ids from hand-made import files are replaced.
+      instance = createSnapshotRepository(cloudStore, { prepareReplace: remapIds });
+      // Coming back to the tab: another device may have changed something.
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") cloudStore?.invalidate();
+      });
+    } else {
+      instance = createLocalRepository({ storage: window.localStorage, initialData: () => createSeedData() });
+    }
   }
   return instance;
+}
+
+/** Forget the repository and its cached data (after signing out). */
+export function resetRepository(): void {
+  instance = null;
+  cloudStore = null;
 }
 
 /**
@@ -64,4 +88,29 @@ export function lastBackupAt(): string | null {
 /** Replaces all data with fresh fictitious test data. */
 export async function restoreSeedData(): Promise<void> {
   await getRepository().replaceAll(createSeedData());
+  await loadRepository();
+}
+
+/** Whether the account (or browser) has no data at all yet. */
+export async function isEmpty(): Promise<boolean> {
+  const d = await getRepository().exportSnapshot();
+  return d.categories.length === 0 && d.transactions.length === 0 && d.properties.length === 0 && d.assets.length === 0;
+}
+
+/** Data kept in this browser from phase 1 (localStorage), if any. Supabase mode only. */
+export async function browserData(): Promise<{ data: Snapshot; summary: BackupSummary } | null> {
+  try {
+    if (window.localStorage.getItem(STORAGE_KEY) === null) return null;
+    const data = await createLocalStore({ storage: window.localStorage }).load();
+    return { data, summary: summarize(data) };
+  } catch {
+    return null;
+  }
+}
+
+/** Replaces the account's data with this browser's (phase 1) data. */
+export async function uploadBrowserData(): Promise<void> {
+  const local = await browserData();
+  if (!local) throw new Error("No hay datos en este navegador.");
+  await importBackup(local.data);
 }

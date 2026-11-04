@@ -16,6 +16,20 @@ export type KeyValueStorage = Pick<Storage, "getItem" | "setItem" | "removeItem"
 
 export const STORAGE_KEY = "finanze:v1";
 
+/**
+ * Where a repository keeps the whole data set. `load` returns a copy the repository may change;
+ * `save` stores the changed copy (localStorage writes it whole; Supabase writes only what changed).
+ */
+export interface SnapshotStore {
+  load(): Promise<Snapshot>;
+  save(data: Snapshot): Promise<void>;
+}
+
+export interface SnapshotRepositoryOptions {
+  /** Applied to the data given to `replaceAll` (e.g. turning readable ids into UUIDs). */
+  prepareReplace?: (data: Snapshot) => Snapshot;
+}
+
 export interface LocalRepositoryOptions {
   storage: KeyValueStorage;
   key?: string;
@@ -160,38 +174,61 @@ function assertRecurring(r: Pick<Recurring, "amount" | "startDate" | "endDate" |
   if (!FREQUENCIES.includes(r.frequency)) throw new ConstraintError(`Invalid frequency: ${r.frequency}`);
 }
 
-/** Repository backed by `localStorage` (phase 1). The whole data set is stored as one JSON document. */
-export function createLocalRepository(options: LocalRepositoryOptions): Repository {
+/** Store for `localStorage` (phase 1): the whole data set as one JSON document. */
+export function createLocalStore(options: LocalRepositoryOptions): SnapshotStore {
   const { storage, key = STORAGE_KEY, initialData } = options;
+  const write = (data: Snapshot) => storage.setItem(key, JSON.stringify(data));
+  return {
+    async load() {
+      const raw = storage.getItem(key);
+      if (raw === null) {
+        const data = initialData ? initialData() : emptySnapshot();
+        write(data);
+        return clone(data);
+      }
+      try {
+        return migrateSnapshot({ ...emptySnapshot(), ...(JSON.parse(raw) as Partial<Snapshot>) });
+      } catch {
+        throw new Error(`Corrupt data in storage key "${key}"`);
+      }
+    },
+    async save(data) {
+      write(data);
+    },
+  };
+}
 
-  function load(): Snapshot {
-    const raw = storage.getItem(key);
-    if (raw === null) {
-      const data = initialData ? initialData() : emptySnapshot();
-      save(data);
-      return data;
-    }
-    try {
-      return migrateSnapshot({ ...emptySnapshot(), ...(JSON.parse(raw) as Partial<Snapshot>) });
-    } catch {
-      throw new Error(`Corrupt data in storage key "${key}"`);
-    }
-  }
+/** Repository backed by `localStorage` (phase 1). */
+export function createLocalRepository(options: LocalRepositoryOptions): Repository {
+  return createSnapshotRepository(createLocalStore(options));
+}
 
-  function save(data: Snapshot): void {
-    storage.setItem(key, JSON.stringify(data));
+/**
+ * The repository logic (validation, cascades, generation), on top of any store.
+ * Changes run one at a time, so concurrent calls can't overwrite each other.
+ */
+export function createSnapshotRepository(store: SnapshotStore, options: SnapshotRepositoryOptions = {}): Repository {
+  let queue: Promise<unknown> = Promise.resolve();
+  function exclusive<T>(task: () => Promise<T>): Promise<T> {
+    const run = queue.then(task, task);
+    queue = run.catch(() => undefined);
+    return run;
   }
 
   /** Loads, applies `fn` and saves. Changes are discarded if `fn` throws. */
-  async function mutate<T>(fn: (data: Snapshot) => T): Promise<T> {
-    const data = load();
-    const result = fn(data);
-    save(data);
-    return clone(result);
+  function mutate<T>(fn: (data: Snapshot) => T): Promise<T> {
+    return exclusive(async () => {
+      const data = await store.load();
+      const result = fn(data);
+      await store.save(data);
+      return clone(result);
+    });
   }
 
   async function read<T>(fn: (data: Snapshot) => T): Promise<T> {
-    return clone(fn(load()));
+    // Wait for pending changes so reads see them.
+    await queue;
+    return clone(fn(await store.load()));
   }
 
   function findIndex<T extends { id: Id }>(items: T[], id: Id, entity: string): number {
@@ -337,15 +374,16 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
         for (const t of d.transactions) if (t.recurringId === id) t.recurringId = null;
       }),
 
-    generateDueTransactions: async (today) => {
-      const data = load();
-      const plan = planRecurringGeneration(data.recurrings, today);
-      if (plan.generatedUntil.size === 0) return 0;
-      for (const t of plan.transactions) data.transactions.push({ ...t, id: newId() });
-      for (const r of data.recurrings) r.generatedUntil = plan.generatedUntil.get(r.id) ?? r.generatedUntil;
-      save(data);
-      return plan.transactions.length;
-    },
+    generateDueTransactions: (today) =>
+      exclusive(async () => {
+        const data = await store.load();
+        const plan = planRecurringGeneration(data.recurrings, today);
+        if (plan.generatedUntil.size === 0) return 0;
+        for (const t of plan.transactions) data.transactions.push({ ...t, id: newId() });
+        for (const r of data.recurrings) r.generatedUntil = plan.generatedUntil.get(r.id) ?? r.generatedUntil;
+        await store.save(data);
+        return plan.transactions.length;
+      }),
 
     listAssets: () => read((d) => [...d.assets].sort((a, b) => a.name.localeCompare(b.name, "es"))),
     createAsset: (input) =>
@@ -419,20 +457,21 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
         d.portfolios = d.portfolios.filter((p) => p.id !== id);
       }),
 
-    syncPropertyAssets: async () => {
-      const data = load();
-      const linked = new Set(data.assets.map((a) => a.propertyId));
-      const missing = data.properties.filter((p) => !linked.has(p.id));
-      if (missing.length === 0) return 0;
-      for (const p of missing) data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, active: true });
-      save(data);
-      return missing.length;
-    },
+    syncPropertyAssets: () =>
+      exclusive(async () => {
+        const data = await store.load();
+        const linked = new Set(data.assets.map((a) => a.propertyId));
+        const missing = data.properties.filter((p) => !linked.has(p.id));
+        if (missing.length === 0) return 0;
+        for (const p of missing) data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, active: true });
+        await store.save(data);
+        return missing.length;
+      }),
 
     exportSnapshot: () => read((d) => d),
     replaceAll: (snapshot) =>
       mutate((d) => {
-        Object.assign(d, clone(snapshot));
+        Object.assign(d, clone(options.prepareReplace ? options.prepareReplace(snapshot) : snapshot));
       }),
   };
 }

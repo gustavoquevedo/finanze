@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SummaryCard } from "@/components/SummaryCard";
-import { lastBackupAt } from "@/lib/data";
+import { dataMode, isEmpty, lastBackupAt } from "@/lib/data";
 import { computeTotals } from "@/lib/domain/totals";
 import { formatMonth } from "@/lib/format";
 import { PENDING, PERSONAL, transactionsHref } from "@/lib/transactions-url";
@@ -22,12 +22,24 @@ export default function HomePage() {
   });
   // Read after mounting: the page is prerendered without access to the browser storage.
   const [lastBackup, setLastBackup] = useState<string | null>(null);
-  useEffect(() => setLastBackup(lastBackupAt()), []);
+  const [empty, setEmpty] = useState(false);
+  useEffect(() => {
+    setLastBackup(lastBackupAt());
+    void isEmpty().then(setEmpty);
+  }, []);
 
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Inicio</h1>
       {error && <p className="text-rose-700">Error: {error}</p>}
+      {empty && (
+        <Link href="/datos" className="block space-y-1 rounded-xl border border-emerald-300 bg-emerald-50 p-4">
+          <span className="block font-semibold">Tu cuenta está vacía</span>
+          <span className="block text-sm text-slate-700">
+            Sube los datos de este navegador, importa una copia o carga los datos de prueba desde Datos y copia ›
+          </span>
+        </Link>
+      )}
       {data && (
         <>
           {data.pending > 0 && (
@@ -72,7 +84,7 @@ export default function HomePage() {
         <span className="flex-1">
           <span className="block font-medium">Datos y copia de seguridad</span>
           <span className="block text-slate-600">
-            Los datos se guardan solo en este navegador.{" "}
+            {dataMode === "supabase" ? "Los datos se guardan en tu cuenta." : "Los datos se guardan solo en este navegador."}{" "}
             {lastBackup ? `Última copia: ${new Date(lastBackup).toLocaleDateString("es-ES")}.` : "Aún no has hecho ninguna copia."}
           </span>
         </span>
