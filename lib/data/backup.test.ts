@@ -38,7 +38,7 @@ describe("backup", () => {
           return old;
         }),
         categories: data.categories,
-        transactions: data.transactions,
+        transactions: data.transactions.map((t) => ({ ...t, recurringId: null })),
         recurrings: [],
       },
     };
@@ -62,6 +62,6 @@ describe("backup", () => {
     const data = seed();
     data.transactions[0] = { ...data.transactions[0], categoryId: "missing" };
     const parsed = parseBackup(JSON.stringify(createBackup(data)));
-    expect(!parsed.ok && parsed.error).toContain("referencias");
+    expect(!parsed.ok && parsed.error).toContain("la categoría «missing» no existe");
   });
 });

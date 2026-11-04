@@ -1,5 +1,5 @@
 import type { Snapshot } from "@/lib/domain/types";
-import { migrateSnapshot } from "./local";
+import { checkImport } from "./import-check";
 
 export const BACKUP_FORMAT = "finanze-backup";
 export const BACKUP_VERSION = 1;
@@ -69,28 +69,12 @@ export function parseBackup(text: string): ParsedBackup {
       return { ok: false, error: `La copia está dañada (${key}).` };
     }
   }
-  const data = migrateSnapshot({
-    properties: [],
-    categories: [],
-    transactions: [],
-    recurrings: [],
-    assets: [],
-    assetSnapshots: [],
-    portfolios: [],
-    ...(raw as Partial<Snapshot>),
-  });
-
-  // References must point to something in the copy itself.
-  const ids = (key: keyof Snapshot) => new Set(data[key].map((x) => x.id));
-  const categories = ids("categories");
-  const properties = ids("properties");
-  const assets = ids("assets");
-  const broken =
-    data.transactions.some((t) => !categories.has(t.categoryId) || (t.propertyId !== null && !properties.has(t.propertyId))) ||
-    data.recurrings.some((r) => !categories.has(r.categoryId)) ||
-    data.assetSnapshots.some((s) => !assets.has(s.assetId)) ||
-    data.portfolios.some((p) => p.assetIds.some((a) => !assets.has(a)));
-  if (broken) return { ok: false, error: "La copia está dañada: hay referencias a datos que no existen." };
+  const { data, errors } = checkImport(raw as Partial<Record<keyof Snapshot, Record<string, unknown>[]>>);
+  if (errors.length > 0) {
+    const shown = errors.slice(0, 8).join("\n");
+    const more = errors.length > 8 ? `\n… y ${errors.length - 8} errores más.` : "";
+    return { ok: false, error: `La copia tiene ${errors.length === 1 ? "1 error" : `${errors.length} errores`}:\n${shown}${more}` };
+  }
 
   return { ok: true, data, exportedAt: typeof obj.exportedAt === "string" ? obj.exportedAt : null, summary: summarize(data) };
 }
