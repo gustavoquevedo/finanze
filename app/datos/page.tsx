@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/AuthGate";
+import { buildInfo } from "@/lib/supabase/client";
 import {
   browserData,
   dataMode,
@@ -136,9 +137,15 @@ export default function DataPage() {
           </button>
         </section>
       ) : (
-        <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
-          Por ahora los datos se guardan solo en este navegador. Haz copias a menudo: si se borran los datos del navegador, se pierden.
-        </p>
+        <div className="space-y-1 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          <p>Por ahora los datos se guardan solo en este navegador. Haz copias a menudo: si se borran los datos del navegador, se pierden.</p>
+          {/* Diagnosis for the Supabase setup: shows whether this build got each variable (not their values). */}
+          <p className="text-xs text-amber-800">
+            Supabase en esta versión: URL {buildInfo.hasUrl ? (buildInfo.urlLooksRight ? "✓" : "⚠ formato raro") : "✗"} · clave{" "}
+            {buildInfo.hasKey ? "✓" : "✗"}
+            {buildInfo.commit && <> · versión {buildInfo.commit}</>}
+          </p>
+        </div>
       )}
 
       {cloud && local && (
