@@ -11,7 +11,9 @@ import { MoneyInput } from "@/components/MoneyInput";
 import { FieldError } from "@/components/TransactionForm";
 import { getRepository } from "@/lib/data";
 import { todayIso } from "@/lib/domain/dates";
-import { ASSET_KINDS } from "@/lib/domain/investments";
+import { ASSET_KINDS, sumValuations } from "@/lib/domain/investments";
+import { historyFor } from "@/lib/history-data";
+import { Evolution } from "@/components/Evolution";
 import { centsToInput, parseEuros } from "@/lib/domain/money";
 import type { Asset, AssetKind, AssetSnapshot, AssetType } from "@/lib/domain/types";
 import { formatCents, formatShortDate } from "@/lib/format";
@@ -88,6 +90,8 @@ function EditAsset() {
             )}
           </section>
 
+          <AssetEvolution asset={asset} data={data} />
+
           <SnapshotEditor key={version} asset={asset} snapshots={data.own} onSaved={reload} />
 
           {asset.propertyId ? (
@@ -120,6 +124,28 @@ function EditAsset() {
         </>
       )}
     </div>
+  );
+}
+
+/** Value over time and, except for cash, the amount invested (purchase value). */
+function AssetEvolution({ asset, data }: { asset: Asset; data: Awaited<ReturnType<typeof loadInvestments>> }) {
+  const { dates, perDate } = historyFor([asset.id], data);
+  if (dates.length === 0) return null;
+  const points = perDate.map((m) => m.get(asset.id)!);
+  const withCosts = asset.kind !== "efectivo";
+  return (
+    <Evolution
+      dates={dates}
+      totals={points.map((p) => sumValuations([p]))}
+      showInvested={withCosts}
+      chart={({ from }) => ({
+        label: `Evolución de ${points[0].name}`,
+        lines: [
+          { id: "valor", name: "Valor", colorIndex: 0, values: points.slice(from).map((p) => p.value) },
+          ...(withCosts ? [{ id: "invertido", name: "Invertido", colorIndex: null, values: points.slice(from).map((p) => p.purchaseValue) }] : []),
+        ],
+      })}
+    />
   );
 }
 

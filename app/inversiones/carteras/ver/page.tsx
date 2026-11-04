@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useState } from "react";
 import { BackLink } from "@/components/BackLink";
+import { Evolution } from "@/components/Evolution";
 import { Donut } from "@/components/Donut";
 import { formatPct, Gain } from "@/components/Gain";
 import { InvestmentTotals } from "@/components/InvestmentTotals";
@@ -16,7 +17,9 @@ import {
   type Totals,
 } from "@/lib/domain/investments";
 import type { Portfolio } from "@/lib/domain/types";
+import { portfolioHistory, typeHistory } from "@/lib/domain/history";
 import { formatCents } from "@/lib/format";
+import { historyFor, sliceValues } from "@/lib/history-data";
 import { loadInvestments } from "@/lib/investments-data";
 import { useData } from "@/lib/use-data";
 
@@ -96,7 +99,7 @@ function PortfolioDetail() {
                     showValues
                   />
                 ) : (
-                  <Donut slices={view.children.map((c) => ({ id: c.id, name: c.name, value: c.totals.value }))} />
+                  <Donut slices={view.children.map((c, i) => ({ id: c.id, name: c.name, value: c.totals.value, colorIndex: i }))} />
                 )}
                 {groupBy === "activos" && view.overlap && (
                   <p className="mt-2 text-xs text-amber-800">
@@ -104,6 +107,8 @@ function PortfolioDetail() {
                   </p>
                 )}
               </section>
+
+              <PortfolioEvolution portfolio={portfolio} groupBy={groupBy} data={data} />
 
               <section className="space-y-2">
                 <h2 className="font-semibold">Detalle</h2>
@@ -115,6 +120,39 @@ function PortfolioDetail() {
         </>
       )}
     </div>
+  );
+}
+
+/** Stacked evolution of the portfolio, by direct children or by asset type (same toggle as the donut). */
+function PortfolioEvolution({
+  portfolio,
+  groupBy,
+  data,
+}: {
+  portfolio: Portfolio;
+  groupBy: "activos" | "tipos";
+  data: Awaited<ReturnType<typeof loadInvestments>>;
+}) {
+  const assetIds = [...portfolioAssetIds(portfolio.id, data.portfolios)];
+  const { dates, perDate } = historyFor(assetIds, data);
+  if (dates.length === 0) return null;
+  const history =
+    groupBy === "tipos"
+      ? typeHistory(assetIds, data.assets, data.assetTypes, perDate, dates)
+      : portfolioHistory(portfolio.id, data.portfolios, perDate, dates);
+  return (
+    <Evolution
+      dates={dates}
+      totals={history.totals}
+      chart={({ from }) => ({
+        label: `Evolución de ${portfolio.name}`,
+        areas: sliceValues(history.series, from),
+        // With shared assets the stack adds more than the total: draw the real total too.
+        lines: history.overlap
+          ? [{ id: "total", name: "Total real", colorIndex: null, values: history.totals.slice(from).map((t) => t.value) }]
+          : [],
+      })}
+    />
   );
 }
 
