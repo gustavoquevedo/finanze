@@ -1,7 +1,7 @@
 import { addMonths, dayInMonth, todayIso } from "@/lib/domain/dates";
 import { annuityPayment } from "@/lib/domain/mortgage";
 import { occurrenceTransactions, occurrencesBetween, planOf } from "@/lib/domain/recurring";
-import type { Category, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Asset, AssetSnapshot, Category, Portfolio, Property, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 
 /**
@@ -186,7 +186,61 @@ export function createSeedData(today: string = todayIso()): Snapshot {
     add({ date: dayInMonth(months[i], day), amount: euros(amount), categoryId: cat[key].id, propertyId: null, concept });
   }
 
-  return { properties: [centro, playa], categories: Object.values(cat), transactions, recurrings };
+  // Investments: monthly snapshots at the end of each seed month.
+  const assets: Asset[] = [];
+  const assetSnapshots: AssetSnapshot[] = [];
+  const newAsset = (name: string, kind: Asset["kind"], propertyId: string | null = null) => {
+    const a: Asset = { id: newId(), name, kind, propertyId, active: true };
+    assets.push(a);
+    return a;
+  };
+  const snapshot = (a: Asset, i: number, value: number, purchaseValue: number | null = null, fiscalCost: number | null = null) =>
+    assetSnapshots.push({
+      id: newId(),
+      assetId: a.id,
+      date: dayInMonth(months[i], 31),
+      value: euros(value),
+      purchaseValue: purchaseValue === null ? null : euros(purchaseValue),
+      fiscalCost: fiscalCost === null ? null : euros(fiscalCost),
+    });
+
+  // Transferred from another fund: fiscal cost (original contributions) below purchase value.
+  const rv = newAsset("Fondo indexado RV global", "fondo");
+  const rf = newAsset("Fondo indexado RF europea", "fondo");
+  const etf = newAsset("ETF S&P 500", "etf");
+  const cash = newAsset("Cuenta remunerada", "efectivo");
+  const rvValues = [31840.12, 32905.5, 32210.77, 33880.4, 34512.9, 35406.18];
+  const rfValues = [15120.4, 15244.1, 15301.95, 15398.2, 15452.6, 15569.33];
+  const etfValues = [8410.25, 8702.6, 8455.1, 8951.75, 9120.4, 9388.02];
+  const cashValues = [12000, 12450.3, 11980.75, 12620.1, 13040.55, 12810.9];
+  months.forEach((_, i) => {
+    // 300 €/month into the equity fund and 100 €/month into the bond fund.
+    snapshot(rv, i, rvValues[i], 30000 + 300 * i, 22000 + 300 * i);
+    snapshot(rf, i, rfValues[i], 15000 + 100 * i, 15000 + 100 * i);
+    snapshot(etf, i, etfValues[i], i === 0 ? 8000 : null);
+    snapshot(cash, i, cashValues[i]);
+  });
+  const centroAsset = newAsset(centro.name, "inmobiliario", centro.id);
+  const playaAsset = newAsset(playa.name, "inmobiliario", playa.id);
+  snapshot(centroAsset, 0, 245000);
+  snapshot(playaAsset, 0, 168000);
+
+  const portfolio = (name: string, parentId: string | null, assetIds: string[]): Portfolio => ({ id: newId(), name, parentId, assetIds });
+  const patrimonio = portfolio("Patrimonio", null, [cash.id, centroAsset.id, playaAsset.id]);
+  const indexada = portfolio("Indexada", patrimonio.id, [etf.id]);
+  const bogle = portfolio("Bogle", indexada.id, [rv.id, rf.id]);
+  // An asset can be in several portfolios: the equity fund is also here.
+  const rentaVariable = portfolio("Renta variable", null, [rv.id, etf.id]);
+
+  return {
+    properties: [centro, playa],
+    categories: Object.values(cat),
+    transactions,
+    recurrings,
+    assets,
+    assetSnapshots,
+    portfolios: [patrimonio, indexada, bogle, rentaVariable],
+  };
 }
 
 /** `YYYY-MM-DD` of the previous day. */

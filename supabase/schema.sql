@@ -100,12 +100,62 @@ create index transactions_user_date_idx on transactions (user_id, date desc);
 create index transactions_property_idx on transactions (property_id);
 create index transactions_category_idx on transactions (category_id);
 
+-- Inversiones -------------------------------------------------------------
+
+create type asset_kind as enum ('fondo', 'etf', 'efectivo', 'inmobiliario');
+
+create table assets (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  name text not null,
+  kind asset_kind not null,
+  -- Real estate assets come from a flat (one per flat).
+  property_id uuid unique references properties (id) on delete cascade,
+  active boolean not null default true,
+  created_at timestamptz not null default now(),
+  check ((kind = 'inmobiliario') = (property_id is not null))
+);
+
+-- Value at a date; purchase value and fiscal cost are kept from the previous snapshot when null.
+create table asset_snapshots (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  asset_id uuid not null references assets (id) on delete cascade,
+  date date not null,
+  value bigint not null check (value >= 0),
+  purchase_value bigint check (purchase_value >= 0),
+  -- Acquisition value for tax purposes (kept across fund transfers).
+  fiscal_cost bigint check (fiscal_cost >= 0),
+  unique (asset_id, date)
+);
+
+create table portfolios (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  name text not null,
+  -- Sub-portfolios; cycles are prevented by the app.
+  parent_id uuid references portfolios (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+
+-- An asset can be in several portfolios.
+create table portfolio_assets (
+  portfolio_id uuid not null references portfolios (id) on delete cascade,
+  asset_id uuid not null references assets (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  primary key (portfolio_id, asset_id)
+);
+
 -- RLS: cada fila pertenece a su usuario.
 alter table properties enable row level security;
 alter table categories enable row level security;
 alter table recurrings enable row level security;
 alter table transactions enable row level security;
 alter table mortgage_adjustments enable row level security;
+alter table assets enable row level security;
+alter table asset_snapshots enable row level security;
+alter table portfolios enable row level security;
+alter table portfolio_assets enable row level security;
 
 create policy "own rows" on properties for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
@@ -116,4 +166,12 @@ create policy "own rows" on recurrings for all
 create policy "own rows" on transactions for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on mortgage_adjustments for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on assets for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on asset_snapshots for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on portfolios for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on portfolio_assets for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());

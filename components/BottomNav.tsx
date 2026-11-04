@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isActive, NAV_ITEMS } from "./nav-items";
+import { isSectionActive, NAV_ITEMS } from "./nav-items";
 
 
 export function BottomNav() {
@@ -11,7 +11,7 @@ export function BottomNav() {
     <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
       <ul className="mx-auto flex max-w-xl">
         {NAV_ITEMS.map((item) => {
-          const active = isActive(pathname, item.href);
+          const active = isSectionActive(pathname, item);
           return (
             <li key={item.href} className="flex-1">
               <Link

@@ -1,5 +1,8 @@
 import type {
+  Asset,
+  AssetSnapshot,
   Category,
+  Portfolio,
   Id,
   IsoDate,
   Property,
@@ -50,6 +53,27 @@ export interface Repository {
   createRecurring(input: New<Recurring>): Promise<Recurring>;
   updateRecurring(id: Id, patch: Patch<Recurring>): Promise<Recurring>;
   deleteRecurring(id: Id): Promise<void>;
+
+  listAssets(): Promise<Asset[]>;
+  createAsset(input: New<Asset>): Promise<Asset>;
+  updateAsset(id: Id, patch: Patch<Asset>): Promise<Asset>;
+  /** Also deletes its snapshots and removes it from portfolios. Real estate assets go with their flat. */
+  deleteAsset(id: Id): Promise<void>;
+
+  /** Sorted by date, oldest first. */
+  listAssetSnapshots(assetId?: Id): Promise<AssetSnapshot[]>;
+  /** Creates or replaces the asset's snapshot for that date. */
+  saveAssetSnapshot(input: New<AssetSnapshot>): Promise<AssetSnapshot>;
+  deleteAssetSnapshot(id: Id): Promise<void>;
+
+  listPortfolios(): Promise<Portfolio[]>;
+  createPortfolio(input: New<Portfolio>): Promise<Portfolio>;
+  updatePortfolio(id: Id, patch: Patch<Portfolio>): Promise<Portfolio>;
+  /** Sub-portfolios move up to the deleted portfolio's parent; assets are kept. */
+  deletePortfolio(id: Id): Promise<void>;
+
+  /** Creates the real estate asset of every flat that has none. Returns how many were created. */
+  syncPropertyAssets(): Promise<number>;
 
   /**
    * Creates pending transactions for every recurring occurrence due by `today`

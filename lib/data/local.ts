@@ -1,6 +1,6 @@
 import { addMonths, dayInMonth } from "@/lib/domain/dates";
 import { planRecurringGeneration } from "@/lib/domain/recurring";
-import type { Category, Id, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import type { Asset, Category, Id, Portfolio, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
 import { newId } from "./ids";
 import {
   ConstraintError,
@@ -28,7 +28,12 @@ const emptySnapshot = (): Snapshot => ({
   categories: [],
   transactions: [],
   recurrings: [],
+  assets: [],
+  assetSnapshots: [],
+  portfolios: [],
 });
+
+const ASSET_KINDS = ["fondo", "etf", "efectivo", "inmobiliario"];
 
 const clone = <T>(value: T): T => structuredClone(value);
 
@@ -82,6 +87,35 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     return { ...r, generatedUntil: dates.at(-1) ?? null };
   });
   return { ...data, properties, categories, transactions, recurrings };
+}
+
+/** Removes assets with their snapshots and portfolio memberships. */
+function removeAssets(d: Snapshot, ids: Set<Id>): void {
+  if (ids.size === 0) return;
+  d.assets = d.assets.filter((a) => !ids.has(a.id));
+  d.assetSnapshots = d.assetSnapshots.filter((s) => !ids.has(s.assetId));
+  for (const p of d.portfolios) p.assetIds = p.assetIds.filter((a) => !ids.has(a));
+}
+
+function assertAsset(d: Snapshot, a: Omit<Asset, "id">): void {
+  if (!a.name.trim()) throw new ConstraintError("Asset name is required");
+  if (!ASSET_KINDS.includes(a.kind)) throw new ConstraintError(`Invalid asset kind: ${String(a.kind)}`);
+  if ((a.kind === "inmobiliario") !== (a.propertyId !== null)) throw new ConstraintError("Real estate assets come from flats");
+  if (a.propertyId && !d.properties.some((p) => p.id === a.propertyId)) throw new ConstraintError(`Unknown property: ${a.propertyId}`);
+}
+
+function assertPortfolio(d: Snapshot, p: Portfolio): void {
+  if (!p.name.trim()) throw new ConstraintError("Portfolio name is required");
+  for (const id of p.assetIds) if (!d.assets.some((a) => a.id === id)) throw new ConstraintError(`Unknown asset: ${id}`);
+  if (p.parentId !== null) {
+    if (!d.portfolios.some((x) => x.id === p.parentId)) throw new ConstraintError(`Unknown portfolio: ${p.parentId}`);
+    // Walk up from the parent: reaching the portfolio itself would make a cycle.
+    let cursor: Id | null = p.parentId;
+    while (cursor) {
+      if (cursor === p.id) throw new ConstraintError("A portfolio cannot be inside itself");
+      cursor = d.portfolios.find((x) => x.id === cursor)?.parentId ?? null;
+    }
+  }
 }
 
 function assertCategory(c: Pick<Category, "type" | "deductible" | "notExpense" | "limitedDeduction">): void {
@@ -213,6 +247,8 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
         d.properties = d.properties.filter((p) => p.id !== id);
         d.transactions = d.transactions.filter((t) => t.propertyId !== id);
         d.recurrings = d.recurrings.filter((r) => r.propertyId !== id);
+        const gone = new Set(d.assets.filter((a) => a.propertyId === id).map((a) => a.id));
+        removeAssets(d, gone);
       }),
 
     listCategories: () => read((d) => [...d.categories].sort((a, b) => a.name.localeCompare(b.name, "es"))),
@@ -309,6 +345,88 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
       for (const r of data.recurrings) r.generatedUntil = plan.generatedUntil.get(r.id) ?? r.generatedUntil;
       save(data);
       return plan.transactions.length;
+    },
+
+    listAssets: () => read((d) => [...d.assets].sort((a, b) => a.name.localeCompare(b.name, "es"))),
+    createAsset: (input) =>
+      mutate((d) => {
+        assertAsset(d, input);
+        const asset = { ...input, name: input.name.trim(), id: newId() };
+        d.assets.push(asset);
+        return asset;
+      }),
+    updateAsset: (id, patch) =>
+      mutate((d) => {
+        const current = d.assets[findIndex(d.assets, id, "Asset")];
+        if (patch.kind !== undefined && patch.kind !== current.kind && (current.propertyId || patch.kind === "inmobiliario")) {
+          throw new ConstraintError("Real estate assets come from flats");
+        }
+        if (patch.propertyId !== undefined && patch.propertyId !== current.propertyId) throw new ConstraintError("Cannot relink an asset");
+        return update(d.assets, id, patch, "Asset");
+      }),
+    deleteAsset: (id) =>
+      mutate((d) => {
+        const asset = d.assets[findIndex(d.assets, id, "Asset")];
+        if (asset.propertyId) throw new ConstraintError("Delete the flat to delete its asset");
+        removeAssets(d, new Set([id]));
+      }),
+
+    listAssetSnapshots: (assetId) =>
+      read((d) =>
+        d.assetSnapshots.filter((s) => !assetId || s.assetId === assetId).sort((a, b) => a.date.localeCompare(b.date)),
+      ),
+    saveAssetSnapshot: (input) =>
+      mutate((d) => {
+        findIndex(d.assets, input.assetId, "Asset");
+        assertIsoDate(input.date);
+        for (const [key, v] of [["value", input.value], ["purchaseValue", input.purchaseValue], ["fiscalCost", input.fiscalCost]] as const) {
+          if (v !== null && (!Number.isInteger(v) || v < 0)) throw new ConstraintError(`Invalid ${key}: ${String(v)}`);
+        }
+        const existing = d.assetSnapshots.find((s) => s.assetId === input.assetId && s.date === input.date);
+        if (existing) {
+          Object.assign(existing, input);
+          return existing;
+        }
+        const snapshot = { ...input, id: newId() };
+        d.assetSnapshots.push(snapshot);
+        return snapshot;
+      }),
+    deleteAssetSnapshot: (id) =>
+      mutate((d) => {
+        findIndex(d.assetSnapshots, id, "Snapshot");
+        d.assetSnapshots = d.assetSnapshots.filter((s) => s.id !== id);
+      }),
+
+    listPortfolios: () => read((d) => [...d.portfolios].sort((a, b) => a.name.localeCompare(b.name, "es"))),
+    createPortfolio: (input) =>
+      mutate((d) => {
+        const portfolio = { ...input, name: input.name.trim(), assetIds: [...new Set(input.assetIds)], id: newId() };
+        assertPortfolio(d, portfolio);
+        d.portfolios.push(portfolio);
+        return portfolio;
+      }),
+    updatePortfolio: (id, patch) =>
+      mutate((d) => {
+        const next = { ...d.portfolios[findIndex(d.portfolios, id, "Portfolio")], ...patch, id };
+        if (patch.assetIds) next.assetIds = [...new Set(patch.assetIds)];
+        assertPortfolio(d, next);
+        return update(d.portfolios, id, { ...patch, assetIds: next.assetIds }, "Portfolio");
+      }),
+    deletePortfolio: (id) =>
+      mutate((d) => {
+        const portfolio = d.portfolios[findIndex(d.portfolios, id, "Portfolio")];
+        for (const p of d.portfolios) if (p.parentId === id) p.parentId = portfolio.parentId;
+        d.portfolios = d.portfolios.filter((p) => p.id !== id);
+      }),
+
+    syncPropertyAssets: async () => {
+      const data = load();
+      const linked = new Set(data.assets.map((a) => a.propertyId));
+      const missing = data.properties.filter((p) => !linked.has(p.id));
+      if (missing.length === 0) return 0;
+      for (const p of missing) data.assets.push({ id: newId(), name: p.name, kind: "inmobiliario", propertyId: p.id, active: true });
+      save(data);
+      return missing.length;
     },
 
     exportSnapshot: () => read((d) => d),
