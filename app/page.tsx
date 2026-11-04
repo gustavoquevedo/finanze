@@ -34,9 +34,10 @@ export default function HomePage() {
       {error && <p className="text-rose-700">Error: {error}</p>}
       {empty && (
         <Link href="/datos" className="block space-y-1 rounded-xl border border-emerald-300 bg-emerald-50 p-4">
-          <span className="block font-semibold">Tu cuenta está vacía</span>
+          <span className="block font-semibold">{dataMode === "supabase" ? "Tu cuenta está vacía" : "No hay datos todavía"}</span>
           <span className="block text-sm text-slate-700">
-            Sube los datos de este navegador, importa una copia o carga los datos de prueba desde Datos y copia ›
+            {dataMode === "supabase" ? "Sube los datos de este navegador, importa" : "Importa"} una copia, los datos de demostración o
+            los de prueba desde Datos y copia ›
           </span>
         </Link>
       )}

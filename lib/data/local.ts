@@ -37,7 +37,7 @@ export interface LocalRepositoryOptions {
   initialData?: () => Snapshot;
 }
 
-const emptySnapshot = (): Snapshot => ({
+export const emptySnapshot = (): Snapshot => ({
   properties: [],
   categories: [],
   transactions: [],

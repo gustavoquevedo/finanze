@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/AuthGate";
+import { DeleteAllData } from "@/components/DangerZone";
 import { buildInfo } from "@/lib/supabase/client";
 import {
   browserData,
   dataMode,
+  deleteAllData,
   exportBackup,
   importBackup,
   lastBackupAt,
@@ -16,11 +18,13 @@ import {
   type ParsedBackup,
 } from "@/lib/data";
 
-const LABELS: Record<string, string> = {
+// Typed by the backup sections, so a new section without a label fails to compile.
+const LABELS: Record<keyof BackupSummary, string> = {
   transactions: "movimientos",
   recurrings: "recurrentes",
   categories: "categorías",
   properties: "pisos",
+  assetTypes: "tipos de activo",
   assets: "activos",
   assetSnapshots: "valores de activos",
   portfolios: "carteras",
@@ -28,7 +32,7 @@ const LABELS: Record<string, string> = {
 
 const describe = (summary: BackupSummary) =>
   Object.entries(summary)
-    .map(([k, n]) => `${n} ${LABELS[k]}`)
+    .map(([k, n]) => `${n} ${LABELS[k as keyof BackupSummary]}`)
     .join(" · ");
 
 const when = (iso: string) =>
@@ -195,6 +199,13 @@ export default function DataPage() {
           </a>{" "}
           con todos los tipos de datos y notas en cada campo.
         </p>
+        <p className="text-xs text-slate-500">
+          ¿Quieres ver la app con un año de datos?{" "}
+          <a href="/importacion/demo-completo.json" download className="font-medium text-emerald-700 underline">
+            Descargar datos de demostración
+          </a>{" "}
+          (ficticios) e impórtalos aquí.
+        </p>
         {/* The native file button is in the browser's language: use our own label instead. */}
         <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm">
           <span className="rounded-md bg-slate-100 px-3 py-1.5 font-medium">Elegir archivo…</span>
@@ -240,6 +251,16 @@ export default function DataPage() {
           Restaurar datos de prueba
         </button>
       </section>
+
+      <DeleteAllData
+        where={cloud ? "de tu cuenta" : "de este navegador"}
+        onBackup={() => handleExport(false)}
+        onDelete={async () => {
+          await deleteAllData();
+          setMessage("Se han borrado todos los datos.");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
     </div>
   );
 }
