@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Totals } from "@/components/Totals";
+import { SummaryCard } from "@/components/SummaryCard";
 import { restoreSeedData } from "@/lib/data";
 import { formatMonth } from "@/lib/format";
+import { PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
 export default function HomePage() {
@@ -31,21 +32,22 @@ export default function HomePage() {
       {error && <p className="text-rose-700">Error: {error}</p>}
       {data && (
         <>
-          <section className="rounded-xl bg-white p-4 shadow-sm">
-            <h2 className="mb-2 font-semibold">
-              Global{data.month && <span className="font-normal text-slate-500"> · {formatMonth(data.month)}</span>}
-            </h2>
-            <Totals transactions={data.monthTx} />
-          </section>
-          <section className="rounded-xl bg-white p-4 shadow-sm">
-            <h2 className="mb-2 font-semibold">Personal</h2>
-            <Totals transactions={data.monthTx.filter((t) => t.propertyId === null)} />
-          </section>
+          <h2 className="text-sm font-medium text-slate-500">
+            Resumen{data.month && ` de ${formatMonth(data.month).toLowerCase()}`}
+          </h2>
+          <SummaryCard title="Global" href={transactionsHref({ mes: data.month ?? undefined })} transactions={data.monthTx} />
+          <SummaryCard
+            title="Personal"
+            href={transactionsHref({ mes: data.month ?? undefined, piso: PERSONAL })}
+            transactions={data.monthTx.filter((t) => t.propertyId === null)}
+          />
           {data.properties.map((p) => (
-            <section key={p.id} className="rounded-xl bg-white p-4 shadow-sm">
-              <h2 className="mb-2 font-semibold">{p.name}</h2>
-              <Totals transactions={data.monthTx.filter((t) => t.propertyId === p.id)} />
-            </section>
+            <SummaryCard
+              key={p.id}
+              title={p.name}
+              href={transactionsHref({ mes: data.month ?? undefined, piso: p.id })}
+              transactions={data.monthTx.filter((t) => t.propertyId === p.id)}
+            />
           ))}
         </>
       )}

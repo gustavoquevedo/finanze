@@ -1,18 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { Amount } from "@/components/Amount";
 import { Totals } from "@/components/Totals";
 import type { TransactionFilter } from "@/lib/data";
 import { formatMonth, formatShortDate } from "@/lib/format";
+import { PERSONAL, transactionsHref } from "@/lib/transactions-url";
 import { useData } from "@/lib/use-data";
 
-const PERSONAL = "__personal";
-
 export default function TransactionsPage() {
-  const [month, setMonth] = useState("");
-  const [property, setProperty] = useState("");
-  const [category, setCategory] = useState("");
+  // useSearchParams needs a Suspense boundary for static rendering.
+  return (
+    <Suspense>
+      <TransactionsList />
+    </Suspense>
+  );
+}
+
+function TransactionsList() {
+  const router = useRouter();
+  const params = useSearchParams();
+  const month = params.get("mes") ?? "";
+  const property = params.get("piso") ?? "";
+  const category = params.get("categoria") ?? "";
+
+  // Filters live in the URL so cards can link here and "back" keeps them.
+  const setFilter = (key: "mes" | "piso" | "categoria", value: string) => {
+    const next = { mes: month, piso: property, categoria: category, [key]: value };
+    router.replace(transactionsHref(next), { scroll: false });
+  };
 
   const options = useData(async (repo) => {
     const [properties, categories, all] = await Promise.all([
@@ -39,16 +56,16 @@ export default function TransactionsPage() {
       <h1 className="text-2xl font-bold">Movimientos</h1>
 
       <div className="grid grid-cols-3 gap-2">
-        <select aria-label="Mes" className={selectClass} value={month} onChange={(e) => setMonth(e.target.value)}>
+        <select aria-label="Mes" className={selectClass} value={month} onChange={(e) => setFilter("mes", e.target.value)}>
           <option value="">Mes</option>
           {options.data?.months.map((m) => <option key={m} value={m}>{formatMonth(m)}</option>)}
         </select>
-        <select aria-label="Piso" className={selectClass} value={property} onChange={(e) => setProperty(e.target.value)}>
+        <select aria-label="Piso" className={selectClass} value={property} onChange={(e) => setFilter("piso", e.target.value)}>
           <option value="">Todo</option>
           <option value={PERSONAL}>Personal</option>
           {options.data?.properties.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
-        <select aria-label="Categoría" className={selectClass} value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select aria-label="Categoría" className={selectClass} value={category} onChange={(e) => setFilter("categoria", e.target.value)}>
           <option value="">Categorías</option>
           {options.data?.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
