@@ -1,0 +1,119 @@
+-- Finanzas y pisos — esquema para la fase 2 (Supabase / Postgres).
+-- No se ejecuta todavía. Refleja los tipos de lib/domain/types.ts.
+-- Importes en céntimos (bigint). Fechas como date.
+
+create type transaction_type as enum ('ingreso', 'gasto');
+create type category_scope as enum ('personal', 'piso');
+create type frequency as enum ('mensual', 'trimestral', 'anual');
+create type recurring_kind as enum ('fijo', 'hipoteca');
+create type interest_method as enum ('mensual', 'dias365', 'dias360');
+
+create table properties (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  name text not null,
+  address text not null default '',
+  purchase_date date not null,
+  acquisition_price bigint not null check (acquisition_price >= 0),
+  purchase_costs bigint not null default 0 check (purchase_costs >= 0),
+  cadastral_value bigint check (cadastral_value >= 0),
+  construction_percentage numeric(5, 2) not null check (construction_percentage between 0 and 100),
+  active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+create table categories (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  name text not null,
+  type transaction_type not null,
+  scope category_scope not null,
+  deductible boolean not null default false,
+  -- Money out that is not an expense (mortgage principal).
+  not_expense boolean not null default false,
+  -- Counts towards the Renta limit of interest + repairs <= income.
+  limited_deduction boolean not null default false,
+  created_at timestamptz not null default now(),
+  check (not (not_expense and deductible)),
+  check (not limited_deduction or deductible)
+);
+
+create table recurrings (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  concept text not null,
+  amount bigint not null check (amount > 0),
+  type transaction_type not null,
+  category_id uuid not null references categories (id),
+  property_id uuid references properties (id) on delete cascade,
+  frequency frequency not null,
+  day smallint not null check (day between 1 and 31),
+  start_date date not null,
+  end_date date,
+  -- Occurrences up to this date have already been generated.
+  generated_until date,
+  -- 'hipoteca': French-system mortgage; category_id is the interest category.
+  kind recurring_kind not null default 'fijo',
+  mortgage_principal bigint check (mortgage_principal > 0),
+  mortgage_annual_rate numeric(6, 3) check (mortgage_annual_rate between 0 and 30),
+  mortgage_installments smallint check (mortgage_installments between 1 and 600),
+  -- mensual = TIN/12; dias365/dias360 = by days since the previous installment.
+  mortgage_interest_method interest_method,
+  mortgage_principal_category_id uuid references categories (id),
+  created_at timestamptz not null default now(),
+  check (end_date is null or end_date >= start_date),
+  check (
+    (kind = 'fijo' and mortgage_principal is null)
+    or (kind = 'hipoteca' and frequency = 'mensual' and mortgage_principal is not null
+        and mortgage_annual_rate is not null and mortgage_installments is not null
+        and mortgage_principal_category_id is not null and end_date is not null)
+  )
+);
+
+-- Bank corrections from a date: real outstanding principal and/or the bank's installment.
+create table mortgage_adjustments (
+  recurring_id uuid not null references recurrings (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  date date not null,
+  balance bigint check (balance >= 0),
+  payment bigint check (payment > 0),
+  primary key (recurring_id, date),
+  check (balance is not null or payment is not null)
+);
+
+create table transactions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  date date not null,
+  amount bigint not null check (amount > 0),
+  type transaction_type not null,
+  category_id uuid not null references categories (id),
+  property_id uuid references properties (id) on delete cascade,
+  concept text not null default '',
+  recurring_id uuid references recurrings (id) on delete set null,
+  -- false = generated automatically and pending confirmation (already counts in totals).
+  confirmed boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+create index transactions_user_date_idx on transactions (user_id, date desc);
+create index transactions_property_idx on transactions (property_id);
+create index transactions_category_idx on transactions (category_id);
+
+-- RLS: cada fila pertenece a su usuario.
+alter table properties enable row level security;
+alter table categories enable row level security;
+alter table recurrings enable row level security;
+alter table transactions enable row level security;
+alter table mortgage_adjustments enable row level security;
+
+create policy "own rows" on properties for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on categories for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on recurrings for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on transactions for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "own rows" on mortgage_adjustments for all
+  using (user_id = auth.uid()) with check (user_id = auth.uid());

@@ -1,0 +1,32 @@
+import { describe, expect, it } from "vitest";
+import { validateCategoryForm } from "./category-form";
+import type { Category } from "./types";
+
+const existing: Category[] = [{ id: "c1", name: "Reparación", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false }];
+
+describe("category form", () => {
+  it("trims the name and builds the category", () => {
+    expect(validateCategoryForm({ name: "  Muebles   y enseres ", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false }, existing)).toEqual({
+      ok: true,
+      value: { name: "Muebles y enseres", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false },
+    });
+  });
+
+  it("requires a name unique within scope and type, ignoring case and accents", () => {
+    const v = { name: "reparacion", type: "gasto" as const, scope: "piso" as const, deductible: false, notExpense: false, limitedDeduction: false };
+    expect(validateCategoryForm({ ...v, name: " " }, existing).ok).toBe(false);
+    expect(validateCategoryForm(v, existing).ok).toBe(false);
+    expect(validateCategoryForm(v, existing, "c1").ok).toBe(true);
+    expect(validateCategoryForm({ ...v, scope: "personal" }, existing).ok).toBe(true);
+  });
+
+  it("keeps the tax flags consistent", () => {
+    const v = { name: "X", scope: "piso" as const, deductible: true, notExpense: true, limitedDeduction: true };
+    const notExpense = validateCategoryForm({ ...v, type: "gasto" }, existing);
+    expect(notExpense.ok && notExpense.value).toMatchObject({ notExpense: true, deductible: false, limitedDeduction: false });
+    const income = validateCategoryForm({ ...v, type: "ingreso" }, existing);
+    expect(income.ok && income.value).toMatchObject({ notExpense: false, deductible: false, limitedDeduction: false });
+    const limited = validateCategoryForm({ ...v, type: "gasto", notExpense: false }, existing);
+    expect(limited.ok && limited.value).toMatchObject({ deductible: true, limitedDeduction: true });
+  });
+});
