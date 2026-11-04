@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { SERIES_COLORS } from "@/components/Donut";
 import { inputClass } from "@/components/form-styles";
+import { IconPicker } from "@/components/IconPicker";
 import { FieldError } from "@/components/TransactionForm";
+import { DEFAULT_ASSET_TYPES } from "@/lib/data/defaults";
+import { Icon } from "@/lib/icons/Icon";
 import { getRepository } from "@/lib/data";
 import type { AssetType } from "@/lib/domain/types";
 import { formatCents } from "@/lib/format";
@@ -30,18 +33,28 @@ export default function AssetTypesPage() {
   const reload = () => setVersion((v) => v + 1);
 
   const [name, setName] = useState("");
+  const [icon, setIcon] = useState<string | null>(null);
   const [addError, setAddError] = useState<string>();
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim()) return setAddError("Indica un nombre.");
     try {
-      await getRepository().createAssetType({ name });
+      await getRepository().createAssetType({ name, icon });
       setName("");
+      setIcon(null);
       reload();
     } catch (err) {
       setAddError(message(err));
     }
+  }
+
+  // Starting types not created yet (by name).
+  const existing = new Set((data ?? []).map((r) => r.type.name.trim().toLocaleLowerCase("es")));
+  const missingDefaults = DEFAULT_ASSET_TYPES.filter((t) => !existing.has(t.name.toLocaleLowerCase("es")));
+  async function addDefaults() {
+    for (const t of missingDefaults) await getRepository().createAssetType(t);
+    reload();
   }
 
   return (
@@ -51,19 +64,27 @@ export default function AssetTypesPage() {
         Clasifica tus activos (renta variable, renta fija, liquidez…) para ver el reparto en Inversiones y en cada cartera. Cada
         activo tiene un tipo o ninguno («Sin tipo»); se asigna en la ficha del activo.
       </p>
-      <form onSubmit={add} noValidate className="flex gap-2">
-        <div className="min-w-0 flex-1">
-          <input
-            aria-label="Nuevo tipo"
-            className={inputClass}
-            placeholder="p. ej. Renta variable"
-            value={name}
-            onChange={(e) => (setName(e.target.value), setAddError(undefined))}
-          />
-          <FieldError message={addError} />
-        </div>
-        <button type="submit" className="h-[50px] shrink-0 rounded-lg bg-emerald-700 px-4 font-medium text-white">Añadir</button>
+      <form onSubmit={add} noValidate className="space-y-2 rounded-xl border border-slate-200 bg-white p-3">
+        <input
+          aria-label="Nuevo tipo"
+          className={inputClass}
+          placeholder="Nuevo tipo, p. ej. Renta variable"
+          value={name}
+          onChange={(e) => (setName(e.target.value), setAddError(undefined))}
+        />
+        <FieldError message={addError} />
+        <IconPicker id="new-type-icon" value={icon} onChange={setIcon} />
+        <button type="submit" className="w-full rounded-lg bg-emerald-700 px-4 py-2.5 font-medium text-white">Añadir tipo</button>
       </form>
+      {data && missingDefaults.length > 0 && (
+        <button
+          type="button"
+          onClick={() => void addDefaults()}
+          className="w-full rounded-lg border border-dashed border-emerald-600 px-4 py-2.5 text-sm font-medium text-emerald-700"
+        >
+          Añadir tipos iniciales ({missingDefaults.map((t) => t.name).join(", ")})
+        </button>
+      )}
       {error && <p className="text-rose-700">Error: {error}</p>}
       {data?.length === 0 && <p className="text-center text-slate-500">Todavía no hay tipos.</p>}
       {data && data.length > 0 && (
@@ -80,6 +101,7 @@ export default function AssetTypesPage() {
 function TypeRow({ type, colorIndex, count, value, onChanged }: { type: AssetType; colorIndex: number; count: number; value: number; onChanged: () => void }) {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(type.name);
+  const [icon, setIcon] = useState(type.icon);
   const [error, setError] = useState<string>();
   const color = colorIndex < SERIES_COLORS.length ? SERIES_COLORS[colorIndex] : "#d4d4d4";
 
@@ -87,7 +109,7 @@ function TypeRow({ type, colorIndex, count, value, onChanged }: { type: AssetTyp
     e.preventDefault();
     if (!name.trim()) return setError("Indica un nombre.");
     try {
-      await getRepository().updateAssetType(type.id, { name });
+      await getRepository().updateAssetType(type.id, { name, icon });
       setEditing(false);
       onChanged();
     } catch (err) {
@@ -108,13 +130,14 @@ function TypeRow({ type, colorIndex, count, value, onChanged }: { type: AssetTyp
   if (editing) {
     return (
       <li className="space-y-2 px-4 py-3">
-        <form onSubmit={save} noValidate className="flex gap-2">
+        <form onSubmit={save} noValidate className="space-y-2">
           <input aria-label="Nombre del tipo" className={inputClass} value={name} onChange={(e) => (setName(e.target.value), setError(undefined))} autoFocus />
-          <button type="submit" className="shrink-0 rounded-lg bg-emerald-700 px-3 font-medium text-white">Guardar</button>
+          <FieldError message={error} />
+          <IconPicker id={`type-icon-${type.id}`} value={icon} onChange={setIcon} />
+          <button type="submit" className="w-full rounded-lg bg-emerald-700 px-3 py-2.5 font-medium text-white">Guardar</button>
         </form>
-        <FieldError message={error} />
         <div className="flex justify-between text-sm">
-          <button type="button" onClick={() => (setEditing(false), setName(type.name))} className="text-slate-600">Cancelar</button>
+          <button type="button" onClick={() => (setEditing(false), setName(type.name), setIcon(type.icon))} className="text-slate-600">Cancelar</button>
           <button type="button" onClick={() => void remove()} className="font-medium text-rose-700">Eliminar tipo</button>
         </div>
       </li>
@@ -124,6 +147,7 @@ function TypeRow({ type, colorIndex, count, value, onChanged }: { type: AssetTyp
     <li>
       <button type="button" onClick={() => setEditing(true)} className="flex w-full items-center gap-3 px-4 py-3 text-left active:bg-slate-50">
         <span aria-hidden className="h-3 w-3 shrink-0 rounded-sm" style={{ background: color }} />
+        <Icon name={type.icon} className="h-5 w-5 text-slate-600" />
         <span className="min-w-0 flex-1 truncate font-medium">{type.name}</span>
         <span className="shrink-0 text-right text-xs text-slate-500">
           <span className="block tabular-nums text-sm text-slate-900">{formatCents(value)}</span>

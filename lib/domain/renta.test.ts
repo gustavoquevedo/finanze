@@ -8,12 +8,12 @@ const property: Property = {
 };
 
 const cat = (id: string, o: Partial<Category> = {}): Category => ({
-  id, name: id, type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false, ...o,
+  id, name: id, type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false, icon: null, ...o,
 });
 const categories = [
   cat("rent", { type: "ingreso", deductible: false }),
-  cat("interest", { limitedDeduction: true }),
-  cat("repairs", { limitedDeduction: true }),
+  cat("interest", { limitedDeduction: true, icon: null }),
+  cat("repairs", { limitedDeduction: true, icon: null }),
   cat("ibi"),
   cat("capital", { deductible: false, notExpense: true }),
   cat("other", { deductible: false }),

@@ -1,6 +1,7 @@
 import { addMonths, dayInMonth } from "@/lib/domain/dates";
 import { planRecurringGeneration } from "@/lib/domain/recurring";
 import type { Asset, AssetType, Category, Id, Portfolio, Recurring, Snapshot, Transaction } from "@/lib/domain/types";
+import { isIconId } from "@/lib/icons/catalog";
 import { newId } from "./ids";
 import {
   ConstraintError,
@@ -86,6 +87,7 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     ...c,
     notExpense: c.notExpense ?? (c.type === "gasto" && /capital hipoteca/i.test(c.name)),
     limitedDeduction: c.limitedDeduction ?? (c.deductible && /^(intereses hipoteca|reparaciones y conservaci[oó]n)$/i.test(c.name)),
+    icon: c.icon ?? null,
   }));
   const transactions = data.transactions.map((t) => ({ ...t, confirmed: t.confirmed ?? true }));
   const recurrings = data.recurrings.map((old): Recurring => {
@@ -102,7 +104,8 @@ export function migrateSnapshot(data: Snapshot): Snapshot {
     return { ...r, generatedUntil: dates.at(-1) ?? null };
   });
   const assets = (data.assets ?? []).map((a) => ({ ...a, assetTypeId: a.assetTypeId ?? null }));
-  return { ...data, assetTypes: data.assetTypes ?? [], assets, properties, categories, transactions, recurrings };
+  const assetTypes = (data.assetTypes ?? []).map((t) => ({ ...t, icon: t.icon ?? null }));
+  return { ...data, assetTypes, assets, properties, categories, transactions, recurrings };
 }
 
 /** Removes assets with their snapshots and portfolio memberships. */
@@ -113,7 +116,12 @@ function removeAssets(d: Snapshot, ids: Set<Id>): void {
   for (const p of d.portfolios) p.assetIds = p.assetIds.filter((a) => !ids.has(a));
 }
 
-function assertAssetType(d: Snapshot, t: Pick<AssetType, "name">, id?: Id): void {
+function assertIcon(icon: string | null | undefined): void {
+  if (icon !== null && icon !== undefined && !isIconId(icon)) throw new ConstraintError(`Unknown icon: ${icon}`);
+}
+
+function assertAssetType(d: Snapshot, t: Pick<AssetType, "name" | "icon">, id?: Id): void {
+  assertIcon(t.icon);
   const name = t.name.trim();
   if (!name) throw new ConstraintError("Asset type name is required");
   const same = (x: string) => x.trim().toLocaleLowerCase("es") === name.toLocaleLowerCase("es");
@@ -144,7 +152,8 @@ function assertPortfolio(d: Snapshot, p: Portfolio): void {
   }
 }
 
-function assertCategory(c: Pick<Category, "type" | "deductible" | "notExpense" | "limitedDeduction">): void {
+function assertCategory(c: Pick<Category, "type" | "deductible" | "notExpense" | "limitedDeduction" | "icon">): void {
+  assertIcon(c.icon);
   if (c.notExpense && (c.type !== "gasto" || c.deductible)) throw new ConstraintError("A non-expense must be a non-deductible gasto");
   if (c.limitedDeduction && !c.deductible) throw new ConstraintError("Only deductible categories can count towards the limit");
 }

@@ -3,8 +3,8 @@ import { validateRecurringForm, type RecurringFormValues } from "./recurring-for
 import type { Category } from "./types";
 
 const categories: Category[] = [
-  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false },
-  { id: "salary", name: "Nómina", type: "ingreso", scope: "personal", deductible: false, notExpense: false, limitedDeduction: false },
+  { id: "ibi", name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false, icon: null },
+  { id: "salary", name: "Nómina", type: "ingreso", scope: "personal", deductible: false, notExpense: false, limitedDeduction: false, icon: null },
 ];
 
 const values = (o: Partial<RecurringFormValues> = {}): RecurringFormValues => ({

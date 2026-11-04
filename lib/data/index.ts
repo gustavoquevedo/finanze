@@ -3,6 +3,7 @@ import type { Snapshot } from "@/lib/domain/types";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import { backupFileName, createBackup, summarize, type BackupSummary } from "./backup";
 import { remapIds } from "./ids";
+import { mergeSnapshot, type MergeResult } from "./merge";
 import { createLocalRepository, createLocalStore, createSnapshotRepository, emptySnapshot, STORAGE_KEY } from "./local";
 import type { Repository } from "./repository";
 import { createSeedData } from "./seed";
@@ -74,6 +75,15 @@ export async function exportBackup(): Promise<{ fileName: string; text: string }
 export async function importBackup(data: Snapshot): Promise<void> {
   await getRepository().replaceAll(data);
   await loadRepository();
+}
+
+/** Adds a parsed backup to the current data without deleting anything (see mergeSnapshot). */
+export async function addBackup(data: Snapshot): Promise<MergeResult> {
+  const repo = getRepository();
+  const result = mergeSnapshot(await repo.exportSnapshot(), data);
+  await repo.replaceAll(result.data);
+  await loadRepository();
+  return result;
 }
 
 /** ISO timestamp of the last export from this browser, if any. */

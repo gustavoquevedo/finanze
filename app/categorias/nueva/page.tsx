@@ -17,7 +17,7 @@ export default function NewCategoryPage() {
       {error && <p className="text-rose-700">Error: {error}</p>}
       {data && (
         <CategoryForm
-          initial={{ name: "", scope: "piso", type: "gasto", deductible: false, notExpense: false, limitedDeduction: false }}
+          initial={{ name: "", scope: "piso", type: "gasto", deductible: false, notExpense: false, limitedDeduction: false, icon: null }}
           existing={data}
           submitLabel="Crear categoría"
           onSubmit={async (value) => {

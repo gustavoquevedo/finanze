@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { parseBackup } from "./backup";
 import { createLocalRepository, emptySnapshot } from "./local";
 import { createMemoryStorage } from "./memory-storage";
+import { mergeSnapshot } from "./merge";
 import { createSeedData } from "./seed";
 
 describe("demo file (public/importacion/demo-completo.json)", () => {
@@ -25,6 +26,19 @@ describe("demo file (public/importacion/demo-completo.json)", () => {
     const repo = createLocalRepository({ storage: createMemoryStorage() });
     await repo.replaceAll(r.data);
     expect(await repo.generateDueTransactions("2026-11-04")).toBeGreaterThan(0);
+  });
+});
+
+describe("starter file (public/importacion/categorias-y-tipos.json)", () => {
+  it("has the starting categories and types with icons, and adds without duplicating", () => {
+    const r = parseBackup(readFileSync(path.resolve(__dirname, "../../public/importacion/categorias-y-tipos.json"), "utf8"));
+    if (!r.ok) throw new Error(r.error);
+    expect(r.summary).toMatchObject({ categories: 19, assetTypes: 4, transactions: 0, properties: 0 });
+    expect([...r.data.categories, ...r.data.assetTypes].every((x) => x.icon)).toBe(true);
+    const once = mergeSnapshot(emptySnapshot(), r.data).data;
+    const twice = mergeSnapshot(once, r.data);
+    expect(twice.reused).toEqual({ categories: 19, assetTypes: 4 });
+    expect(twice.data.categories).toHaveLength(19);
   });
 });
 

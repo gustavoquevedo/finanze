@@ -66,6 +66,7 @@ export function toRows(d: Snapshot): Record<Table, Row[]> {
       deductible: c.deductible,
       not_expense: c.notExpense,
       limited_deduction: c.limitedDeduction,
+      icon: c.icon,
     })),
     recurrings: d.recurrings.map((r) => ({
       id: r.id,
@@ -100,7 +101,7 @@ export function toRows(d: Snapshot): Record<Table, Row[]> {
       recurring_id: t.recurringId,
       confirmed: t.confirmed,
     })),
-    asset_types: d.assetTypes.map((t) => ({ id: t.id, name: t.name })),
+    asset_types: d.assetTypes.map((t) => ({ id: t.id, name: t.name, icon: t.icon })),
     assets: d.assets.map((a) => ({
       id: a.id,
       name: a.name,
@@ -159,6 +160,7 @@ export function fromRows(rows: Record<Table, Row[]>): Snapshot {
         deductible: c.deductible as boolean,
         notExpense: c.not_expense as boolean,
         limitedDeduction: c.limited_deduction as boolean,
+        icon: (c.icon as string | null) ?? null,
       }),
     ),
     recurrings: rows.recurrings.map(
@@ -203,7 +205,7 @@ export function fromRows(rows: Record<Table, Row[]>): Snapshot {
         confirmed: t.confirmed as boolean,
       }),
     ),
-    assetTypes: rows.asset_types.map((t): AssetType => ({ id: t.id as string, name: t.name as string })),
+    assetTypes: rows.asset_types.map((t): AssetType => ({ id: t.id as string, name: t.name as string, icon: (t.icon as string | null) ?? null })),
     assets: rows.assets.map(
       (a): Asset => ({
         id: a.id as string,

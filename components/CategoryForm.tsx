@@ -4,6 +4,7 @@ import { useState } from "react";
 import { validateCategoryForm, type CategoryFormValues } from "@/lib/domain/category-form";
 import type { Category, CategoryScope, TransactionType } from "@/lib/domain/types";
 import { inputClass, labelClass } from "./form-styles";
+import { IconPicker } from "./IconPicker";
 import { FieldError } from "./TransactionForm";
 
 interface Props {
@@ -111,6 +112,11 @@ export function CategoryForm({ initial, existing, editingId, usage, submitLabel,
           aria-invalid={!!error}
         />
         <FieldError message={error} />
+      </div>
+
+      <div>
+        <label htmlFor="cat-icon" className={labelClass}>Icono</label>
+        <IconPicker id="cat-icon" value={values.icon} onChange={(icon) => set({ icon })} />
       </div>
 
       <div>

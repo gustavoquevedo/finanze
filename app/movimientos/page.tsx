@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { Amount } from "@/components/Amount";
+import { Icon } from "@/lib/icons/Icon";
 import { PendingBadge } from "@/components/PendingBadge";
 import { Totals } from "@/components/Totals";
 import { getRepository, type TransactionFilter } from "@/lib/data";
@@ -146,7 +147,8 @@ function TransactionsList() {
                       href={`/movimientos/editar?id=${encodeURIComponent(t.id)}`}
                       className="flex min-w-0 flex-1 items-center justify-between gap-3 py-3 pl-4 pr-2 active:bg-slate-50"
                     >
-                      <div className="min-w-0">
+                      <Icon name={categories.get(t.categoryId)?.icon} className="h-5 w-5 text-slate-500" />
+                      <div className="min-w-0 flex-1">
                         <p className="truncate font-medium">{t.concept || categories.get(t.categoryId)?.name}</p>
                         <p className="truncate text-xs text-slate-500">
                           {!t.confirmed && <PendingBadge />}

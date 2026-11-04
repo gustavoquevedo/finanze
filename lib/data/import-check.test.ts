@@ -81,6 +81,15 @@ describe("validation messages", () => {
     expect(e).toContain("ciclo de carteras");
   });
 
+  it("checks icon ids", () => {
+    const f = example();
+    f.data.categories[0].icon = "unicornio";
+    f.data.assetTypes[0].icon = "wallet";
+    const e = errorsOf(f);
+    expect(e).toContain("Categoría 1 (cat-alquiler): el icono «unicornio» no existe");
+    expect(e).not.toContain("Tipo de activo 1");
+  });
+
   it("checks asset types", () => {
     const f = example();
     f.data.assets[0].assetTypeId = "tipo-x";

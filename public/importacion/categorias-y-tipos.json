@@ -1,0 +1,228 @@
+{
+  "_leeme": "Categorías y tipos de activo iniciales, con iconos. Impórtalo con «Añadir a mis datos»: no borra nada y no duplica los que ya tengas con el mismo nombre (si no tenían icono, se les pone).",
+  "format": "finanze-backup",
+  "version": 1,
+  "exportedAt": "2026-11-04T12:00:00.000Z",
+  "data": {
+    "properties": [],
+    "categories": [
+      {
+        "id": "cat-piso-alquiler",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Alquiler",
+        "type": "ingreso",
+        "scope": "piso",
+        "deductible": false,
+        "icon": "key"
+      },
+      {
+        "id": "cat-piso-intereses-hipoteca",
+        "notExpense": false,
+        "limitedDeduction": true,
+        "name": "Intereses hipoteca",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "percent"
+      },
+      {
+        "id": "cat-piso-amortizacion-capital-hipoteca",
+        "notExpense": true,
+        "limitedDeduction": false,
+        "name": "Amortización capital hipoteca",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": false,
+        "icon": "piggy-bank"
+      },
+      {
+        "id": "cat-piso-ibi",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "IBI",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "landmark"
+      },
+      {
+        "id": "cat-piso-comunidad",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Comunidad",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "building"
+      },
+      {
+        "id": "cat-piso-seguro-hogar",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Seguro hogar",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "shield"
+      },
+      {
+        "id": "cat-piso-seguro-impago",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Seguro impago",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "shield-check"
+      },
+      {
+        "id": "cat-piso-reparaciones-y-conservacion",
+        "notExpense": false,
+        "limitedDeduction": true,
+        "name": "Reparaciones y conservación",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "wrench"
+      },
+      {
+        "id": "cat-piso-suministros",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Suministros",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "zap"
+      },
+      {
+        "id": "cat-piso-tasa-de-basuras",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Tasa de basuras",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "trash"
+      },
+      {
+        "id": "cat-piso-gestoria",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Gestoría",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": true,
+        "icon": "file-text"
+      },
+      {
+        "id": "cat-piso-otros",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Otros",
+        "type": "gasto",
+        "scope": "piso",
+        "deductible": false,
+        "icon": "tag"
+      },
+      {
+        "id": "cat-personal-nomina",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Nómina",
+        "type": "ingreso",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "briefcase"
+      },
+      {
+        "id": "cat-personal-alimentacion",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Alimentación",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "shopping-cart"
+      },
+      {
+        "id": "cat-personal-hogar-y-suministros",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Hogar y suministros",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "house"
+      },
+      {
+        "id": "cat-personal-transporte",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Transporte",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "car"
+      },
+      {
+        "id": "cat-personal-ocio",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Ocio",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "ticket"
+      },
+      {
+        "id": "cat-personal-salud",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Salud",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "heart-pulse"
+      },
+      {
+        "id": "cat-personal-otros-personales",
+        "notExpense": false,
+        "limitedDeduction": false,
+        "name": "Otros personales",
+        "type": "gasto",
+        "scope": "personal",
+        "deductible": false,
+        "icon": "package"
+      }
+    ],
+    "transactions": [],
+    "recurrings": [],
+    "assetTypes": [
+      {
+        "id": "tipo-renta-variable",
+        "name": "Renta variable",
+        "icon": "trending-up"
+      },
+      {
+        "id": "tipo-renta-fija",
+        "name": "Renta fija",
+        "icon": "landmark"
+      },
+      {
+        "id": "tipo-liquidez",
+        "name": "Liquidez",
+        "icon": "wallet"
+      },
+      {
+        "id": "tipo-inmobiliario",
+        "name": "Inmobiliario",
+        "icon": "house"
+      }
+    ],
+    "assets": [],
+    "assetSnapshots": [],
+    "portfolios": []
+  }
+}

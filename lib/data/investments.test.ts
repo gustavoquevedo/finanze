@@ -63,10 +63,10 @@ describe("assets and snapshots", () => {
 
 describe("asset types", () => {
   it("creates unique types and untypes assets when one is deleted", async () => {
-    const rv = await repo.createAssetType({ name: " Renta variable " });
+    const rv = await repo.createAssetType({ name: " Renta variable ", icon: null });
     expect(rv.name).toBe("Renta variable");
-    await expect(repo.createAssetType({ name: "renta variable" })).rejects.toBeInstanceOf(ConstraintError);
-    await expect(repo.createAssetType({ name: " " })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.createAssetType({ name: "renta variable", icon: null })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.createAssetType({ name: " ", icon: null })).rejects.toBeInstanceOf(ConstraintError);
     const a = await repo.createAsset({ name: "Fondo", kind: "fondo", propertyId: null, assetTypeId: rv.id, active: true });
     await expect(repo.createAsset({ name: "X", kind: "fondo", propertyId: null, assetTypeId: "nope", active: true })).rejects.toBeInstanceOf(ConstraintError);
     await expect(repo.updateAsset(a.id, { assetTypeId: "nope" })).rejects.toBeInstanceOf(ConstraintError);

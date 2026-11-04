@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { formatCents } from "@/lib/format";
+import { Icon } from "@/lib/icons/Icon";
 
 /**
  * Categorical palette (validated: adjacent CVD ΔE ≥ 9.1, normal-vision ≥ 19.6 on white).
@@ -22,6 +23,8 @@ export interface Slice {
    * When omitted, slots follow the slices' order.
    */
   colorIndex?: number | null;
+  /** Icon shown in the legend, next to the colour swatch. */
+  icon?: string | null;
 }
 
 interface Arc extends Slice {
@@ -117,6 +120,7 @@ export function Donut({ slices, totalLabel = "Total", showValues = false }: { sl
               className={`flex w-full items-center gap-2 rounded px-1 py-1 text-left ${selected === a.id ? "bg-slate-100" : ""}`}
             >
               <span aria-hidden className="h-3 w-3 shrink-0 rounded-sm" style={{ background: a.color }} />
+              {a.icon !== undefined && <Icon name={a.icon} className="h-4 w-4 text-slate-500" />}
               <span className="min-w-0 flex-1 truncate text-slate-700">{a.name}</span>
               {showValues && <span className="shrink-0 tabular-nums text-slate-600">{formatCents(a.value)}</span>}
               <span className="w-14 shrink-0 text-right tabular-nums text-slate-900">{pct(a.share)}</span>

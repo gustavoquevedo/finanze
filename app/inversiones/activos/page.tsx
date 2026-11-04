@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Gain } from "@/components/Gain";
+import { Icon } from "@/lib/icons/Icon";
 import { ASSET_KINDS } from "@/lib/domain/investments";
 import { formatCents, formatShortDate } from "@/lib/format";
 import { loadInvestments } from "@/lib/investments-data";
@@ -9,7 +10,7 @@ import { useData } from "@/lib/use-data";
 
 export default function AssetsPage() {
   const { data, error } = useData(async (repo) => ({ ...(await loadInvestments(repo)), types: await repo.listAssetTypes() }));
-  const typeName = (id: string | null) => data?.types.find((t) => t.id === id)?.name ?? "Sin tipo";
+  const typeOf = (id: string | null) => data?.types.find((t) => t.id === id);
 
   return (
     <div className="space-y-4">
@@ -37,10 +38,11 @@ export default function AssetsPage() {
                       href={`/inversiones/activos/editar?id=${encodeURIComponent(v.assetId)}`}
                       className="flex items-center justify-between gap-3 px-4 py-3 active:bg-slate-50"
                     >
-                      <div className="min-w-0">
+                      <Icon name={typeOf(v.assetTypeId)?.icon} className="h-5 w-5 text-slate-500" />
+                      <div className="min-w-0 flex-1">
                         <p className="truncate font-medium">{v.name}</p>
                         <p className="truncate text-xs text-slate-500">
-                          {typeName(v.assetTypeId)} ·{" "}
+                          {typeOf(v.assetTypeId)?.name ?? "Sin tipo"} ·{" "}
                           {v.valueDate ? `valor a ${formatShortDate(v.valueDate)} ${v.valueDate.slice(0, 4)}` : "sin valor todavía"}
                         </p>
                       </div>

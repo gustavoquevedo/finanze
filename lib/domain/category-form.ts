@@ -7,6 +7,7 @@ export interface CategoryFormValues {
   deductible: boolean;
   notExpense: boolean;
   limitedDeduction: boolean;
+  icon: string | null;
 }
 
 export type CategoryFormResult =
@@ -30,5 +31,5 @@ export function validateCategoryForm(values: CategoryFormValues, existing: Categ
   const notExpense = values.type === "gasto" && values.notExpense;
   const deductible = values.type === "gasto" && !notExpense && values.deductible;
   const limitedDeduction = deductible && values.limitedDeduction;
-  return { ok: true, value: { name, type: values.type, scope: values.scope, deductible, notExpense, limitedDeduction } };
+  return { ok: true, value: { name, type: values.type, scope: values.scope, deductible, notExpense, limitedDeduction, icon: values.icon } };
 }

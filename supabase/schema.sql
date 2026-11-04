@@ -37,6 +37,8 @@ create table categories (
   not_expense boolean not null default false,
   -- Counts towards the Renta limit of interest + repairs <= income.
   limited_deduction boolean not null default false,
+  -- Icon id from lib/icons/catalog.ts.
+  icon text,
   created_at timestamptz not null default now(),
   check (not (not_expense and deductible)),
   check (not limited_deduction or deductible)
@@ -113,6 +115,8 @@ create table asset_types (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   name text not null check (length(trim(name)) > 0),
+  -- Icon id from lib/icons/catalog.ts.
+  icon text,
   created_at timestamptz not null default now()
 );
 

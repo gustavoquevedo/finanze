@@ -35,7 +35,7 @@ beforeEach(async () => {
     constructionPercentage: 60,
     active: true,
   });
-  rent = await repo.createCategory({ name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false });
+  rent = await repo.createCategory({ name: "Alquiler", type: "ingreso", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false, icon: null });
 });
 
 describe("local repository", () => {
@@ -79,7 +79,7 @@ describe("local repository", () => {
   });
 
   it("sorts transactions newest first and filters them", async () => {
-    const gasto = await repo.createCategory({ name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false });
+    const gasto = await repo.createCategory({ name: "IBI", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: false, icon: null });
     await repo.createTransaction(tx({ date: "2026-04-01" }));
     await repo.createTransaction(tx({ date: "2026-05-20", type: "gasto", categoryId: gasto.id, amount: 30000 }));
     await repo.createTransaction(tx({ date: "2026-05-02", propertyId: null }));
@@ -121,8 +121,8 @@ describe("local repository", () => {
     await repo.createTransaction(tx());
     await expect(repo.updateCategory(rent.id, { type: "gasto" })).rejects.toBeInstanceOf(ConstraintError);
     await expect(repo.updateCategory(rent.id, { scope: "personal" })).rejects.toBeInstanceOf(ConstraintError);
-    expect(await repo.updateCategory(rent.id, { name: "Rentas", deductible: true, type: "ingreso" })).toMatchObject({ name: "Rentas", deductible: true, notExpense: false, limitedDeduction: false });
-    const unused = await repo.createCategory({ name: "Varios", type: "gasto", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false });
+    expect(await repo.updateCategory(rent.id, { name: "Rentas", deductible: true, type: "ingreso" })).toMatchObject({ name: "Rentas", deductible: true, notExpense: false, limitedDeduction: false, icon: null });
+    const unused = await repo.createCategory({ name: "Varios", type: "gasto", scope: "piso", deductible: false, notExpense: false, limitedDeduction: false, icon: null });
     expect(await repo.updateCategory(unused.id, { type: "ingreso", scope: "personal" })).toMatchObject({ type: "ingreso", scope: "personal" });
   });
 
@@ -259,8 +259,8 @@ describe("migrateSnapshot", () => {
   });
 
   it("validates mortgage recurrings", async () => {
-    const capital = await repo.createCategory({ name: "Capital", type: "gasto", scope: "piso", deductible: false, notExpense: true, limitedDeduction: false });
-    const interest = await repo.createCategory({ name: "Intereses", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: true });
+    const capital = await repo.createCategory({ name: "Capital", type: "gasto", scope: "piso", deductible: false, notExpense: true, limitedDeduction: false, icon: null });
+    const interest = await repo.createCategory({ name: "Intereses", type: "gasto", scope: "piso", deductible: true, notExpense: false, limitedDeduction: true, icon: null });
     const m = {
       kind: "hipoteca" as const, concept: "Hipoteca", amount: 56283, type: "gasto" as const, categoryId: interest.id,
       propertyId: property.id, frequency: "mensual" as const, day: 2, startDate: "2026-09-02", endDate: "2026-11-02", generatedUntil: null,

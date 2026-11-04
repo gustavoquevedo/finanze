@@ -96,7 +96,7 @@ describe("portfolios", () => {
 });
 
 describe("allocationByType", () => {
-  const types = [{ id: "rf", name: "Renta fija" }, { id: "rv", name: "Renta variable" }, { id: "liq", name: "Liquidez" }];
+  const types = [{ id: "rf", name: "Renta fija", icon: null }, { id: "rv", name: "Renta variable", icon: null }, { id: "liq", name: "Liquidez", icon: null }];
   const assets = [
     { ...asset("a"), assetTypeId: "rv" },
     { ...asset("b"), assetTypeId: "rv" },
@@ -110,9 +110,9 @@ describe("allocationByType", () => {
 
   it("groups values by type in name order, untyped last, with stable colour positions", () => {
     expect(allocationByType(["a", "b", "c", "d", "e", "f", "a"], assets, types, valuations)).toEqual([
-      { id: "rf", name: "Renta fija", value: 500, colorIndex: 1 },
-      { id: "rv", name: "Renta variable", value: 1000, colorIndex: 2 },
-      { id: UNTYPED, name: "Sin tipo", value: 150, colorIndex: null },
+      { id: "rf", name: "Renta fija", value: 500, colorIndex: 1, icon: null },
+      { id: "rv", name: "Renta variable", value: 1000, colorIndex: 2, icon: null },
+      { id: UNTYPED, name: "Sin tipo", value: 150, colorIndex: null, icon: null },
     ]);
   });
 

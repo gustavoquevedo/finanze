@@ -80,6 +80,8 @@ export interface Category {
    * cannot exceed the rental income (the excess carries over 4 years).
    */
   limitedDeduction: boolean;
+  /** Icon id from the catalogue (lib/icons/catalog.ts), or `null`. */
+  icon: string | null;
 }
 
 export interface Transaction {
@@ -133,6 +135,8 @@ export type AssetKind = "fondo" | "etf" | "efectivo" | "inmobiliario";
 export interface AssetType {
   id: Id;
   name: string;
+  /** Icon id from the catalogue (lib/icons/catalog.ts), or `null`. */
+  icon: string | null;
 }
 
 export interface Asset {
