@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Link from "next/link";
 import { Amount } from "@/components/Amount";
 import { Totals } from "@/components/Totals";
 import type { TransactionFilter } from "@/lib/data";
@@ -54,6 +55,13 @@ function TransactionsList() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Movimientos</h1>
+      <Link
+        href={`/movimientos/nuevo${params.toString() ? `?${params.toString()}` : ""}`}
+        aria-label="Nuevo movimiento"
+        className="fixed right-4 bottom-20 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-700 text-3xl text-white shadow-lg"
+      >
+        +
+      </Link>
 
       <div className="grid grid-cols-3 gap-2">
         <select aria-label="Mes" className={selectClass} value={month} onChange={(e) => setFilter("mes", e.target.value)}>
@@ -80,7 +88,11 @@ function TransactionsList() {
           ) : (
             <ul className="divide-y divide-slate-100 rounded-xl bg-white shadow-sm">
               {list.data.map((t) => (
-                <li key={t.id} className="flex items-center justify-between gap-3 px-4 py-3">
+                <li key={t.id}>
+                  <Link
+                    href={`/movimientos/editar?id=${encodeURIComponent(t.id)}`}
+                    className="flex items-center justify-between gap-3 px-4 py-3 active:bg-slate-50"
+                  >
                   <div className="min-w-0">
                     <p className="truncate font-medium">{t.concept || categories.get(t.categoryId)?.name}</p>
                     <p className="truncate text-xs text-slate-500">
@@ -89,6 +101,7 @@ function TransactionsList() {
                     </p>
                   </div>
                   <span className="shrink-0 text-sm"><Amount cents={t.amount} type={t.type} /></span>
+                  </Link>
                 </li>
               ))}
             </ul>
