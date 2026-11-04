@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isActive, NAV_ITEMS } from "./nav-items";
+import { isActive, MENU_ITEMS } from "./nav-items";
 
 export function Header() {
   const pathname = usePathname();
@@ -30,7 +30,7 @@ export function Header() {
       {open && (
         <nav id="header-menu" className="mx-auto max-w-xl border-t border-slate-100 px-2 pb-2">
           <ul>
-            {NAV_ITEMS.map((item) => {
+            {MENU_ITEMS.map((item) => {
               const active = isActive(pathname, item.href);
               return (
                 <li key={item.href}>

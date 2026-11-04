@@ -115,6 +115,15 @@ describe("local repository", () => {
     expect(await repo.listCategories()).toHaveLength(1);
   });
 
+  it("only allows renaming or changing deductibility of a category in use", async () => {
+    await repo.createTransaction(tx());
+    await expect(repo.updateCategory(rent.id, { type: "gasto" })).rejects.toBeInstanceOf(ConstraintError);
+    await expect(repo.updateCategory(rent.id, { scope: "personal" })).rejects.toBeInstanceOf(ConstraintError);
+    expect(await repo.updateCategory(rent.id, { name: "Rentas", deductible: true, type: "ingreso" })).toMatchObject({ name: "Rentas", deductible: true });
+    const unused = await repo.createCategory({ name: "Varios", type: "gasto", scope: "piso", deductible: false });
+    expect(await repo.updateCategory(unused.id, { type: "ingreso", scope: "personal" })).toMatchObject({ type: "ingreso", scope: "personal" });
+  });
+
   it("deleting a property removes its transactions and recurrings", async () => {
     await repo.createTransaction(tx());
     await repo.createTransaction(tx({ propertyId: null }));

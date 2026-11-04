@@ -174,7 +174,18 @@ export function createLocalRepository(options: LocalRepositoryOptions): Reposito
         d.categories.push(category);
         return category;
       }),
-    updateCategory: (id, patch) => mutate((d) => update(d.categories, id, patch, "Category")),
+    updateCategory: (id, patch) =>
+      mutate((d) => {
+        const current = d.categories[findIndex(d.categories, id, "Category")];
+        const changesKind =
+          (patch.type !== undefined && patch.type !== current.type) ||
+          (patch.scope !== undefined && patch.scope !== current.scope);
+        const inUse =
+          d.transactions.some((t) => t.categoryId === id) || d.recurrings.some((r) => r.categoryId === id);
+        // Transactions take their type and scope from the category, so these can't change once used.
+        if (changesKind && inUse) throw new ConstraintError("Cannot change type or scope of a category in use");
+        return update(d.categories, id, patch, "Category");
+      }),
     deleteCategory: (id) =>
       mutate((d) => {
         findIndex(d.categories, id, "Category");
